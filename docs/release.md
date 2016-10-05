@@ -28,6 +28,6 @@ The final goal is to build a ecommerce platform for people to trade peer-to-peer
 * A commenting system
 * A user verification of trust for buyer or seller
 * Schedule Product release date
-* combine the same products from different seller into one in the searhing result
+* combining the same products from different seller into one in the searhing result
 
 ### [Project presentation](presentation.pptx)
