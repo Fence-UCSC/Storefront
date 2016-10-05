@@ -1,5 +1,7 @@
 # Storefront by *Fence*
-A CMPS 115 Fall 2016 project at UC Santa Cruz
+A CMPS 115 Fall 2016 project at UC Santa Cruz.
+
+Check us out at [PythonAnywhere](https://fence.pythonanywhere.com).
 
 ## Members
 * Harjyot Bal
