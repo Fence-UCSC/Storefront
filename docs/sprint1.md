@@ -10,8 +10,7 @@ Basic implementation of the website with a store and product pages, login (socia
  * Figure out hosting
  * Create a basic homepage display for new users.
  * Account/profile creatation page
- * Adding a new product
- * Search bar
+ * Creating a basic database for the products
  * Basic gps location
 * As an online buyer/seller, I appreciate not having to make new accounts.
  * Linking to social media accounts such as facebook
@@ -27,17 +26,17 @@ Basic implementation of the website with a store and product pages, login (socia
 
 ### Initial task assignment
 * Harjyot
- * Review plan editing
+ * GPS localization
 * Tommaso
- * Review plan editing
+ * Login integration with social medias
+ * Basic database
 * Rory
- * Review plan editing
+ * Hosting 
+ * Login integration with social medias
 * Brian
- * Review plan editing
-  * Slides
+ * GPS localization
 * August
- * Review plan editing
-  * Slides
+ * UI
   
 ### Initial burnup chart
 In Lab
