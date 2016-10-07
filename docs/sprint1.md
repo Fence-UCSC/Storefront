@@ -11,6 +11,7 @@ Basic implementation of the website with a store and product pages, login (socia
  * Create a basic homepage display for new users.
  * Account/profile creatation page
  * Creating a basic database for the products
+ * Creating a basic page for adding products
  * Basic gps location
 * As an online buyer/seller, I appreciate not having to make new accounts.
  * Linking to social media accounts such as facebook
