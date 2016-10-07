@@ -40,10 +40,10 @@ Basic implementation of the website with a store and product pages, login (socia
   * Slides
   
 ### Initial burnup chart
-*Awaiting lab space*
+In Lab
 
 ### Initial scrum board
-*Awaiting lab space*
+In Lab
 
 ### Scrum times
-(tentative) MWF 11:00 AM @ Jack's Lounge
+MWF 11:00 AM @ E1 Rm 302 (Lab)
