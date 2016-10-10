@@ -3,20 +3,18 @@
 Sprint Completed by Wed. Oct 19th
 
 ### Goal 
-The final goal is to build a ecommerce platform for people to trade peer-to-peer locally and easily. As a seller, he/she just have to post their location and products information to our platform. Simultaneously, those information can also be shared to other social website, such as, facebook and instagram. As a purchaser, he/she can easily find out all the local sellers in our platform whenever and wherever. In order to find out the best similar products in the market, the website would provide a rating and review system for the products and the sellers.
+Basic implementation of the website with a store and product pages, login (social media integration) and decent design. 
 
 ### Task listing, organized by user story
 * As an online purchaser. I want to easily find and buy products from people nearby. (Highest priority for Sprint 1). Solution would be to make a website based on the “free for sale” page 
  * Figure out hosting
  * Create a basic homepage display for new users.
  * Account/profile creatation page
- * Adding a new product
- * Search bar
+ * Creating a basic database for the products
+ * Creating a basic page for adding products
  * Basic gps location
- 
 * As an online buyer/seller, I appreciate not having to make new accounts.
  * Linking to social media accounts such as facebook
-  
 * As a web user, I appreciate a good UI  (lowest priority for Sprint 1, but might get bumped down into Sprint 2 if not implemented in Sprint 1)
  * Coming up with a UI layout 
 
@@ -29,23 +27,23 @@ The final goal is to build a ecommerce platform for people to trade peer-to-peer
 
 ### Initial task assignment
 * Harjyot
- * Review plan editing
+ * GPS localization
 * Tommaso
- * Review plan editing
+ * Login integration with social medias
+ * Basic database
 * Rory
- * Review plan editing
+ * Hosting 
+ * Login integration with social medias
 * Brian
- * Review plan editing
-  * Slides
+ * GPS localization
 * August
- * Review plan editing
-  * Slides
+ * UI
   
 ### Initial burnup chart
-*Awaiting lab space*
+In Lab
 
 ### Initial scrum board
-*Awaiting lab space*
++[![Stories in Ready](https://badge.waffle.io/Fence-UCSC/Storefront.png?label=ready&title=Ready)](https://waffle.io/Fence-UCSC/Storefront)
 
 ### Scrum times
-(tentative) MWF 11:00 AM @ Jack's Lounge
+MWF 11:00 AM @ E1 Rm 302 (Lab)
