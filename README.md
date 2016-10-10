@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/Fence-UCSC/Storefront.png?label=ready&title=Ready)](https://waffle.io/Fence-UCSC/Storefront)
 # Storefront by *Fence*
 A CMPS 115 Fall 2016 project at UC Santa Cruz
 
