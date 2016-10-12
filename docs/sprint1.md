@@ -12,11 +12,13 @@ Basic implementation of the website with a store and product pages, login (socia
  * Account/profile creatation page
  * Creating a basic database for the products
  * Creating a basic page for adding products
- * Basic gps location
 * As an online buyer/seller, I appreciate not having to make new accounts.
  * Linking to social media accounts such as facebook
 * As a web user, I appreciate a good UI  (lowest priority for Sprint 1, but might get bumped down into Sprint 2 if not implemented in Sprint 1)
- * Coming up with a UI layout 
+ * Coming up with a UI layout
+ * Search Bar
+* As an online purchaser, I want to find a store on a map
+ * Basic gps location
 
 ### Team roles: 
 * Harjyot Bal: Developer {Designer}
