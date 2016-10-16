@@ -17,8 +17,13 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
-    response.flash = T("Hello World")
-    return dict(message=T('Welcome to web2py!'))
+    #response.flash = T("Hello World")
+    stores = [
+        dict(id=1,store_name="Target",store_uname="target"),
+        dict(id=2,store_name="Safeway",store_uname="safeway"),
+        dict(id=3,store_name="Baytree Bookstore",store_uname="ucsc")
+    ]
+    return dict(message=T('Welcome to web2py!'),stores=stores)
 
 
 def user():
