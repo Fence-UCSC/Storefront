@@ -86,13 +86,6 @@ auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
 
-from gluon.contrib.login_methods.rpx_account import RPXAccount
-#auth.settings.actions_disabled=['register','change_password','request_reset_password']
-auth.settings.login_form = RPXAccount(request,
-    api_key='fe4b8c586a1c8835b73b8b93e36fbcf3ee80a4ec',
-    domain='storefrontbyfence',
-    url="http://localhost:8000/%s/default/user/login" % request.application)
-
 # More API examples for controllers:
 #
 # >>> db.mytable.insert(myfield='value')
