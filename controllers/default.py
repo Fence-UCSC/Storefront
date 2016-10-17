@@ -8,6 +8,14 @@
 # - download is for downloading files uploaded in the db (does streaming)
 # -------------------------------------------------------------------------
 
+def email_to_name(email):
+    """Returns a string corresponding to the user first and last names,
+    given the user email."""
+    u = db(db.auth_user.email == email).select().first()
+    if u is None:
+        return 'None'
+    else:
+        return ' '.join([u.first_name, u.last_name])
 
 def index():
     """
@@ -23,7 +31,7 @@ def index():
         dict(id=2,store_name="Safeway",store_uname="safeway"),
         dict(id=3,store_name="Baytree Bookstore",store_uname="ucsc")
     ]
-    return dict(message=T('Welcome to web2py!'),stores=stores)
+    return dict(message=T('Welcome to web2py!'),stores=stores,email_to_name=email_to_name)
 
 
 def user():
@@ -62,5 +70,3 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
-
-
