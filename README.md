@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/Fence-UCSC/Storefront.png?label=ready&title=Ready)](https://waffle.io/Fence-UCSC/Storefront)
+
 # Storefront by *Fence*
 A CMPS 115 Fall 2016 project at UC Santa Cruz.
 
@@ -16,3 +16,4 @@ Check us out at [PythonAnywhere](https://fence.pythonanywhere.com).
 * Release plan: [Web](docs/release.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/docs/release.md)
 * Sprint plan
   * Sprint 1: [Web](docs/sprint1.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/docs/sprint1.md)
+* Scrum board: [![Scrum Board](https://badge.waffle.io/Fence-UCSC/Storefront.png?label=Ready&title=Ready)](https://waffle.io/Fence-UCSC/Storefront)

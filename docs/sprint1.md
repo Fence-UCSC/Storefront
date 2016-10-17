@@ -45,7 +45,7 @@ Basic implementation of the website with a store and product pages, login (socia
 In Lab
 
 ### Initial scrum board
-+[![Stories in Ready](https://badge.waffle.io/Fence-UCSC/Storefront.png?label=ready&title=Ready)](https://waffle.io/Fence-UCSC/Storefront)
+[![Stories in Ready](https://badge.waffle.io/Fence-UCSC/Storefront.png?label=ready&title=Ready)](https://waffle.io/Fence-UCSC/Storefront)
 
 ### Scrum times
 MWF 11:00 AM @ E1 Rm 302 (Lab)
