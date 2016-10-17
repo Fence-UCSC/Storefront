@@ -85,6 +85,8 @@ mail.settings.ssl = myconf.get('smtp.ssl') or False
 auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
+auth.next = None
+user_auth = auth.login(next=URL('default', 'index'))
 
 # More API examples for controllers:
 #
