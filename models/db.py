@@ -71,7 +71,7 @@ auth.settings.actions_disabled=['register','change_password','request_reset_pass
 auth.settings.login_form = RPXAccount(request,
     api_key='fe4b8c586a1c8835b73b8b93e36fbcf3ee80a4ec',
     domain='storefrontbyfence',
-    url="http://localhost:8000/CMPS115/default/index")
+    url="http://localhost:8000/CMPS115/default/user/login")
 
 # configure email
 mail = auth.settings.mailer
