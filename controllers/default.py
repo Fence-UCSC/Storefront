@@ -87,7 +87,7 @@ def index():
     #return dict(message=T('Welcome to web2py!'),stores=stores,email_to_name=email_to_name)
 
 def addProduct():
-    form = SQLFORM(db.product)
+    form = SQLFORM(db.product, showuser_id=False)
 
     if form.process().accepted:
         # At this point, the record has already been inserted.

@@ -10,6 +10,7 @@
 import datetime
 
 db.define_table('product',
+                Field('user_id', 'reference auth_user', default=session.auth.user.id ),
                 Field('product_name', 'string'),
                 Field('product_description', 'text'),
                 Field('created_on', 'datetime', default=datetime.datetime.utcnow()),
@@ -19,6 +20,7 @@ db.define_table('product',
 
 # I don't want to display the user email by default in all forms.
 db.product.product_name.requires = IS_NOT_EMPTY()
+db.product.user_id.readable = db.product.user_id.writable = False
 db.product.created_on.readable = db.product.created_on.writable = False
 
 
