@@ -10,7 +10,7 @@
 import datetime
 
 db.define_table('product',
-                Field('user_id', 'reference auth_user', default=session.auth.user.id ),
+                Field('user_id', 'reference auth_user', default=session.auth.user.id if session.auth else None ),
                 Field('product_name', 'string'),
                 Field('product_description', 'text'),
                 Field('created_on', 'datetime', default=datetime.datetime.utcnow()),
