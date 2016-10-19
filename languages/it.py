@@ -180,6 +180,7 @@
 'Preface': 'Preface',
 'previous 100 rows': '100 righe precedenti',
 'Profile': 'Profilo',
+'Profile updated': 'Profile updated',
 'pygraphviz library not found': 'pygraphviz library not found',
 'Python': 'Python',
 'Query:': 'Richiesta (query):',

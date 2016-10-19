@@ -74,7 +74,7 @@ def index():
 
     # Gets the list of all checklists for the user.
     products = db().select(
-        db.product.ALL, orderby=~db.product.created_on, limitby=(0, 3)
+        db.product.ALL, orderby=~db.product.created_on, limitby=(0, 10)
     )
     return dict(message=T('Welcome to web2py!'), products=products, date=pretty_date, email_to_name=email_to_name)
 
