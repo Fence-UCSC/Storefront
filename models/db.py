@@ -71,7 +71,7 @@ auth.settings.actions_disabled=['register','change_password','request_reset_pass
 auth.settings.login_form = RPXAccount(request,
     api_key='fe4b8c586a1c8835b73b8b93e36fbcf3ee80a4ec',
     domain='storefrontbyfence',
-    url=URL(args='login', host=True))
+    url=URL('default', 'user/login', host=True))
     #url="http://localhost:8000/%s/default/user/login" % request.application)
 
 # configure email

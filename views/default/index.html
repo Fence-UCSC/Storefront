@@ -12,14 +12,14 @@
 
 <h2>Popular stores</h2>
 <div class="row">
-{{for store in stores:}}
+{{for product in products:}}
     <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">{{=store['store_name']}}</h3>
+                <h3 class="panel-title">{{=product.product_name}}</h3>
             </div>
             <div class="panel-body">
-                Username: {{=store['store_uname']}}
+                Username: Test
             </div>
         </div>
     </div>
