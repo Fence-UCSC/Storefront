@@ -45,7 +45,9 @@ Clean up design, clean up login integrations, finish up database, implement GPS.
  * UI/ pages
   
 ### Initial burnup chart
-Latest version in lab. ![Burnup Chart](Sprint1Burnup.jpg)
+Latest version in lab. 
+
+![Burnup Chart](Sprint1Burnup.jpg)
 
 ### Initial scrum board
 [![Stories in Ready](https://badge.waffle.io/Fence-UCSC/Storefront.png?label=ready&title=Ready)](https://waffle.io/Fence-UCSC/Storefront)

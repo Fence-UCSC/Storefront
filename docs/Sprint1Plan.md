@@ -42,7 +42,9 @@ Basic implementation of the website with a store and product pages, login (socia
  * UI
   
 ### Initial burnup chart
-Latest version in lab. ![Burnup Chart](Sprint1Burnup.jpg)
+Latest version in lab. 
+
+![Burnup Chart](Sprint1Burnup.jpg)
 
 ### Initial scrum board
 [![Stories in Ready](https://badge.waffle.io/Fence-UCSC/Storefront.png?label=ready&title=Ready)](https://waffle.io/Fence-UCSC/Storefront)
