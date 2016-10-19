@@ -3,23 +3,23 @@
 Sprint Completed by Wed. Oct 19th
 
 ### Goal 
-Clean up design, clean up login integrations, finish up database, impliment GPS.
+Clean up design, clean up login integrations, finish up database, implement GPS.
 
 ### Task listing, organized by user story
 * As an online purchaser. I want to easily find and buy products from people nearby. (Highest priority for Sprint 1). Solution would be to make a website based on the “free for sale” page 
- * Figure out hosting
- * Create a basic homepage display for new users.
+ * Update homepage.
  * Account/profile creatation page
- * Creating a basic database for the products
- * Creating a basic page for adding products
-* As an online buyer/seller, I appreciate not having to make new accounts.
- * Linking to social media accounts such as facebook
+ * Creating a more advanced page for adding products
+ * Webpage filtered by category
 * As a web user, I appreciate a good UI  (lowest priority for Sprint 1, but might get bumped down into Sprint 2 if not implemented in Sprint 1)
- * Coming up with a UI layout
+ * Top menu
+ * Reviewing (QA) the UI 
  * Search Bar
 * As an online purchaser, I want to find a store on a map
- * Basic gps location
-* As a administrator, I need moderation and reviewing tools so I can handle suspicious/spam postings.
+ * Edit page allowing users to input location using a map
+ * User profile page displaying map of current location
+ * Filter based on location
+* As a administrator, I need moderation and reviewing tools so I can handle suspicious/spam postings. (lowest priority)
  * Being able to delete users and posts as a website admin
 
 ### Team roles: 
@@ -31,15 +31,17 @@ Clean up design, clean up login integrations, finish up database, impliment GPS.
 
 ### Initial task assignment
 * Harjyot
- * GPS localization
+ * User profile page displaying map of current location
 * Tommaso
- * Login integration with social medias
- * Basic database
+ * Creating a more advanced page for adding products
+ * Reviewing (QA) the UI 
 * Rory 
- * Login integration with social medias
+ * Search bar
+ * Being able to delete users and posts as a website admin
 * Brian
- * GPS localization/ moderation system
+ * Edit page allowing users to input location using a map
 * August
+ * Update homepage.
  * UI/ pages
   
 ### Initial burnup chart
