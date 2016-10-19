@@ -11,26 +11,24 @@ Sprint Completed by Wed. Oct 19th
 ### Action to Keep Doing
 * We have good meeting pracitces (we meet every MWF) so we should continue that. We also have good communication over social media, email, and Git.
 
-### Work Complted/Not Completed
+### Work Completed/Not Completed
 * Work Completed
  * Basic Homepage
  * Basic Database
  * Facebook Integration
- * Database
+ * Google Integration
 * Work Not Completed
  * GPS Integration
- * Google Integration
  * Search Bar
  
 
 ### Work Completion Rate
 * Stories Completed
  * As an online buyer/seller, I appreciate not having to make new accounts.
- * As an online purchaser. I want to easily find and buy products from people nearby. (Highest priority for Sprint 1). Solution would be to make a website based on the “free for sale” page
 
 * Time Stats
  * 40 Hours
  * 14 Days
- * 1 Story/Week
+ * 0.5 Story/Week
  * Approx. 2.8 Hours/Day
  
