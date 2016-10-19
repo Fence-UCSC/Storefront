@@ -19,8 +19,9 @@ Clean up design, clean up login integrations, finish up database, impliment GPS.
  * Search Bar
 * As an online purchaser, I want to find a store on a map
  * Basic gps location
-*As a administrator, I need moderation and reviewing tools so I can handle suspicious/spam postings.
- *Being able to delete users and posts as a website admin
+* As a administrator, I need moderation and reviewing tools so I can handle suspicious/spam postings.
+ * Being able to delete users and posts as a website admin
+
 ### Team roles: 
 * Harjyot Bal: Developer {Designer}
 * Tommaso Bonato: Developer {Designer}
