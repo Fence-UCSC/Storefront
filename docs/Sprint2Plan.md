@@ -1,6 +1,6 @@
 # Sprint 2 Plan
 ## Storefront by Fence
-Sprint Completed by Wed. Oct 19th
+Sprint Completed by Fri. Nov 19th
 
 ### Goal 
 Clean up design, clean up login integrations, finish up database, implement GPS.
