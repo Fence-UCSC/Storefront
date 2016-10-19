@@ -1,0 +1,10 @@
+{{extend 'layout.html'}}
+
+{{logged_in = auth.user_id is not None}}
+
+{{if logged_in:}}
+        {{=form}}
+{{else:}}
+    NOT LOGGED IN
+
+{{pass}}
