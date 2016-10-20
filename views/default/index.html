@@ -23,11 +23,11 @@
                     </div>
                     {{pass}}
                     <div class="media-body">
-                        <h4 class="media-heading">
-                            {{=product.name}}
-                            <span class="label label-success">
+                        <h4 class="media-heading clearfix">
+                            <span class="pull-right label label-success" style="display:inline-block">
                                 ${{=product.price}}
                             </span>
+                            <span class="pull-left">{{=product.name}}</span>
                         </h4>
                         {{=product.description}}
                     </div>
