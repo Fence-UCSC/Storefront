@@ -47,7 +47,7 @@
 </div>
 
 <script>
-    # This is super inefficient, if someone could fix this that would be neat (AV)
+    // This is super inefficient, if someone could fix this that would be neat (AV)
     {{for product in products:}}
     $('#product-{{=product.id}}').click(function() {
         window.location = "{{=URL('default', 'product', args=product.id)}}"
