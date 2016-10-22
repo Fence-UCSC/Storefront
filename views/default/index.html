@@ -10,14 +10,14 @@
     {{pass}}
 </div>
 
-<h2>Popular stores</h2>
+<h2>Popular products</h2>
 <div class="row">
     {{for product in products:}}
     <div class="col-md-3" id="product-{{=product.id}}">
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="media">
-                    {{if product.image is not None:}}
+                    {{if product.image != '':}}
                     <div class="media-left">
                         <img class="media-object" src="{{=URL('download', args=product.image)}}" style="width:100px;height:100px"/> <!-- Edit this later for material design -->
                     </div>

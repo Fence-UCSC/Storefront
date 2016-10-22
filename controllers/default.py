@@ -118,7 +118,7 @@ def product():
         else:
             page_type = 'edit'
             form = SQLFORM(db.product, product, deletable=True, showid=False)
-    if form.process().accepted:
+    if form and form.process().accepted:
         if page_type == 'create':
             session.flash = T('Added product listing')
         elif page_type == 'edit':

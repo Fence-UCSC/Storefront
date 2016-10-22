@@ -10,7 +10,7 @@
 </div>
 <div id="product_view">
     <div class="media">
-        {{if product.image is not None:}}
+        {{if product.image != '':}}
         <div class="media-left">
             <img class="media-object" src="{{=URL('download', args=product.image)}}" style="width: 250px"/>
         </div>
