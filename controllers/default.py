@@ -98,6 +98,34 @@ def addProduct():
 
     return dict(form=form)
 
+def product():
+    form = None
+    page_type = None
+    product = None
+    if request.args(0) is None:
+        if auth.user_id is None:
+            session.flash = T('Not logged in')
+            redirect(URL('default', 'user'))
+        page_type = 'create'
+        form = SQLFORM(db.product, showuser_id=False)
+    else:
+        product = db(db.product.id == request.args(0)).select().first()
+        if product is None:
+            session.flash = T('Product not found')
+            redirect(URL('default', 'user'))
+        if product.user_id != auth.user_id:
+            page_type = 'view'
+        else:
+            page_type = 'edit'
+            form = SQLFORM(db.product, product, deletable=True, showid=False)
+    if form.process().accepted:
+        if page_type == 'create':
+            session.flash = T('Added product listing')
+        elif page_type == 'edit':
+            session.flash = T('Edited product listing')
+        redirect(URL('default', 'index'))
+    return dict(form=form, page_type=page_type, product=product)
+
 def user():
     """
     exposes:

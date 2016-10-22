@@ -1,0 +1,52 @@
+{{extend 'layout.html'}}
+
+{{logged_in = auth.user_id is not None}}
+
+{{if page_type == 'create':}}
+{{=form}}
+{{elif product is not None:}}
+<div class="page-header clearfix">
+    <h1 class='pull-left'>{{=product.name}}</h1>
+</div>
+<div id="product_view">
+    <div class="media">
+        {{if product.image is not None:}}
+        <div class="media-left">
+            <img class="media-object" src="{{=URL('download', args=product.image)}}" style="width: 250px"/>
+        </div>
+        {{pass}}
+        <div class="media-body">
+            <h4 class="media-heading clearfix">
+                <span class="pull-left label label-success" style="display:inline-block">
+                    ${{=product.price}}
+                </span>
+            </h4>
+            <!-- The implementation/style of this button is not yet complete -->
+            {{if page_type == 'edit':}}
+            <button class='edit_button'>
+                Edit
+            </button>
+            {{pass}}
+            <p>
+                Posted by {{=product.username}} <small>#{{=product.user_id}}</small> on {{=product.created_on}}
+            </p>
+            {{=product.description}}
+        </div>
+    </div>
+</div>
+<div id="product_edit" style="display:none">
+    <button class='edit_button'>
+        Back
+    </button>
+    {{=form if form is not None else ''}}
+</div>
+{{else:}}
+ERROR
+{{pass}}
+
+<script>
+    $('.edit_button').click( function() {
+        $('#product_view').toggle();
+        $('#product_edit').toggle();
+    });
+</script>
