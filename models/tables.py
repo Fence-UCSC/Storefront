@@ -16,6 +16,7 @@ db.define_table('product',
                 Field('description', 'text'),
                 Field('image', 'upload'),
                 Field('created_on', 'datetime', default=datetime.datetime.utcnow()),
+                Field('category', 'string'),
                 Field('price', 'double'),
                 Field('gps_coordinates', 'double')
                 )
