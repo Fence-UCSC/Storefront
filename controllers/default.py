@@ -86,18 +86,6 @@ def index():
     #]
     #return dict(message=T('Welcome to web2py!'),stores=stores,email_to_name=email_to_name)
 
-def addProduct():
-    form = SQLFORM(db.product, showuser_id=False)
-
-    if form.process().accepted:
-        # At this point, the record has already been inserted.
-        session.flash = T('Post added.')
-        redirect(URL('default', 'index'))
-    elif form.errors:
-        session.flash = T('Please enter correct values.')
-
-    return dict(form=form)
-
 def product():
     form = None
     page_type = None
@@ -125,6 +113,21 @@ def product():
             session.flash = T('Edited product listing')
         redirect(URL('product', args=form.vars.id))
     return dict(form=form, page_type=page_type, product=product)
+
+def store():
+    if request.args(0) is None:
+        stores = db(db.auth_user).select()
+    else:
+        try:
+            stores = db(db.auth_user.id == request.args(0)).select()
+        except ValueError:
+            stores = None
+            session.flash = T('Store ' + request.args(0) + ' undefined.')
+            redirect(URL('default', 'store'))
+        if store is None:
+            session.flash = T('Store ' + request.args(0) + ' not found.')
+            redirect(URL('default', 'store'))
+    return dict(stores=stores)
 
 def user():
     """

@@ -1,0 +1,17 @@
+{{extend 'layout.html'}}
+
+{{if request.args(0) is None:}}
+<div class="page-header clearfix">
+    <h1 class='pull-left'>All stores</h1>
+</div>
+<ul>
+    {{for store in stores:}}
+    <li>{{=store.first_name}}</li>
+    {{pass}}
+</ul>
+{{else:}}
+{{store = stores.first()}}
+<div class="page-header clearfix">
+    <h1 class='pull-left'>{{=store.first_name if store is not None else T('')}}</h1>
+</div>
+{{pass}}
