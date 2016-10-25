@@ -13,7 +13,7 @@
 <h2>Popular products</h2>
 <div class="row">
     {{for product in products:}}
-    <div class="col-md-3" id="product-{{=product.id}}">
+    <div class="col-sm-6 col-md-4 col-lg-2" id="product-{{=product.id}}">
         <div class="panel panel-default">
             <div class="panel-body" onclick="window.location='{{=URL('product', args=product.id)}}'">
                 <div class="media">

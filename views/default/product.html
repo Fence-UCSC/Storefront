@@ -35,10 +35,7 @@
     </div>
 </div>
 <div id="product_edit" style="display:none">
-    <button class='edit_button'>
-        Back
-    </button>
-    {{=form if form is not None else ''}}
+    {{=form if form is not None else T('ERROR')}}
 </div>
 {{else:}}
 ERROR

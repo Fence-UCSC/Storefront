@@ -96,6 +96,7 @@ def product():
             redirect(URL('default', 'user', vars={'_next': 'product'}))
         page_type = 'create'
         form = SQLFORM(db.product, showuser_id=False)
+        form.add_button(T('Cancel'),URL('index'),_class='btn btn-warning')
     else:
         product = db(db.product.id == request.args(0)).select().first()
         if product is None:
@@ -106,7 +107,8 @@ def product():
         else:
             page_type = 'edit'
             form = SQLFORM(db.product, product, deletable=True, showid=False)
-    if form and form.process().accepted:
+            form.add_button(T('Cancel'),URL('product', args=product.id),_class='btn btn-warning')
+    if form is not None and form.process().accepted:
         if page_type == 'create':
             session.flash = T('Added product listing')
         elif page_type == 'edit':
