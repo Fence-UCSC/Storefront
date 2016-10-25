@@ -116,18 +116,21 @@ def product():
 
 def store():
     if request.args(0) is None:
-        stores = db(db.auth_user).select()
+        stores = db(db.auth_user).select(orderby=~db.auth_user.first_name)
+        products = None
     else:
+        store = request.args(0)
         try:
-            stores = db(db.auth_user.id == request.args(0)).select()
+            stores = db(db.auth_user.id == store).select()
         except ValueError:
-            stores = None
-            session.flash = T('Store ' + request.args(0) + ' undefined.')
+            session.flash = T('Store ' + store + ' undefined.')
             redirect(URL('default', 'store'))
-        if store is None:
-            session.flash = T('Store ' + request.args(0) + ' not found.')
+        if stores.first() is None:
+            session.flash = T('Store ' + store + ' not found.')
             redirect(URL('default', 'store'))
-    return dict(stores=stores)
+        else:
+            products = db(db.product.user_id == store).select(orderby=~db.product.created_on)
+    return dict(stores=stores,products=products)
 
 def user():
     """

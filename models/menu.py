@@ -30,7 +30,8 @@ response.google_analytics_id = None
 # ----------------------------------------------------------------------------------------------------------------------
 
 response.menu = [
-    (T('Home'), False, URL('default', 'index'), [])
+    (T('Stores'), False, URL('store')),
+    (T('Sell'), False, URL('product'))
 ]
 
 DEVELOPMENT_MENU = True
@@ -52,6 +53,7 @@ def _():
     response.menu += [
         (T('Developer'), False, '#', [
             (T('Admin'), False, URL('admin', 'default', 'site')),
+            (T('Repo'), False, 'http://github.com/Fence-UCSC/Storefront'),
             LI(_class="divider"),
             (T('Design'), False, URL('admin', 'default', 'design/%s' % app)),
             LI(_class="divider"),
@@ -81,8 +83,7 @@ def _():
                 'admin', 'default', 'errors/' + app)),
             (T('About'), False, URL(
                 'admin', 'default', 'about/' + app)),
-        ]),
-        (T('Add Product'), False, URL('default', 'product'))
+        ])
     ]
 
 
