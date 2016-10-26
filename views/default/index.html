@@ -13,13 +13,13 @@
 <h2>Popular products</h2>
 <div class="row">
     {{for product in products:}}
-    <div class="col-md-3" id="product-{{=product.id}}">
+    <div class="col-sm-6 col-md-4 col-lg-2" id="product-{{=product.id}}">
         <div class="panel panel-default">
-            <div class="panel-body">
+            <div class="panel-body" onclick="window.location='{{=URL('product', args=product.id)}}'">
                 <div class="media">
                     {{if product.image != '':}}
                     <div class="media-left">
-                        <img class="media-object" src="{{=URL('download', args=product.image)}}" style="width:100px;height:100px"/> <!-- Edit this later for material design -->
+                        <img class="media-object" src="{{=URL('download', args=product.image)}}" style="width:100px"/> <!-- Edit this later for material design -->
                     </div>
                     {{pass}}
                     <div class="media-body">
@@ -34,8 +34,9 @@
                 </div>
             </div>
             <div class="panel-footer clearfix">
-                <span class="pull-left">
-                    Posted by <a href="{{=URL('default', 'user', args=[product.user_id])}}">{{=product.username}} <small>#{{=product.user_id}}</small></a> on {{=product.created_on}}
+                <span class="pull-left" onclick="window.location='{{=URL('store', args=product.user_id)}}'">
+                    Posted by {{=product.username}}
+                    <small>#{{=product.user_id}}</small> on {{=product.created_on}}
                 </span>
                 <span class="pull-right">
 
@@ -45,12 +46,3 @@
     </div>
     {{pass}}
 </div>
-
-<script>
-    // This is super inefficient, if someone could fix this that would be neat (AV)
-    {{for product in products:}}
-    $('#product-{{=product.id}}').click(function() {
-        window.location = "{{=URL('default', 'product', args=product.id)}}"
-    });
-    {{pass}}
-</script>
