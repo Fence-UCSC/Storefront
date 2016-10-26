@@ -65,7 +65,6 @@ def index():
     """
     example action using the internationalization operator T and flash
     rendered by views/default/index.html or views/generic.html
-
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
@@ -86,18 +85,6 @@ def index():
     #]
     #return dict(message=T('Welcome to web2py!'),stores=stores,email_to_name=email_to_name)
 
-def addProduct():
-    form = SQLFORM(db.product, showuser_id=False)
-
-    if form.process().accepted:
-        # At this point, the record has already been inserted.
-        session.flash = T('Post added.')
-        redirect(URL('default', 'index'))
-    elif form.errors:
-        session.flash = T('Please enter correct values.')
-
-    return dict(form=form)
-
 def product():
     form = None
     page_type = None
@@ -108,6 +95,7 @@ def product():
             redirect(URL('default', 'user', vars={'_next': 'product'}))
         page_type = 'create'
         form = SQLFORM(db.product, showuser_id=False)
+        form.add_button(T('Cancel'),URL('index'),_class='btn btn-warning')
     else:
         product = db(db.product.id == request.args(0)).select().first()
         if product is None:
@@ -118,13 +106,32 @@ def product():
         else:
             page_type = 'edit'
             form = SQLFORM(db.product, product, deletable=True, showid=False)
-    if form and form.process().accepted:
+            form.add_button(T('Cancel'),URL('product', args=product.id),_class='btn btn-warning')
+    if form is not None and form.process().accepted:
         if page_type == 'create':
             session.flash = T('Added product listing')
         elif page_type == 'edit':
             session.flash = T('Edited product listing')
         redirect(URL('product', args=form.vars.id))
     return dict(form=form, page_type=page_type, product=product)
+
+def store():
+    if request.args(0) is None:
+        stores = db(db.auth_user).select(orderby=~db.auth_user.first_name)
+        products = None
+    else:
+        store = request.args(0)
+        try:
+            stores = db(db.auth_user.id == store).select()
+        except ValueError:
+            session.flash = T('Store ' + store + ' undefined.')
+            redirect(URL('default', 'store'))
+        if stores.first() is None:
+            session.flash = T('Store ' + store + ' not found.')
+            redirect(URL('default', 'store'))
+        else:
+            products = db(db.product.user_id == store).select(orderby=~db.product.created_on)
+    return dict(stores=stores,products=products)
 
 def user():
     """
