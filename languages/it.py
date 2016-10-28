@@ -262,6 +262,7 @@
 'User %(id)s Registered': 'User %(id)s Registered',
 'User ID': 'ID Utente',
 'value already in database or empty': 'valore già presente nel database o vuoto',
+'Value not allowed': 'Value not allowed',
 'Verify Password': 'Verifica Password',
 'Videos': 'Videos',
 'View': 'Vista',
