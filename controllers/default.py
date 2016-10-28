@@ -18,6 +18,11 @@ def email_to_name(email):
         return ' '.join([u.first_name, u.last_name])
 
 
+def search():
+    result = None
+    return dict(result=result)
+
+
 def pretty_date(time=False):
     """
     Get a datetime object or a int() Epoch timestamp and return a
