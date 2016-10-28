@@ -24,9 +24,17 @@ db.define_table('product',
                 )
 
 db.define_table('userReview',
+                Field('user_id', 'reference auth_user', default=session.auth.user.id if session.auth else None),
+                Field('category_id', 'reference category'),
+                Field('title' , 'string'),
                 Field('vote', 'integer'),
                 Field('description', 'string'),
                 Field('created_on', 'datetime', default=datetime.datetime.utcnow()),
+                )
+
+db.define_table('category',
+                Field('name', 'string'),
+                Field('description', 'string')
                 )
 
 # I don't want to display the user email by default in all forms.
