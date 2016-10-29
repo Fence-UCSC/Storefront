@@ -16,7 +16,7 @@ db.define_table('category',
 
 db.define_table('product',
                 Field('user_id', 'reference auth_user', default=session.auth.user.id if session.auth else None ),
-                Field('category', 'reference category', requires=IS_IN_SET(db().select(db.category.id))),
+                Field('category', 'reference category', requires=IS_IN_DB(db, 'category.id', '%(name)s')),
                 Field('username', default=session.auth.user.first_name if session.auth else None),
                 Field('name', 'string'),
                 Field('description', 'text'),

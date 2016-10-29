@@ -94,6 +94,10 @@ def index():
     #return dict(message=T('Welcome to web2py!'),stores=stores,email_to_name=email_to_name)
 
 def product():
+    if db(db.category.id > 0).isempty():
+        db.category.insert(name='Books', description='Books description')
+        db.category.insert(name='Phones', description='Phones description')
+        db.category.insert(name='Other', description='Other description')
     form = None
     page_type = None
     product = None
