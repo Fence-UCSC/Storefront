@@ -19,8 +19,10 @@ def email_to_name(email):
 
 
 def search():
-    result = None
-    return dict(result=result)
+    search_key = request.vars.search_key
+    rows = db(db.product.name.contains(search_key, case_sensitive=False)).select()
+
+    return dict(result=rows)
 
 
 def pretty_date(time=False):
