@@ -20,7 +20,9 @@ def email_to_name(email):
 
 def search():
     search_key = request.vars.search_key
-    rows = db(db.product.name.contains(search_key, case_sensitive=False)).select()
+    rows = ''
+    if search_key is not None:
+        rows = db(db.product.name.contains(search_key)).select()
 
     return dict(result=rows)
 

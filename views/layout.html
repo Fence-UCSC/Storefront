@@ -64,6 +64,7 @@ middle_column = {0: mc0, 1: mc1, 2: mc2}[
             </button>
             {{=response.logo or ''}}
         </div>
+
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav navbar-right">
             {{='auth' in globals() and auth.navbar('Welcome',mode='dropdown') or ''}}
