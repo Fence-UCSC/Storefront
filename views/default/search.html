@@ -1,15 +1,18 @@
 {{extend 'layout.html'}}
 
-<div class="searchForm" xmlns="http://www.w3.org/1999/html">
+<div class="searchForm">
     <div class="searchForm_title"> Search: </div>
     <form>
-        <input type="text" name="search_key" placeholder="Search..">
+        <select name="search_options">
+            <option value="all" selected>All Categories</option>
+            <option value="user">Sellers</option>
+        </select>
+        <input type="text" name="search_key" placeholder="Search.."/>
     </form>
     </br>
 </div>
 
-<div class="searchResult">
+<div id="search_results_div" class="searchResult">
     <div class="searchForm_title"> Results: </div>
         {{=result}}
 </div>
-
