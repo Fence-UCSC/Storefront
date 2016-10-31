@@ -8,6 +8,7 @@
 # - download is for downloading files uploaded in the db (does streaming)
 # -------------------------------------------------------------------------
 
+
 def email_to_name(email):
     """Returns a string corresponding to the user first and last names,
     given the user email."""
@@ -22,11 +23,13 @@ def search():
     search_key = request.vars.search_key
     search_option = request.vars.search_options
     rows = ''
+    if search_key is '':
+        redirect(URL('search'))
     if search_key is not None:
-        if search_option == 'all':
-            rows = db(db.product.name.contains(search_key)).select()
-        elif search_option == 'user':
+        if search_option == 'user':
             rows = db(db.product.username.contains(search_key)).select()
+        else:
+            rows = db(db.product.name.contains(search_key)).select()
 
     return dict(result=rows)
 
@@ -73,6 +76,7 @@ def pretty_date(time=False):
     if day_diff < 365:
         return str(day_diff / 30) + " months ago"
     return str(day_diff / 365) + " years ago"
+
 
 def index():
     """
@@ -152,6 +156,7 @@ def store():
         else:
             products = db(db.product.user_id == store).select(orderby=~db.product.created_on)
     return dict(stores=stores,products=products)
+
 
 def user():
     """
