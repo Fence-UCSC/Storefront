@@ -19,6 +19,11 @@ def email_to_name(email):
         return ' '.join([u.first_name, u.last_name])
 
 
+def geolocation():
+    row = ''
+    return dict(row=row)
+
+
 def search():
     search_key = request.vars.search_key
     search_option = request.vars.search_options
