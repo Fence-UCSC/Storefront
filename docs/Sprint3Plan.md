@@ -1,51 +1,46 @@
-# Sprint 2 Plan
+# Sprint 3 Plan
 ## Storefront by Fence
-Sprint Completed by Thurs. Nov 4th
+Sprint Completed by Wed. Nov 23th
 
 ### Goal 
-Clean up design, clean up login integrations, finish up database, implement GPS.
+
 
 ### Task listing, organized by user story
 * As an online purchaser. I want to easily find and buy products from people nearby. (Highest priority for Sprint 1). Solution would be to make a website based on the “free for sale” page 
- * Update homepage.
- * Account/profile creatation page
- * Creating a more advanced page for adding products
  * Webpage filtered by category
-* As a web user, I appreciate a good UI  (lowest priority for Sprint 1, but might get bumped down into Sprint 2 if not implemented in Sprint 1)
- * Top menu
- * Reviewing (QA) the UI 
- * Search Bar
 * As an online purchaser, I want to find a store on a map
  * Edit page allowing users to input location using a map
  * User profile page displaying map of current location
  * Filter based on location
 * As a administrator, I need moderation and reviewing tools so I can handle suspicious/spam postings. (lowest priority)
  * Being able to delete users and posts as a website admin
+* As a buyer/seller, I would like a responsive design so I can access my transactions on all my devices.
+ * Update UI for homepage to show grid of images
+ * Update UI for product page to show categories
+* As an online seller, I need a simple way to send out what I am selling to all of my social media accounts so I don’t need to login every time on all my social medias.
+ * Change OAuth provider so we can get more data
 
 ### Team roles: 
 * Harjyot Bal: Developer {Designer}
-* Tommaso Bonato: Developer {Designer}
+* Tommaso Bonato: Scrum Master {Developer, Designer}
 * Ion Fong Chan: Product Owner {Developer, Designer}
 * Brian Lederman: Developer {Designer}
-* August Valera: Scrum Master {Developer}
+* August Valera: Designer {Developer}
 
 ### Initial task assignment
 * Harjyot
- * User profile page displaying map of current location
+ * N/A
 * Tommaso
- * Creating a more advanced page for adding products
- * Reviewing (QA) the UI 
+ * N/A
 * Rory 
- * Search bar
- * Being able to delete users and posts as a website admin
+ * N/A
 * Brian
- * Edit page allowing users to input location using a map
+ * N/A
 * August
- * Update homepage.
- * UI/ pages
+ * N/A
   
 ### Initial burnup chart
-Latest version in lab. 
+Latest version in lab.
 
 ![Burnup Chart](Sprint1Burnup.jpg)
 
