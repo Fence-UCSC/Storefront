@@ -1,37 +1,118 @@
 {{extend 'layout.html'}}
 
+{{block head}}
+
+<script>
+    var reviews_url = "{{=URL('api', 'get_reviews', vars=dict(id=request.args(0)) )}}";
+    var add_review_url = "{{=URL('api', 'add_review', user_signature=True, hash_vars=False, vars=dict(id=request.args(0)) )}}";
+    var del_review_url = "{{=URL('api', 'del_review', user_signature=True)}}";
+    var edit_review_url = "{{=URL('api', 'edit_review', user_signature=True)}}";
+</script>
+
+{{end}}
+
 {{if request.args(0) is None:}}
-<div class="page-header clearfix">
-    <h1 class='pull-left'>All stores</h1>
-</div>
-<div class="list-group">
-    {{for store in stores:}}
-    <a class="list-group-item" href="{{=URL(args=store.id)}}">
-        {{=T(store.first_name + ' ' + store.last_name)}}
-    </a>
-    {{pass}}
-</div>
+    <div id="vue-div2" style="display:none"></div>
+    <div class="page-header clearfix">
+        <h1 class='pull-left'>All stores</h1>
+    </div>
+    <div class="list-group">
+        {{for store in stores:}}
+        <a class="list-group-item" href="{{=URL(args=store.id)}}">
+            {{=T(store.first_name + ' ' + store.last_name)}}
+        </a>
+        {{pass}}
+    </div>
 {{else:}}
-{{store = stores.first()}}
-<div class="page-header clearfix">
-    <h1 class='pull-left'>{{=T(store.first_name + ' ' + store.last_name) if store is not None else T('')}}</h1>
-</div>
-<div class="well well-lg">
-    <p>id: {{=store.id}}</p>
-    <p>first_name: {{=store.first_name}}</p>
-    <p>last_name: {{=store.last_name}}</p>
-    <p>email: {{=store.email}}</p>
-    <p>registration_id: {{=store.registration_id}}</p>
-</div>
-<h4>
-    Recent products
-</h4>
-<div class="list-group">
-    {{for product in products:}}
-    <a class="list-group-item" href="{{=URL('product', args=product.id)}}">
-        <h4 class="list-group-item-heading">{{=product.name}}</h4>
-        <p class="list-group-item-text">{{=product.description}}</p>
-    </a>
-    {{pass}}
-</div>
+    <script src="{{=URL('static', 'js/vue.js')}}" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"></script>
+    <script src="{{=URL('static', 'js/default_index.js')}}"></script>
+    {{store = stores.first()}}
+    <div class="page-header clearfix">
+        <h1 class='pull-left'>{{=T(store.first_name + ' ' + store.last_name) if store is not None else T('')}}</h1>
+    </div>
+    <div class="well well-lg">
+        <p>id: {{=store.id}}</p>
+        <p>first_name: {{=store.first_name}}</p>
+        <p>last_name: {{=store.last_name}}</p>
+        <p>email: {{=store.email}}</p>
+        <p>registration_id: {{=store.registration_id}}</p>
+    </div>
+    <h4>
+        Recent products
+    </h4>
+    <div class="list-group">
+        {{for product in products:}}
+        <a class="list-group-item" href="{{=URL('product', args=product.id)}}">
+            <h4 class="list-group-item-heading">{{=product.name}}</h4>
+            <p class="list-group-item-text">{{=product.description}}</p>
+        </a>
+        {{pass}}
+    </div>
+
+    <h4>
+        Reviews
+    </h4>
+
+    <div id="vue-div" style="display:none">
+
+        <div v-if="logged_in" class="button_bar">
+            <button v-if="!is_adding_review" class="btn btn-danger btn-sm" v-on:click="add_review_button()" v-bind:class="{'disabled': !logged_in}">
+            Add Review
+            </button>
+        </div>
+        <div v-if="is_adding_review" id="add_review_div" style="margin-bottom: 10px">
+            <form action="#" v-on:submit.prevent="add_review" class="form-horizontal" enctype="multipart/form-data" method="post">
+
+                <div class="form-group-edit" id="no_table_review_text__row">
+                    <div>
+                        <input type="text" name="firstname" v-model="form_review_title" placeholder="Review Title Here">
+                        <textarea class="form-control string" id="no_table_review_text" name="album" type="text" v-model="form_review_description" placeholder="Review Content Here"/></textarea>
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+
+                <div class="form-group-edit" id="submit_record__row">
+                    <input class="btn btn-primary btn-sm" id="add_review_submit" type="submit" value="review"/>
+                    <input class="btn btn-warning btn-sm" id="cancelOp" type="button" value="Cancel"  v-on:click="cancel_add()" />
+                </div>
+            </form>
+        </div>
+
+
+    <div v-for="review in reviews" class="list-group">
+        <div class="list-group-item-heading">${review.title}</div>
+
+        <p v-if="!(being_edited == review._idx)" class="alignleft">${review.description}</p><br/>
+        <div v-if="(being_edited == review._idx)" id="edit_review_div">
+            <form action="#" v-on:submit.prevent="edit_review(review._idx)" class="form-horizontal" enctype="multipart/form-data" method="post">
+
+                <div class="formEdit" id="no_table_review_text__row">
+                    <div>
+                        <textarea class="form-control string" id="no_table_review_text" name="album" type="text" v-model="form_edit_text" placeholder="Post Content Here"/></textarea>
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+
+                <div class="formEdit" id="submit_record__row">
+                    <input class="btn btn-primary btn-sm" id="edit_review_submit" type="submit" value="Edit"/>
+                    <input class="btn btn-warning btn-sm" id="cancelOp" type="button" value="Cancel"  v-on:click="cancel_edit()" />
+                </div>
+            </form>
+        </div>
+
+        <div v-if="current_user==review.user_email" class="bottomRow">
+            <i class="fa fa-pencil fa-2x" aria-hidden="true" style="float:right" v-on:click="select_review(review._idx)"></i>
+            <i class="fa fa-trash-o fa-2x" style="float:right; padding-right: 15px" v-on:click="delete_review(review._idx)"></i>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="bottomRow">
+            <p v-bind:title="review.created_on" class="alignright">Posted ${review.created_on_readable}</p>
+        </div>
+                <div style="clear: both;"></div>
+    </div>
+    <div v-if="has_more" class="show_more">
+        <button class="btn btn-default" v-on:click="get_more()">Load more</button>
+    </div>
+
+    </div>
 {{pass}}

@@ -31,6 +31,7 @@ db.define_table('product',
                 )
 
 db.define_table('user_review',
+                Field('reviewed_id', 'reference auth_user'),
                 Field('user_id', 'reference auth_user', default=session.auth.user.id if session.auth else None),
                 Field('title' , 'string'),
                 Field('vote', 'integer'),
