@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Geolocation Storefront</title>
+    <title>Geolocation Storefront test</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
@@ -27,11 +27,18 @@
       // locate you.
 
       function initMap() {
+        var myLatLng = {lat: 36.9741, lng: -122.0308};
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 36.974, lng: 122.030},
-            //the long/lat of Santa Cruz
-          zoom: 6
+          center: myLatLng,
+          zoom: 7
         });
+         var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            draggable: true,
+            title: 'Markers!!!'
+  });
+
         var infoWindow = new google.maps.InfoWindow({map: map});
 
         // Try HTML5 geolocation.
