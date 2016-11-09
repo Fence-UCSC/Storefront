@@ -32,12 +32,6 @@
           center: myLatLng,
           zoom: 7
         });
-         var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            draggable: true,
-            title: 'Markers!!!'
-  });
 
         var infoWindow = new google.maps.InfoWindow({map: map});
 
@@ -49,8 +43,15 @@
               lng: position.coords.longitude
             };
 
+            var marker = new google.maps.Marker({
+            position: pos,
+            map: map,
+            draggable: true,
+            title: 'Marker!!!'
+  });
+
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
+            infoWindow.setContent('I am here!');
             map.setCenter(pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
