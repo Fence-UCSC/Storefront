@@ -112,9 +112,28 @@ def index():
 
 def product():
     if db(db.category.id > 0).isempty():
+        db.category.insert(name='Arts, Crafts & Sewing', description='Arts, Crafts & Sewing description')
+        db.category.insert(name='Automotive Parts & Accessories', description='Automotive Parts & Accessories description')
+        db.category.insert(name='Baby', description='Baby description')
+        db.category.insert(name='Beauty & Personal Care', description='Beauty & personal care description')
         db.category.insert(name='Books', description='Books description')
-        db.category.insert(name='Phones', description='Phones description')
-        db.category.insert(name='Other', description='Other description')
+        db.category.insert(name='CD & Vinyl', description='CD & Vinyl description')
+        db.category.insert(name='Cell Phones & Accessories', description='Cell Phones & Accessories description')
+        db.category.insert(name='Clothing, Shoes & Jewelry', description='Clothing Shoes & Jewelry description')
+        db.category.insert(name='Computers', description='Computers description')
+        db.category.insert(name='Game & Toys', description='Game description')
+        db.category.insert(name='Electronics', description='Electronics description')
+        db.category.insert(name='Grocery & Gourmet', description='Grocery Gourmet description')
+        db.category.insert(name='Handmade', description='Handmade description')
+        db.category.insert(name='Services', description='Services description')
+        db.category.insert(name='Home & Kitchen', description=' description')
+        db.category.insert(name='Luggage & Traveling Gear', description='Home & Traveling Gear description')
+        db.category.insert(name='Music Instrument', description='Music Instrument description')
+        db.category.insert(name='Office Products', description='Office Products description')
+        db.category.insert(name='Pet Supplies', description='Pet Supplies description')
+        db.category.insert(name='Software', description='Software description')
+        db.category.insert(name='Vehicles', description='Vehicles description')
+        db.category.insert(name='Wine', description='Wine description')
     form = None
     page_type = None
     product = None
@@ -143,6 +162,7 @@ def product():
             session.flash = T('Edited product listing')
         redirect(URL('product', args=form.vars.id))
     return dict(form=form, page_type=page_type, product=product)
+
 
 def store():
     if request.args(0) is None:
