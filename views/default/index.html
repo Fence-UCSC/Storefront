@@ -2,6 +2,29 @@
 
 {{logged_in = auth.user_id is not None}}
 
+<script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
+<style>
+
+    .grid-item .thumbnail {
+        overflow: hidden;
+    }
+    .grid-item .thumbnail img {
+        width: 100%;
+    }
+    /* fluid 5 columns */
+    .grid-item {
+        float: left;
+        padding: 1em;
+    }
+    .grid-sizer,
+    .grid-item { width: 50%; }
+    @media screen and (min-width: 768px) {
+    /* 5 columns for larger screens */
+        .grid-sizer, .grid-item { width: 20%; }
+    }
+}
+</style>
+
 <div class="jumbotron">
     <h1>Welcome{{=(' ' + auth.user.first_name + '.') if logged_in else '!'}}</h1>
     <p>This is the homepage. There is nothing here yet, but later on we will put information here.</p>
@@ -11,15 +34,22 @@
 </div>
 
 <h2>Popular products</h2>
-<div class="row">
+<div class="grid data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 200 }'">
     {{for product in products:}}
-    <div class="col-sm-6 col-md-4 col-lg-2" id="product-{{=product.id}}">
-        <div class="panel panel-default">
+    <div class="grid-sizer"></div>
+    <div class="grid-item">
+        <div class="thumbnail" onclick="window.location='{{=URL('product', args=product.id)}}'" >
+            <img src="{{=URL('download', args=product.image)}}" />
+            <div class="caption">
+                <h4>{{=product.name}}</h4>
+            </div>
+        </div>
+        <!--div class="panel panel-default">
             <div class="panel-body" onclick="window.location='{{=URL('product', args=product.id)}}'">
                 <div class="media">
                     {{if product.image != '':}}
                     <div class="media-left">
-                        <img class="media-object" src="{{=URL('download', args=product.image)}}" style="width:100px"/> <!-- Edit this later for material design -->
+                        <img class="media-object" src="{{=URL('download', args=product.image)}}" style="width:100px"/>
                     </div>
                     {{pass}}
                     <div class="media-body">
@@ -42,7 +72,7 @@
 
                 </span>
             </div>
-        </div>
+        </div-->
     </div>
     {{pass}}
 </div>
