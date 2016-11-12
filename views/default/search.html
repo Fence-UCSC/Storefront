@@ -1,18 +1,51 @@
 {{extend 'layout.html'}}
 
-<div class="searchForm">
+<!-- Search -->
+<div class="search_div">
     <div class="searchForm_title"> Search: </div>
+
     <form>
         <select name="search_options">
             <option value="all" selected>All Categories</option>
             <option value="user">Sellers</option>
         </select>
-        <input type="text" name="search_key" placeholder="Search.."/>
+
+        <input type="text" name="search_key" placeholder="Search"/>
     </form>
-    </br>
+
 </div>
 
+<!-- Result -->
+<h2> Results: </h2>
 <div id="search_results_div" class="searchResult">
-    <div class="searchForm_title"> Results: </div>
-        {{=result}}
+    {{if num_of_result is 1:}}
+        <p> {{=num_of_result}} result for <strong>{{=search_key}}</strong> </p>
+    {{elif num_of_result > 1:}}
+        <p> {{=num_of_result}} results for <strong>{{=search_key}}</strong> </p>
+    {{else:}}
+        <h3>No Matched Product</h3>
+    {{pass}}
+
+    {{if results:}}
+        {{for result in results:}}
+        <ul class="result-group">
+            <div id="result-group-item">
+                <div class="media">
+                    <div id="search-result-img-container" class="media-left">
+                        <img id="search-result-img" src="{{=URL('download', args=result.image)}}" />
+                    </div>
+
+                    <div class="media-body">
+                        <div id="search-result-pname"> {{=result.name}} </div>
+                        <div id="search-result-uname"> by: {{=result.username}} </div>
+                        <div id="search-result-price" class="label label-success"> {{=result.price}} </div>
+                    </div>
+                </div>
+            </div>
+        </ul>
+        {{pass}}
+
+    {{pass}}
+
 </div>
+

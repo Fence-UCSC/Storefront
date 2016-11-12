@@ -28,15 +28,19 @@ def search():
     search_key = request.vars.search_key
     search_option = request.vars.search_options
     rows = ''
+
     if search_key is '':
         redirect(URL('search'))
-    if search_key is not None:
+    elif search_key is not None:
         if search_option == 'user':
             rows = db(db.product.username.contains(search_key)).select()
         else:
             rows = db(db.product.name.contains(search_key)).select()
 
-    return dict(result=rows)
+
+    num_of_result = len(rows)
+
+    return dict(results=rows, search_key=search_key, num_of_result=num_of_result)
 
 
 def pretty_date(time=False):
