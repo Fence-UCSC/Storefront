@@ -168,6 +168,7 @@ var app = function() {
     self.get_reviews();
     $("#vue-div").show();
 
+ }
 Vue.component('star-rating', {
 
   props: {
