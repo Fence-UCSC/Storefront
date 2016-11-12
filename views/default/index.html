@@ -3,6 +3,7 @@
 {{logged_in = auth.user_id is not None}}
 
 <script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
+<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
 <style>
 
     .grid-item .thumbnail {
@@ -25,17 +26,17 @@
 
 <script>
     // init Masonry
-    $('.grid').masonry({
+    var $grid = $('.grid').masonry({
         itemSelector: '.grid-item'
     });
-    $(".jumbotron").click(function(){console.log('hello');});
+    $('.jumbotron').hide();
     // layout Masonry after each image loads
-    /*
+    
     $('.grid').imagesLoaded( function() {
       $grid.masonry('layout');
       console.log('did the thing');
     });
-    */
+    
 </script>
 
 <div class="jumbotron">
