@@ -37,15 +37,6 @@
         <p>email: {{=store.email}}</p>
         <p>registration_id: {{=store.registration_id}}</p>
     </div>
-
-    <h4>
-        Store Location
-    </h4>
-    <div class="geolocation">
-        <iframe width="90%" height="500px" src="http://127.0.0.1:8000/Fence/default/geolocation" name="targetframe" allowTransparency="true" scrolling="no" frameborder="0" >
-    </iframe>
-    </div>
-
     <h4>
         Recent products
     </h4>
@@ -74,8 +65,9 @@
 
                 <div class="form-group-edit" id="no_table_review_text__row">
                     <div>
-                        <input type="text" name="firstname" v-model="form_review_title" placeholder="Review Title Here">
-                        <textarea class="form-control string" id="no_table_review_text" name="album" type="text" v-model="form_review_description" placeholder="Review Content Here"/></textarea>
+                        <input class="form-control string" type="text" name="firstname" v-model="form_review_title" placeholder="Review Title Here" required="required">
+                        <star-rating :value.sync="value" ></star-rating>
+                        <textarea class="form-control string" required="required" id="no_table_review_text" name="album" type="text" v-model="form_review_description" placeholder="Review Content Here"/></textarea>
                         <span class="help-block"></span>
                     </div>
                 </div>
