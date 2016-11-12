@@ -98,11 +98,9 @@ def index():
     products = None
 
     # Gets the list of all checklists for the user.
-    products = db().select(
-        db.product.ALL, orderby=~db.product.created_on, limitby=(0, 10)
+    products = db(db.product.status == True).select(
+        orderby=~db.product.created_on, limitby=(0, 10)
     )
-
-
 
     return dict(message=T('Welcome to web2py!'), products=products, date=pretty_date, email_to_name=email_to_name)
 
@@ -142,19 +140,28 @@ def product():
     page_type = None
     product = None
     if request.args(0) is None:
+        redirect(URL(args="add"))
+    elif request.args(0) == "add":
         if auth.user_id is None:
             session.flash = T('Not logged in')
-            redirect(URL('default', 'user', vars={'_next': 'product'}))
+            redirect(URL('user', vars={'_next': 'product'}))
         page_type = 'create'
         form = SQLFORM(db.product, showuser_id=False)
         form.add_button(T('Cancel'),URL('index'),_class='btn btn-warning')
     else:
-        product = db(db.product.id == request.args(0)).select().first()
+        try:
+            product = db(db.product.id == request.args(0)).select().first()
+        except ValueError:
+            session.flash = T('Invalid product id ' + request.args(0))
+            redirect(URL('index'))
         if product is None:
             session.flash = T('Product #' + request.args(0) + ' does not exist')
             redirect(URL('default', 'index'))
         if product.user_id != auth.user_id:
             page_type = 'view'
+            if not product.status:
+                session.flash = T('Product no longer available')
+                redirect(URL('index'))
         else:
             page_type = 'edit'
             form = SQLFORM(db.product, product, deletable=True, showid=False)

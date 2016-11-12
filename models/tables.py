@@ -24,7 +24,7 @@ db.define_table('product',
                 Field('created_on', 'datetime', default=datetime.datetime.utcnow()),
                 Field('object_status', requires=IS_IN_SET(['New', 'Used', 'Refurbished']), default='New'),
                 Field('tags', 'string'),
-                Field('status', 'boolean'),
+                Field('status', 'boolean', default=True),
                 Field('price', 'double'),
                 Field('gps_coordinates_lat', 'double'),
                 Field('gps_coordinates_long', 'double')
