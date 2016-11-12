@@ -13,17 +13,30 @@
     }
     /* fluid 5 columns */
     .grid-item {
+        padding: 5px;
+        width: 50%;
         float: left;
-        padding: 1em;
     }
-    .grid-sizer,
-    .grid-item { width: 50%; }
-    @media screen and (min-width: 768px) {
-    /* 5 columns for larger screens */
-        .grid-sizer, .grid-item { width: 20%; }
+    @media screen and (min-width: 568px) {
+        .grid-item { width: 20%; }
     }
 }
 </style>
+
+<script>
+    // init Masonry
+    $('.grid').masonry({
+        itemSelector: '.grid-item'
+    });
+    $(".jumbotron").click(function(){console.log('hello');});
+    // layout Masonry after each image loads
+    /*
+    $('.grid').imagesLoaded( function() {
+      $grid.masonry('layout');
+      console.log('did the thing');
+    });
+    */
+</script>
 
 <div class="jumbotron">
     <h1>Welcome{{=(' ' + auth.user.first_name + '.') if logged_in else '!'}}</h1>
@@ -34,9 +47,8 @@
 </div>
 
 <h2>Popular products</h2>
-<div class="grid data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 200 }'">
+<div class="grid" data-masonry='{ "itemSelector": ".grid-item"}'>
     {{for product in products:}}
-    <div class="grid-sizer"></div>
     <div class="grid-item">
         <div class="thumbnail" onclick="window.location='{{=URL('product', args=product.id)}}'" >
             <img src="{{=URL('download', args=product.image)}}" />
