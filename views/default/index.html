@@ -2,33 +2,33 @@
 
 {{logged_in = auth.user_id is not None}}
 
-<script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
 <style>
-
+    body {
+        background-color: #FAFAFA;
+    }
+    .grid-item {
+        float: left;
+    }
     .grid-item .thumbnail {
         overflow: hidden;
+        background-color: white;
     }
     .grid-item .thumbnail img {
         width: 100%;
-    }
-    /* fluid 5 columns */
-    .grid-item {
-        padding: 5px;
-        width: 50%;
-        float: left;
-    }
-    @media screen and (min-width: 568px) {
-        .grid-item { width: 20%; }
     }
 }
 </style>
 
 <script>
-    // init Masonry
-    $(window).load( function() {
-        var elem = document.querySelector('.grid');
-        var msnry = new Masonry( elem, {
-          itemSelector: '.grid-item'
+    $( function() {
+        // init Masonry
+        var $grid = $('.grid').masonry({
+            itemSelector: '.grid-item',
+            gutter: 15
+        });
+        // layout Masonry after each image loads
+        $grid.imagesLoaded().progress( function() {
+          $grid.masonry('layout');
         });
     });
 </script>
@@ -44,11 +44,12 @@
 <h2>Popular products</h2>
 <div class="grid" data-masonry='{ "itemSelector": ".grid-item"}'>
     {{for product in products:}}
-    <div class="grid-item">
+    <div class="grid-item col-xs-6 col-md-4 col-lg-3">
         <div class="thumbnail" onclick="window.location='{{=URL('product', args=product.id)}}'" >
             <img src="{{=URL('download', args=product.image)}}" />
             <div class="caption">
-                <h4>{{=product.name}}</h4>
+                <h3>{{=product.name}} <small>by {{=product.username}}</small></h3>
+                <p class="label label-success" style="font-size:125%;float:right">${{=product.price}}</p>
             </div>
         </div>
         <!--div class="panel panel-default">

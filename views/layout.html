@@ -132,7 +132,11 @@ middle_column = {0: mc0, 1: mc1, 2: mc2}[
 <!-- The javascript =============================== -->
 <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
 <script src="{{=URL('static','js/web2py-bootstrap3.js')}}"></script>
-<!-- Added by August --> <script src="{{=URL('static','js/jquery.js')}}"></script>
+<!-- Added by August -->
+<script src="{{=URL('static','js/jquery.js')}}"></script>
+<script src="{{=URL('static', 'js/masonry.pkgd.min.js')}}"></script>
+<script src="{{=URL('static', 'js/imagesloaded.pkgd.min.js')}}"></script>
+<!-- End Added by August -->
 {{block page_js}}{{end page_js}}
 {{if response.google_analytics_id:}}
 <!-- Analytics ==================================== -->
