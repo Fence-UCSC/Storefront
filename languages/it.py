@@ -190,6 +190,7 @@
 'Powered by': 'Powered by',
 'Preface': 'Preface',
 'previous 100 rows': '100 righe precedenti',
+'Product no longer available': 'Product no longer available',
 'Profile': 'Profilo',
 'Profile updated': 'Profile updated',
 'pygraphviz library not found': 'pygraphviz library not found',

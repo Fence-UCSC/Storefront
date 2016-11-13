@@ -81,7 +81,7 @@ def get_reviews():
         reviews=reviews,
         logged_in=logged_in,
         has_more=has_more,
-        current_user=get_user_name_from_email(auth.user.email) if logged_in else None,
+        current_user=auth.user.id if logged_in else None,
     ))
 
 # Note that we need the URL to be signed, as this changes the db.
@@ -91,6 +91,7 @@ def add_review():
         reviewed_id = request.vars.id,
         title = request.vars.review_title,
         description = request.vars.review_description,
+        vote = request.vars.vote
     )
     t = db.user_review(t_id)
     return response.json(dict(review=t))

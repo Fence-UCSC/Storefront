@@ -89,7 +89,8 @@
 
     <div v-for="review in reviews" class="list-group">
         <div class="list-group-item-heading">${review.title}</div>
-
+        VOTE: ${review.vote}
+        <star-rating v-bind:value="review.vote" :disabled="true"></star-rating>
         <p v-if="!(being_edited == review._idx)" class="alignleft">${review.description}</p><br/>
         <div v-if="(being_edited == review._idx)" id="edit_review_div">
             <form action="#" v-on:submit.prevent="edit_review(review._idx)" class="form-horizontal" enctype="multipart/form-data" method="post">
@@ -108,7 +109,7 @@
             </form>
         </div>
 
-        <div v-if="current_user==review.user_email" class="bottomRow">
+        <div v-if="current_user==review.id" class="bottomRow">
             <i class="fa fa-pencil fa-2x" aria-hidden="true" style="float:right" v-on:click="select_review(review._idx)"></i>
             <i class="fa fa-trash-o fa-2x" style="float:right; padding-right: 15px" v-on:click="delete_review(review._idx)"></i>
             <div style="clear: both;"></div>
