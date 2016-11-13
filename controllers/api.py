@@ -43,7 +43,6 @@ def pretty_date(time=False):
 
     if day_diff == 0:
         if second_diff < 10:
-            logger.info("HEREEEEEEE")
             return "just now"
         if second_diff < 60:
             return str(second_diff) + " seconds ago"
@@ -102,6 +101,7 @@ def get_reviews():
     else:
         average = 0
     logged_in = auth.user_id is not None
+    logger.info(reviews)
     return response.json(dict(
         reviews=reviews,
         logged_in=logged_in,

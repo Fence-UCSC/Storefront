@@ -32,13 +32,13 @@ var app = function() {
     // Get the first 4 reviews from the database
     self.get_reviews = function () {
         $.getJSON(get_reviews_url(0, 4), function (data) {
+            self.vue.number_votes = data.number_votes;
             self.vue.reviews = data.reviews;
             self.vue.has_more = data.has_more;
             self.vue.logged_in = data.logged_in;
             self.vue.current_user = data.current_user;
             self.vue.already_reviewed = data.already_reviewed;
             self.vue.average_vote = data.average_vote;
-            self.vue.number_votes = data.number_votes;
             self.vue.current_name_surname = data.current_user_name;
         })
     };
@@ -49,7 +49,6 @@ var app = function() {
         $.getJSON(get_reviews_url(num_reviews, num_reviews + 4), function (data) {
             self.vue.has_more = data.has_more;
             self.extend(self.vue.reviews, data.reviews);
-            enumerate(self.vue.reviews);
         });
     };
 
@@ -84,6 +83,7 @@ var app = function() {
             });
 
         self.vue.form_review_title = "";
+        //location.reload();
 
 
     };
@@ -139,7 +139,6 @@ var app = function() {
             reviews: [],
             current_review: null,
             stars: null,
-            value: null,
             being_edited: null,
             logged_in: false,
             current_name_surname: null,
@@ -166,9 +165,11 @@ var app = function() {
     });
 
     self.get_reviews();
-    self.vue.$on('update_stars', function (stars) {
-        self.vue.stars = stars;
-        self.get_reviews();
+    self.vue.$on('update_stars', function (stars, disabled) {
+        if (!disabled) {
+            self.vue.stars = stars;
+            self.get_reviews();
+        }
     });
     $("#vue-div").show();
 
@@ -179,18 +180,20 @@ var app = function() {
 Vue.component('star-rating', {
 
   props: {
-    'value': null,
+    'value': Number,
     'name': String,
     'id': String,
     'disabled': Boolean,
     'required': Boolean
   },
 
+
+
   template: '<span class="star-rating">\
         <label class="star-rating__star" v-for="rating in ratings" \
         :class="{\'is-selected\': ((mutableValue >= rating) && mutableValue != null), \'is-disabled\': disabled}" \
         v-on:click="set(rating)" v-on:mouseover="star_over(rating)" v-on:mouseout="star_out">\
-        <input class="star-rating star-rating__checkbox" type="radio" :mutableValue="rating" :name="name" \
+        <input class="star-rating star-rating__checkbox" type="radio" mutable-value="rating" name="name" \
         v-model="mutableValue" :disabled="disabled">★</label></span>',
 
   /*
@@ -202,6 +205,7 @@ Vue.component('star-rating', {
       temp_value: null,
       ratings: [1, 2, 3, 4, 5]
     };
+
   },
 
   methods: {
@@ -234,7 +238,7 @@ Vue.component('star-rating', {
      */
     set: function(value) {
       var self = this;
-      this.$parent.$emit('update_stars', value);
+      this.$parent.$emit('update_stars', value, this.disabled);
 
       if (!this.disabled) {
       	// Make some call to a Laravel API using Vue.Resource
