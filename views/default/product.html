@@ -4,51 +4,89 @@
 
 {{if page_type == 'create':}}
 {{=form}}
-{{elif product is not None:}}
+{{else:}}
+
+<style>
+    #product-view {
+        max-width: 1200px;
+        margin: auto;
+    }
+    #product-image {
+        max-width: 400px;
+        overflow: hidden;
+    }
+    #product-image img {
+        width: 100%;
+    }
+    #product-price {
+        font-size: 170%;
+    }
+    #product-edit {
+        display: none;
+    }
+</style>
+
 <div class="page-header clearfix">
-    <h1 class='pull-left'>{{=product.name}}</h1>
+    <h1 class='pull-left'>{{=product.name}} <small> by {{=product.username}}</small></h1>
+    <span class="pull-right label label-success" id="product-price" style="display:inline-block">
+        ${{=product.price}}
+    </span>
 </div>
-<div id="product_view">
-    <div class="media">
+<div id="product-bar">
+    <ol class="breadcrumb">
+        <li><a href="{{=URL('index')}}">Home</a></li>
+        <li><a href="{{=URL('store', args=product.user_id)}}">{{=product.username}}</a></li>
+        <li>{{=db.category(product.category).name}}</li>
+        <li>{{=product.name}}</li>
+    </ol>
+</div>
+<div id="product-view" class="row">
+    <div id="product-image" class="col-xs-12 col-md-4">
         {{if product.image != '':}}
-        <div class="media-left">
-            <img class="media-object" src="{{=URL('download', args=product.image)}}" style="width: 250px"/>
+        <img class="media-object" src="{{=URL('download', args=product.image)}}"/>
+        {{pass}}
+    </div>
+    <div id="product-sidebar" class="col-xs-12 col-md-8">
+        <p>
+            {{=product.description if product.description != "" else I(T('The product owner has not provided a description.'))}}
+        </p>
+        {{if page_type == "edit":}}
+        <div class="btn-bar">
+            <div class='btn btn-warning edit_button'>
+                Edit
+            </div>
+            <div class='btn btn-danger disable_button'>
+                Mark as {{="sold" if product.status else "unsold"}}
+            </div>
+        </div>
+        {{pass}}
+    </div>
+    <!--div class="media">
+        {{if product.image != '':}}
+        <div class="media-left" id="product-image">
+            <img class="media-object" src="{{=URL('download', args=product.image)}}"/>
         </div>
         {{pass}}
         <div class="media-body">
             <h4 class="media-heading clearfix">
-                <span class="pull-left label label-success" style="display:inline-block">
-                    ${{=product.price}}
-                </span>
+                
             </h4>
-            <!-- The implementation/style of this button is not yet complete -->
             {{if page_type == 'edit':}}
-            <div class="btn-bar">
-                <div class='btn btn-warning edit_button'>
-                    Edit
-                </div>
-                <div class='btn btn-danger disable_button'>
-                    Mark as {{="sold" if product.status else "unsold"}}
-                </div>
-            </div>
             {{pass}}
             <p>
                 Posted by {{=product.username}} <small>#{{=product.user_id}}</small> on {{=product.created_on}}
             </p>
-            {{=product.description}}
         </div>
-    </div>
+    </div-->
 </div>
-<div id="product_edit" style="display:none">
-    {{=form if form is not None else T('ERROR')}}
+<div id="product-edit">
+    {{=form if form is not None else T('ERROR LOADING FORM')}}
 </div>
-{{else:}}
-ERROR
 {{pass}}
 
 <script>
     $('.edit_button').click( function() {
-        $('#product_view').toggle();
-        $('#product_edit').toggle();
+        $('#product-view').toggle();
+        $('#product-edit').toggle();
     });
 </script>
