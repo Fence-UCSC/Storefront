@@ -1,8 +1,6 @@
 // This is the js for the default/index.html view.
 
 
-
-
 var app = function() {
 
     var self = {};
@@ -38,7 +36,10 @@ var app = function() {
             self.vue.has_more = data.has_more;
             self.vue.logged_in = data.logged_in;
             self.vue.current_user = data.current_user;
-            enumerate(self.vue.reviews);
+            self.vue.already_reviewed = data.already_reviewed;
+            self.vue.average_vote = data.average_vote;
+            self.vue.number_votes = data.number_votes;
+            self.vue.current_name_surname = data.current_user_name;
         })
     };
 
@@ -74,22 +75,17 @@ var app = function() {
             {
                 reviewed_id: self.vue.reviewed_id,
                 review_title : self.vue.form_review_title,
-                review_description: self.vue.form_review_description
+                review_description: self.vue.form_review_description,
+                vote: self.vue.stars
             },
             function (data) {
-                $.web2py.enableElement($("#add_review_submit"));
                 self.vue.reviews.unshift(data.review);
                 enumerate(self.vue.reviews);
                 self.get_reviews();
-                console.log(self.vue.stars);
             });
         self.vue.form_review_title = "";
         self.cancel_edit();
 
-    };
-
-    self.update_stars = function(stars) {
-        self.vue.stars = stars;
     };
 
     // Select the review that is being edited
@@ -97,7 +93,7 @@ var app = function() {
         self.vue.is_editing = true;
         self.vue.being_edited = review_idx;
         self.vue.current_review = self.vue.reviews[review_idx];
-        self.vue.form_edit_text = self.vue.current_review.review_title;
+        self.vue.form_edit_text = self.vue.form_review_description;
     };
 
     // Edit a review
@@ -105,10 +101,11 @@ var app = function() {
         $.post(edit_review_url,
             {
                 review_id: self.vue.reviews[review_idx].id,
-                edit_text: self.vue.form_edit_text,
+                edit_text: self.vue.form_review_description,
+                edit_title: self.vue.form_review_title
             },
             function (data) {
-                self.vue.reviews[review_idx].review_title = self.vue.form_edit_text;
+                self.vue.reviews[review_idx].description = self.vue.form_edit_text;
                 self.get_reviews();
             });
         self.vue.form_review_title = "";
@@ -119,10 +116,11 @@ var app = function() {
     };
 
     // Delete a review
-    self.delete_review = function(review_idx) {
-        $.review(del_review_url,
+    self.delete_review = function(reviewer_id, current_user) {
+        $.post(del_review_url,
             {
-                review_id: self.vue.reviews[review_idx].id
+                reviewed_id: reviewer_id,
+                current_user: current_user
             },
             function () {
                 self.vue.reviews.splice(review_idx, 1);
@@ -143,14 +141,19 @@ var app = function() {
             reviews: [],
             current_review: null,
             stars: 1,
+            value: null,
             being_edited: null,
             logged_in: false,
+            current_name_surname: null,
             current_user: null,
             has_more: false,
+            already_reviewed: false,
+            average_vote:2,
+            number_votes:0,
             form_review_title: null,
             form_review_description: null,
             form_edit_text: null,
-            form_created_on: null,
+            form_created_on: null
         },
         methods: {
             get_more: self.get_more,
@@ -160,37 +163,42 @@ var app = function() {
             add_review: self.add_review,
             select_review: self.select_review,
             edit_review: self.edit_review,
-            delete_review: self.delete_review,
+            delete_review: self.delete_review
         }
-
     });
 
     self.get_reviews();
+    self.vue.$on('update_stars', function (stars) {
+        self.vue.stars = stars;
+        self.get_reviews();
+    });
     $("#vue-div").show();
 
- }
+ };
+
 Vue.component('star-rating', {
 
   props: {
-    'name': String,
     'value': null,
+    'name': String,
     'id': String,
     'disabled': Boolean,
     'required': Boolean
   },
 
-  template: '<div class="star-rating">\
+  template: '<span class="star-rating">\
         <label class="star-rating__star" v-for="rating in ratings" \
-        :class="{\'is-selected\': ((value >= rating) && value != null), \'is-disabled\': disabled}" \
+        :class="{\'is-selected\': ((mutableValue >= rating) && mutableValue != null), \'is-disabled\': disabled}" \
         v-on:click="set(rating)" v-on:mouseover="star_over(rating)" v-on:mouseout="star_out">\
-        <input class="star-rating star-rating__checkbox" type="radio" :value="rating" :name="name" \
-        v-model="value" :disabled="disabled">★</label></div>',
+        <input class="star-rating star-rating__checkbox" type="radio" :mutableValue="rating" :name="name" \
+        v-model="mutableValue" :disabled="disabled">★</label></span>',
 
   /*
    * Initial state of the component's data.
    */
   data: function() {
     return {
+      mutableValue: this.value,
       temp_value: null,
       ratings: [1, 2, 3, 4, 5]
     };
@@ -201,12 +209,11 @@ Vue.component('star-rating', {
      * Behaviour of the stars on mouseover.
      */
     star_over: function(index) {
-      //  console.log(self.vue.stars);
       var self = this;
 
       if (!this.disabled) {
-        this.temp_value = this.value;
-        return this.value = index;
+        this.temp_value = this.mutableValuevalue;
+        return this.mutableValue = index;
       }
 
     },
@@ -216,8 +223,9 @@ Vue.component('star-rating', {
      */
     star_out: function() {
       var self = this;
+
       if (!this.disabled) {
-        return this.value = this.temp_value;
+        return this.mutableValue = this.temp_value;
       }
     },
 
@@ -226,17 +234,20 @@ Vue.component('star-rating', {
      */
     set: function(value) {
       var self = this;
+      this.$parent.$emit('update_stars', value);
+
       if (!this.disabled) {
-          console.log("VALUE" + value);
-        this.$emit('update_stars', value);
       	// Make some call to a Laravel API using Vue.Resource
+
         this.temp_value = value;
-        return this.value = value;
+        return this.mutableValue = value;
       }
     }
   }
 
 });
+
+
 
 var APP = null;
 

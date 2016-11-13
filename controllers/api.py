@@ -12,6 +12,15 @@ def get_user_name_from_email(email):
     else:
         return ' '.join([u.first_name, u.last_name])
 
+def get_user_name_from_id(id):
+    """Returns a string corresponding to the user first and last names,
+    given the user email."""
+    u = db(db.auth_user.id == id).select().first()
+    if u is None:
+        return 'None'
+    else:
+        return ' '.join([u.first_name, u.last_name])
+
 def pretty_date(time=False):
     """
     Get a datetime object or a int() Epoch timestamp and return a
@@ -62,26 +71,44 @@ def get_reviews():
     # We just generate a lot of of data.
     reviews = []
     has_more = False
+    sum = 0
+    number_votes = 0
+    already_reviewed = False
     rows = db(db.user_review.reviewed_id == request.vars.id).select(db.user_review.ALL, orderby=~db.user_review.created_on, limitby=(start_idx, end_idx + 1))
+    current_user = auth.user.id if auth.user_id is not None else None
+    if (str(current_user) == request.vars.id):
+        already_reviewed = True
     for i, r in enumerate(rows):
         if i < end_idx - start_idx:
             # Check if I have a track or not.
+            if r.user_id == current_user:
+                already_reviewed = True
+            sum = sum + r.vote
+            number_votes += 1
             t = dict(
                 id = r.user_id,
                 title = r.title,
                 description = r.description,
                 vote = r.vote,
                 created_on_readable = pretty_date(r.created_on),
+                current_user_name=get_user_name_from_id(str(r.user_id)),
             )
             reviews.append(t)
         else:
             has_more = True
+    if len(reviews) > 0:
+        average = sum / len(reviews)
+    else:
+        average = 0
     logged_in = auth.user_id is not None
     return response.json(dict(
         reviews=reviews,
         logged_in=logged_in,
         has_more=has_more,
-        current_user=get_user_name_from_email(auth.user.email) if logged_in else None,
+        current_user=auth.user.id if logged_in else None,
+        average_vote = average,
+        already_reviewed=already_reviewed,
+        number_votes = number_votes,
     ))
 
 # Note that we need the URL to be signed, as this changes the db.
@@ -91,6 +118,8 @@ def add_review():
         reviewed_id = request.vars.id,
         title = request.vars.review_title,
         description = request.vars.review_description,
+        vote = request.vars.vote,
+        user_id = int(session.auth.user.id) if session.auth else None
     )
     t = db.user_review(t_id)
     return response.json(dict(review=t))
@@ -98,12 +127,13 @@ def add_review():
 @auth.requires_signature()
 def edit_review():
     p = db.user_review(request.vars.review_id)
-    p.title = request.vars.edit_text
+    p.title = request.vars.edit_title
+    p.description = request.vars.edit_text
     p.update_record()
     return "ok"
 
 
 @auth.requires_signature()
 def del_review():
-    db(db.user_review.id == request.vars.review_id).delete()
+    db(db.user_review.reviewed_id == request.vars.reviewer_id & db.user_review.user_id == request.vars.current_user).delete()
     return "ok"
