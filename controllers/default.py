@@ -191,11 +191,6 @@ def store():
             redirect(URL('default', 'store'))
         else:
             products = db(db.product.user_id == store).select(orderby=~db.product.created_on)
-            form = SQLFORM(db.user_review, showuser_id=False)
-            form.add_button(T('Cancel'), URL('index'), _class='btn btn-warning')
-            if form is not None and form.process().accepted:
-                session.flash = T('Review Added')
-                redirect(URL('product', args=form.vars.id))
     return dict(stores=stores,products=products)
 
 

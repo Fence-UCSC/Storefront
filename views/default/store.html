@@ -30,12 +30,16 @@
     <div class="page-header clearfix">
         <h1 class='pull-left'>{{=T(store.first_name + ' ' + store.last_name) if store is not None else T('')}}</h1>
     </div>
+<div id="vue-div" style="display:none">
     <div class="well well-lg">
         <p>id: {{=store.id}}</p>
         <p>first_name: {{=store.first_name}}</p>
         <p>last_name: {{=store.last_name}}</p>
         <p>email: {{=store.email}}</p>
         <p>registration_id: {{=store.registration_id}}</p>
+        <p>reputation: <span v-if="number_votes > 0">
+            <star-rating v-bind:value="average_vote" :disabled="true"></star-rating></span><span v-else>No votes found</span> ( ${number_votes} )
+        </p>
     </div>
     <!--<h4>
          Store Location
@@ -60,7 +64,7 @@
         Reviews
     </h4>
 
-    <div id="vue-div" style="display:none">
+
 
         <span v-if="!already_reviewed">
         <div class="button_bar">
@@ -74,7 +78,7 @@
                 <div class="form-group-edit" id="no_table_review_text__row">
                     <div>
                         <input class="form-control string" type="text" name="firstname" v-model="form_review_title" placeholder="Review Title Here" required="required">
-                        <star-rating :value.sync="value" ></star-rating>
+                        <star-rating ></star-rating>
                         <textarea class="form-control string" required="required" id="no_table_review_text" name="album" type="text" v-model="form_review_description" placeholder="Review Content Here"/></textarea>
                         <span class="help-block"></span>
                     </div>
@@ -88,12 +92,16 @@
         </div>
 
 
-    <div v-for="review in reviews" class="list-group">
+    <div v-for="review in reviews" class="panel panel-default">
 
-        <p v-if="logged_in && (current_user == review.user_id)">TRUE</p>
-        <div class="list-group-item-heading">${review.title}</div>
-        VOTE: ${review.vote} CURRENT ${current_user} and USER ${review.id}
-        <star-rating v-bind:value="review.vote" :disabled="true"></star-rating>
+        <div class="panel-heading">
+            <star-rating v-bind:value="review.vote" :disabled="true" style="display: inline-block !important;"></star-rating>
+            <h4 style="display: inline-block !important; font-weight: bold !important;">${review.title}</h4> by
+            ${review.current_user_name}
+        </div>
+        <div class="panel-body">
+        <p class="alignleft">${review.description}</p><br/>
+        <!--
         <p v-if="!(being_edited == review._idx)" class="alignleft">${review.description}</p><br/>
         <div v-if="(being_edited == review._idx)" id="edit_review_div">
             <form action="#" v-on:submit.prevent="edit_review(review._idx)" class="form-horizontal" enctype="multipart/form-data" method="post">
@@ -112,19 +120,19 @@
             </form>
         </div>
 
-        <div v-if="current_user==review.user_id" class="bottomRow">
-            <i class="fa fa-pencil fa-2x" aria-hidden="true" style="float:right" v-on:click="select_review(review._idx)"></i>
-            <i class="fa fa-trash-o fa-2x" style="float:right; padding-right: 15px" v-on:click="delete_review(review._idx)"></i>
-            <div style="clear: both;"></div>
+        div v-if="current_user==review.id">
+            jjbjb
+            <i class="fa fa-pencil fa-2x" aria-hidden="true" style="float:right" v-on:click="select_review(review.reviewed_id, current_user)"></i>
+            <i class="fa fa-trash-o fa-2x" style="float:right; padding-right: 15px" v-on:click="delete_review(review.reviewed_id, current_user)"></i>
+        </div>-->
+        <div>
+            <span v-bind:title="review.created_on">Posted ${review.created_on_readable}</span>
         </div>
-        <div class="bottomRow">
-            <p v-bind:title="review.created_on" class="alignright">Posted ${review.created_on_readable}</p>
         </div>
-                <div style="clear: both;"></div>
     </div>
     <div v-if="has_more" class="show_more">
         <button class="btn btn-default" v-on:click="get_more()">Load more</button>
     </div>
 
-    </div>
+</div>
 {{pass}}

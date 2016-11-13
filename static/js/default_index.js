@@ -37,7 +37,9 @@ var app = function() {
             self.vue.logged_in = data.logged_in;
             self.vue.current_user = data.current_user;
             self.vue.already_reviewed = data.already_reviewed;
-            enumerate(self.vue.reviews);
+            self.vue.average_vote = data.average_vote;
+            self.vue.number_votes = data.number_votes;
+            self.vue.current_name_surname = data.current_user_name;
         })
     };
 
@@ -91,7 +93,7 @@ var app = function() {
         self.vue.is_editing = true;
         self.vue.being_edited = review_idx;
         self.vue.current_review = self.vue.reviews[review_idx];
-        self.vue.form_edit_text = self.vue.current_review.review_title;
+        self.vue.form_edit_text = self.vue.form_review_description;
     };
 
     // Edit a review
@@ -99,10 +101,11 @@ var app = function() {
         $.post(edit_review_url,
             {
                 review_id: self.vue.reviews[review_idx].id,
-                edit_text: self.vue.form_edit_text,
+                edit_text: self.vue.form_review_description,
+                edit_title: self.vue.form_review_title
             },
             function (data) {
-                self.vue.reviews[review_idx].review_title = self.vue.form_edit_text;
+                self.vue.reviews[review_idx].description = self.vue.form_edit_text;
                 self.get_reviews();
             });
         self.vue.form_review_title = "";
@@ -113,10 +116,11 @@ var app = function() {
     };
 
     // Delete a review
-    self.delete_review = function(review_idx) {
-        $.review(del_review_url,
+    self.delete_review = function(reviewer_id, current_user) {
+        $.post(del_review_url,
             {
-                review_id: self.vue.reviews[review_idx].id
+                reviewed_id: reviewer_id,
+                current_user: current_user
             },
             function () {
                 self.vue.reviews.splice(review_idx, 1);
@@ -140,9 +144,12 @@ var app = function() {
             value: null,
             being_edited: null,
             logged_in: false,
+            current_name_surname: null,
             current_user: null,
             has_more: false,
             already_reviewed: false,
+            average_vote:2,
+            number_votes:0,
             form_review_title: null,
             form_review_description: null,
             form_edit_text: null,
@@ -179,12 +186,12 @@ Vue.component('star-rating', {
     'required': Boolean
   },
 
-  template: '<div class="star-rating">\
+  template: '<span class="star-rating">\
         <label class="star-rating__star" v-for="rating in ratings" \
         :class="{\'is-selected\': ((mutableValue >= rating) && mutableValue != null), \'is-disabled\': disabled}" \
         v-on:click="set(rating)" v-on:mouseover="star_over(rating)" v-on:mouseout="star_out">\
         <input class="star-rating star-rating__checkbox" type="radio" :mutableValue="rating" :name="name" \
-        v-model="mutableValue" :disabled="disabled">★</label></div>',
+        v-model="mutableValue" :disabled="disabled">★</label></span>',
 
   /*
    * Initial state of the component's data.
