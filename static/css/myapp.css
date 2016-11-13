@@ -66,3 +66,5 @@ div#search-result-price {
 .star-rating__star.is-disabled:hover {
   cursor: default;
 }
+
+[v-cloak] {display: none}

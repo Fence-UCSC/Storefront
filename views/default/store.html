@@ -2,7 +2,7 @@
 
 {{block head}}
 
-<script>
+<script xmlns="http://www.w3.org/1999/html">
     var reviews_url = "{{=URL('api', 'get_reviews', vars=dict(id=request.args(0)) )}}";
     var add_review_url = "{{=URL('api', 'add_review', user_signature=True, hash_vars=False, vars=dict(id=request.args(0)) )}}";
     var del_review_url = "{{=URL('api', 'del_review', user_signature=True)}}";
@@ -30,15 +30,15 @@
     <div class="page-header clearfix">
         <h1 class='pull-left'>{{=T(store.first_name + ' ' + store.last_name) if store is not None else T('')}}</h1>
     </div>
-<div id="vue-div" style="display:none">
+<div id="vue-div" v-cloak>
     <div class="well well-lg">
         <p>id: {{=store.id}}</p>
         <p>first_name: {{=store.first_name}}</p>
         <p>last_name: {{=store.last_name}}</p>
         <p>email: {{=store.email}}</p>
         <p>registration_id: {{=store.registration_id}}</p>
-        <p>reputation: <span v-if="number_votes > 0">
-            <star-rating v-bind:value="average_vote" :disabled="true"></star-rating></span><span v-else>No votes found</span> ( ${number_votes} )
+        <p>reputation: <span v-if="number_votes > 0" v-cloa>
+            <star-rating v-bind:value="average_vote" :disabled="true"></star-rating></span><span v-else v-cloak>No votes found</span> ( ${number_votes} )
         </p>
     </div>
     <!--<h4>
@@ -66,12 +66,15 @@
 
 
 
-        <span v-if="!already_reviewed">
-        <div class="button_bar">
-            <button v-if="!is_adding_review" class="btn btn-danger btn-sm" v-on:click="add_review_button()" v-bind:class="{'disabled': !logged_in}">
-            Add Review
-            </button>
-        </div></span>
+        <span v-if="logged_in" v-cloak>
+            <span v-if="!already_reviewed">
+            <div class="button_bar">
+                <button v-if="!is_adding_review" class="btn btn-danger btn-sm" v-on:click="add_review_button()">
+                Add Review
+                </button>
+            </div></span>
+        </span>
+
         <div v-if="is_adding_review" id="add_review_div" style="margin-bottom: 10px">
             <form action="#" v-on:submit.prevent="add_review" class="form-horizontal" enctype="multipart/form-data" method="post">
 
@@ -101,9 +104,8 @@
         </div>
         <div class="panel-body">
         <p class="alignleft">${review.description}</p><br/>
-        <!--
         <p v-if="!(being_edited == review._idx)" class="alignleft">${review.description}</p><br/>
-        <div v-if="(being_edited == review._idx)" id="edit_review_div">
+        <div v-if="!(being_edited == review._idx)" id="edit_review_div">
             <form action="#" v-on:submit.prevent="edit_review(review._idx)" class="form-horizontal" enctype="multipart/form-data" method="post">
 
                 <div class="formEdit" id="no_table_review_text__row">
@@ -120,11 +122,11 @@
             </form>
         </div>
 
-        div v-if="current_user==review.id">
-            jjbjb
+        <div v-if="current_user==review.id">
             <i class="fa fa-pencil fa-2x" aria-hidden="true" style="float:right" v-on:click="select_review(review.reviewed_id, current_user)"></i>
+            ${review.reviewed_id}
             <i class="fa fa-trash-o fa-2x" style="float:right; padding-right: 15px" v-on:click="delete_review(review.reviewed_id, current_user)"></i>
-        </div>-->
+        </div>
         <div>
             <span v-bind:title="review.created_on">Posted ${review.created_on_readable}</span>
         </div>

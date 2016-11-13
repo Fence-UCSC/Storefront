@@ -92,6 +92,7 @@ def get_reviews():
                 vote = r.vote,
                 created_on_readable = pretty_date(r.created_on),
                 current_user_name=get_user_name_from_id(str(r.user_id)),
+                reviewed_id=r.reviewed_id,
             )
             reviews.append(t)
         else:
@@ -135,5 +136,5 @@ def edit_review():
 
 @auth.requires_signature()
 def del_review():
-    db(db.user_review.reviewed_id == request.vars.reviewer_id & db.user_review.user_id == request.vars.current_user).delete()
+    db((db.user_review.reviewed_id == request.vars.reviewed_id) & (db.user_review.user_id == request.vars.current_user)).delete()
     return "ok"

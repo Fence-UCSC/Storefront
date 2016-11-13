@@ -70,7 +70,8 @@ var app = function() {
 
     // Add a review to the database and vue model
     self.add_review = function () {
-        self.vue.add_review_button();
+        self.vue.logged_in = false;
+        self.vue.is_adding_review = false;
         $.post(add_review_url,
             {
                 reviewed_id: self.vue.reviewed_id,
@@ -79,12 +80,11 @@ var app = function() {
                 vote: self.vue.stars
             },
             function (data) {
-                self.vue.reviews.unshift(data.review);
-                enumerate(self.vue.reviews);
                 self.get_reviews();
             });
+
         self.vue.form_review_title = "";
-        self.cancel_edit();
+
 
     };
 
@@ -116,15 +116,13 @@ var app = function() {
     };
 
     // Delete a review
-    self.delete_review = function(reviewer_id, current_user) {
+    self.delete_review = function(reviewed_id, current_user) {
         $.post(del_review_url,
             {
-                reviewed_id: reviewer_id,
+                reviewed_id: reviewed_id,
                 current_user: current_user
             },
             function () {
-                self.vue.reviews.splice(review_idx, 1);
-                enumerate(self.vue.reviews);
                 self.get_reviews();
             }
         )
@@ -140,7 +138,7 @@ var app = function() {
             is_editing: false,
             reviews: [],
             current_review: null,
-            stars: 1,
+            stars: null,
             value: null,
             being_edited: null,
             logged_in: false,
@@ -148,8 +146,8 @@ var app = function() {
             current_user: null,
             has_more: false,
             already_reviewed: false,
-            average_vote:2,
-            number_votes:0,
+            average_vote: null,
+            number_votes: null,
             form_review_title: null,
             form_review_description: null,
             form_edit_text: null,
@@ -173,6 +171,8 @@ var app = function() {
         self.get_reviews();
     });
     $("#vue-div").show();
+
+
 
  };
 
