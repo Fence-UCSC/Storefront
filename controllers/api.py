@@ -62,10 +62,14 @@ def get_reviews():
     # We just generate a lot of of data.
     reviews = []
     has_more = False
+    already_reviewed = False
     rows = db(db.user_review.reviewed_id == request.vars.id).select(db.user_review.ALL, orderby=~db.user_review.created_on, limitby=(start_idx, end_idx + 1))
+    current_user = auth.user.id if auth.user_id is not None else None
     for i, r in enumerate(rows):
         if i < end_idx - start_idx:
             # Check if I have a track or not.
+            if r.user_id == current_user:
+                already_reviewed = True
             t = dict(
                 id = r.user_id,
                 title = r.title,
@@ -82,6 +86,7 @@ def get_reviews():
         logged_in=logged_in,
         has_more=has_more,
         current_user=auth.user.id if logged_in else None,
+        already_reviewed=already_reviewed,
     ))
 
 # Note that we need the URL to be signed, as this changes the db.
@@ -91,7 +96,8 @@ def add_review():
         reviewed_id = request.vars.id,
         title = request.vars.review_title,
         description = request.vars.review_description,
-        vote = request.vars.vote
+        vote = request.vars.vote,
+        user_id = int(session.auth.user.id) if session.auth else None
     )
     t = db.user_review(t_id)
     return response.json(dict(review=t))

@@ -62,11 +62,12 @@
 
     <div id="vue-div" style="display:none">
 
-        <div v-if="logged_in" class="button_bar">
+        <span v-if="!already_reviewed">
+        <div class="button_bar">
             <button v-if="!is_adding_review" class="btn btn-danger btn-sm" v-on:click="add_review_button()" v-bind:class="{'disabled': !logged_in}">
             Add Review
             </button>
-        </div>
+        </div></span>
         <div v-if="is_adding_review" id="add_review_div" style="margin-bottom: 10px">
             <form action="#" v-on:submit.prevent="add_review" class="form-horizontal" enctype="multipart/form-data" method="post">
 
@@ -88,8 +89,10 @@
 
 
     <div v-for="review in reviews" class="list-group">
+
+        <p v-if="logged_in && (current_user == review.user_id)">TRUE</p>
         <div class="list-group-item-heading">${review.title}</div>
-        VOTE: ${review.vote}
+        VOTE: ${review.vote} CURRENT ${current_user} and USER ${review.id}
         <star-rating v-bind:value="review.vote" :disabled="true"></star-rating>
         <p v-if="!(being_edited == review._idx)" class="alignleft">${review.description}</p><br/>
         <div v-if="(being_edited == review._idx)" id="edit_review_div">
@@ -109,7 +112,7 @@
             </form>
         </div>
 
-        <div v-if="current_user==review.id" class="bottomRow">
+        <div v-if="current_user==review.user_id" class="bottomRow">
             <i class="fa fa-pencil fa-2x" aria-hidden="true" style="float:right" v-on:click="select_review(review._idx)"></i>
             <i class="fa fa-trash-o fa-2x" style="float:right; padding-right: 15px" v-on:click="delete_review(review._idx)"></i>
             <div style="clear: both;"></div>

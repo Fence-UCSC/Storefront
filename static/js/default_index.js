@@ -36,6 +36,7 @@ var app = function() {
             self.vue.has_more = data.has_more;
             self.vue.logged_in = data.logged_in;
             self.vue.current_user = data.current_user;
+            self.vue.already_reviewed = data.already_reviewed;
             enumerate(self.vue.reviews);
         })
     };
@@ -141,6 +142,7 @@ var app = function() {
             logged_in: false,
             current_user: null,
             has_more: false,
+            already_reviewed: false,
             form_review_title: null,
             form_review_description: null,
             form_edit_text: null,
