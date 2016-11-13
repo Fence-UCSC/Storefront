@@ -25,22 +25,38 @@ def geolocation():
 
 
 def search():
+    results_per_page = 20
+    start_idx = (int(request.vars.page)-1) * results_per_page if request.vars.page is not None else 0
+    end_idx = int(request.vars.page) * results_per_page if request.vars.page is not None else results_per_page
+
     search_key = request.vars.search_key
     search_option = request.vars.search_options
     rows = ''
+    page_result = ''
 
     if search_key is '':
         redirect(URL('search'))
     elif search_key is not None:
         if search_option == 'user':
             rows = db(db.product.username.contains(search_key)).select()
+            page_result = db(db.product.username.contains(search_key)).select(limitby=(start_idx, end_idx))
         else:
             rows = db(db.product.name.contains(search_key)).select()
+            page_result = db(db.product.name.contains(search_key)).select(limitby=(start_idx, end_idx))
 
 
-    num_of_result = len(rows)
+    total_results = len(rows)
 
-    return dict(results=rows, search_key=search_key, num_of_result=num_of_result)
+    # decide the amounts of page
+    if (total_results % results_per_page) is 0:
+        num_of_page = total_results / results_per_page
+    else:
+        num_of_page = 1 + (total_results / results_per_page)
+
+    return dict(results=page_result,
+                search_key=search_key,
+                total_results=total_results,
+                num_of_page=num_of_page)
 
 
 def pretty_date(time=False):
