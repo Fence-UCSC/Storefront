@@ -31,14 +31,17 @@ var app = function() {
 
     // Get the first 4 reviews from the database
     self.get_reviews = function () {
+        self.vue.reviews = [];
+        self.vue.average_vote = null;
+        self.vue.number_votes = null,
         $.getJSON(get_reviews_url(0, 4), function (data) {
+            self.vue.average_vote = data.average_vote;
             self.vue.number_votes = data.number_votes;
             self.vue.reviews = data.reviews;
             self.vue.has_more = data.has_more;
             self.vue.logged_in = data.logged_in;
             self.vue.current_user = data.current_user;
             self.vue.already_reviewed = data.already_reviewed;
-            self.vue.average_vote = data.average_vote;
             self.vue.current_name_surname = data.current_user_name;
         })
     };
@@ -83,9 +86,6 @@ var app = function() {
             });
 
         self.vue.form_review_title = "";
-        //location.reload();
-
-
     };
 
     // Select the review that is being edited
@@ -145,7 +145,7 @@ var app = function() {
             current_user: null,
             has_more: false,
             already_reviewed: false,
-            average_vote: null,
+            average_vote: 0,
             number_votes: null,
             form_review_title: null,
             form_review_description: null,
@@ -168,7 +168,6 @@ var app = function() {
     self.vue.$on('update_stars', function (stars, disabled) {
         if (!disabled) {
             self.vue.stars = stars;
-            self.get_reviews();
         }
     });
     $("#vue-div").show();

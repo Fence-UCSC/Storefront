@@ -99,6 +99,7 @@
 'Enter an integer between %(min)g and %(max)g': 'Enter an integer between %(min)g and %(max)g',
 'enter an integer between %(min)g and %(max)g': 'inserisci un intero tra %(min)g e %(max)g',
 'ERROR': 'ERROR',
+'ERROR LOADING FORM': 'ERROR LOADING FORM',
 'Errors': 'Errori',
 'Errors in form, please check it out.': 'Errori nel form, ricontrollalo',
 'export as csv file': 'esporta come file CSV',

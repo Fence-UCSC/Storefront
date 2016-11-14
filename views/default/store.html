@@ -38,7 +38,7 @@
         <p>email: {{=store.email}}</p>
         <p>registration_id: {{=store.registration_id}}</p>
         <p>reputation:
-            <star-rating v-if="number_votes > 0" v-cloak :value="average_vote" :disabled="true"></star-rating>
+            <star-rating :value="average_vote" v-if="number_votes > 0" :disabled="true"></star-rating>
             <span v-if="number_votes <= 0" v-cloak>No votes found</span> ( ${number_votes} )
         </p>
     </div>
@@ -82,7 +82,7 @@
                 <div class="form-group-edit" id="no_table_review_text__row">
                     <div>
                         <input class="form-control string" type="text" name="firstname" v-model="form_review_title" placeholder="Review Title Here" required="required">
-                        <star-rating :value="0"></star-rating>
+                        <star-rating></star-rating>
                         <textarea class="form-control string" required="required" id="no_table_review_text" name="album" type="text" v-model="form_review_description" placeholder="Review Content Here"/></textarea>
                         <span class="help-block"></span>
                     </div>
@@ -99,6 +99,7 @@
     <div v-for="review in reviews" class="panel panel-default">
 
         <div class="panel-heading">
+            ${review.vote}
             <star-rating :value="review.vote" :disabled="true" style="display: inline-block !important;"></star-rating>
             <h4 style="display: inline-block !important; font-weight: bold !important;">${review.title}</h4> by
             ${review.current_user_name}
