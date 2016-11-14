@@ -94,6 +94,8 @@ def get_reviews():
                 reviewed_id=r.reviewed_id,
             )
             reviews.append(t)
+            logger.info("LOL")
+            logger.info(reviews)
         else:
             has_more = True
     if len(reviews) > 0:
@@ -101,7 +103,6 @@ def get_reviews():
     else:
         average = 0
     logged_in = auth.user_id is not None
-    logger.info(reviews)
     return response.json(dict(
         reviews=reviews,
         logged_in=logged_in,

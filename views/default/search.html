@@ -5,12 +5,17 @@
     <div class="searchForm_title"> Search: </div>
 
     <form>
-        <select name="search_options">
-            <option value="all" selected>All Categories</option>
+        <select id="search_options" name="search_options">
+            <option value="all">All Categories</option>
             <option value="user">Sellers</option>
+
+            {{for category in search_catetories:}}
+                <option value={{=category.id}}> {{=category.name}} </option>
+            {{pass}}
+
         </select>
 
-        <input type="text" name="search_key" placeholder="Search"/>
+        <input id="search_key2" type="text" name="search_key" placeholder="Search"/>
     </form>
 
 </div>
@@ -18,10 +23,10 @@
 <!-- Result -->
 <h2> Results: </h2>
 <div id="search_results_div" class="searchResult">
-    {{if num_of_result is 1:}}
-        <p> {{=num_of_result}} result for <strong>{{=search_key}}</strong> </p>
-    {{elif num_of_result > 1:}}
-        <p> {{=num_of_result}} results for <strong>{{=search_key}}</strong> </p>
+    {{if total_results is 1:}}
+        <p> {{=total_results}} result for <strong>{{=search_key}}</strong> </p>
+    {{elif total_results > 1:}}
+        <p> {{=total_results}} results for <strong>{{=search_key}}</strong> </p>
     {{else:}}
         <h3>No Matched Product</h3>
     {{pass}}
@@ -45,7 +50,45 @@
         </ul>
         {{pass}}
 
+        <!-- pagination -->
+        <div id="search_result_pagination" class="center">
+            <ul class="pagination">
+                {{for p in range(0, num_of_page):}}
+                    <li id="result_pg{{=p+1}}" class="page-item">
+                        <a href="{{=URL('search', vars=dict(request.get_vars, page=p+1))}}"> {{=p+1}} </a>
+                    </li>
+                {{pass}}
+            </ul>
+        </div>
     {{pass}}
 
 </div>
 
+<script>
+    $("#result_pg1").addClass("active");
+
+    // set the value of search option and the input field
+    var parms = window.location.search.substr(1).split('&');
+    for (var i=0 ; i<parms.length; i++) {
+        var p = parms[i].split('=');
+
+        if (p[0]=="search_key") {
+            $("#search_key").val(p[1]);
+
+            //TBD: input field in search page
+            $("#search_key2").val(p[1]);
+        }
+
+        if (p[0]=="search_options") {
+
+            //TBD: category option in search page
+            $("#search_options").val(p[1]);
+        }
+
+        if (p[0]=="page" && p[1]>1) {
+            page_id = "#result_pg" + p[1];
+            $("#result_pg1").removeClass("active");
+            $(page_id).addClass("active");
+        }
+    }
+</script>
