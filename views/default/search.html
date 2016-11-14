@@ -37,13 +37,25 @@
             <div id="result-group-item">
                 <div class="media">
                     <div id="search-result-img-container" class="media-left">
-                        <img id="search-result-img" src="{{=URL('download', args=result.image)}}" />
+                         <a href="{{=URL('default', 'product', args=result.id)}}">
+                             <img id="search-result-img" src="{{=URL('download', args=result.image)}}" />
+                         </a>
                     </div>
 
                     <div class="media-body">
-                        <div id="search-result-pname"> {{=result.name}} </div>
+                        <div id="search-result-pname">
+                            <a href="{{=URL('default', 'product', args=result.id)}}" style="text-decoration:none">
+                                {{=result.name}}
+                            </a>
+                        </div>
+
                         <div id="search-result-uname"> by: {{=result.username}} </div>
-                        <div id="search-result-price" class="label label-success"> {{=result.price}} </div>
+
+                        <div id="search-result-price" class="label label-success">
+                            <a href="{{=URL('default', 'product', args=result.id)}}" style="text-decoration: none; color:white">
+                                {{=result.price}}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
