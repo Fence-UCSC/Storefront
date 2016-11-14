@@ -99,7 +99,7 @@ def index():
 
     # Gets the list of all checklists for the user.
     products = db(db.product.status == True).select(
-        orderby=~db.product.created_on, limitby=(0, 10)
+        orderby=~db.product.created_on, limitby=(0, 20)
     )
 
     return dict(message=T('Welcome to web2py!'), products=products, date=pretty_date, email_to_name=email_to_name)
@@ -144,7 +144,7 @@ def product():
     elif request.args(0) == "add":
         if auth.user_id is None:
             session.flash = T('Not logged in')
-            redirect(URL('user', vars={'_next': 'product'}))
+            redirect(URL('user', vars={'_next': URL('product', 'add')}))
         page_type = 'create'
         form = SQLFORM(db.product, showuser_id=False)
         form.add_button(T('Cancel'),URL('index'),_class='btn btn-warning')
