@@ -73,11 +73,13 @@
             //TBD: input field in search page
             $("#search_key2").val(p[1]);
         }
-        if (p[0]=="search_options")
+
+        if (p[0]=="search_options") {
 
             //TBD: category option in search page
             $("#search_options").val(p[1]);
         }
+
         if (p[0]=="page" && p[1]>1) {
             page_id = "#result_pg" + p[1];
             $("#result_pg1").removeClass("active");

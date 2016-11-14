@@ -47,7 +47,7 @@ def search():
 
     total_results = len(rows)
 
-    # decide the amounts of page
+    # decide the amount of pages
     if (total_results % results_per_page) is 0:
         num_of_page = total_results / results_per_page
     else:
