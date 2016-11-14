@@ -6,8 +6,13 @@
 
     <form>
         <select id="search_options" name="search_options">
-            <option value="all" selected>All Categories</option>
+            <option value="all">All Categories</option>
             <option value="user">Sellers</option>
+
+            {{for category in search_catetories:}}
+                <option value={{=category.id}}> {{=category.name}} </option>
+            {{pass}}
+
         </select>
 
         <input id="search_key2" type="text" name="search_key" placeholder="Search"/>

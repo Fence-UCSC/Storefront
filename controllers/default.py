@@ -25,29 +25,36 @@ def geolocation():
 
 
 def search():
+    # setting number of results per page
     results_per_page = 20
     start_idx = (int(request.vars.page)-1) * results_per_page if request.vars.page is not None else 0
     end_idx = int(request.vars.page) * results_per_page if request.vars.page is not None else results_per_page
 
+    # search categories form database
+    search_categories = db().select(db.category.ALL)
+
+    # performing search as user required
     search_key = request.vars.search_key
     search_option = request.vars.search_options
     rows = ''
     page_result = ''
 
     if search_key is '':
-        redirect(URL('search'))
+        redirect(URL('default', 'search'))
     elif search_key is not None:
-        if search_option == 'user':
+        if search_option is None or search_option == 'all':
+            rows = db(db.product.name.contains(search_key)).select()
+            page_result = db(db.product.name.contains(search_key)).select(limitby=(start_idx, end_idx))
+        elif search_option == 'user':
             rows = db(db.product.username.contains(search_key)).select()
             page_result = db(db.product.username.contains(search_key)).select(limitby=(start_idx, end_idx))
         else:
-            rows = db(db.product.name.contains(search_key)).select()
-            page_result = db(db.product.name.contains(search_key)).select(limitby=(start_idx, end_idx))
-
-
-    total_results = len(rows)
+            q = (db.product.username.contains(search_key)) and (db.product.category == search_option)
+            rows = db(q).select()
+            page_result = db(q).select(limitby=(start_idx, end_idx))
 
     # decide the amount of pages
+    total_results = len(rows)
     if (total_results % results_per_page) is 0:
         num_of_page = total_results / results_per_page
     else:
@@ -56,7 +63,8 @@ def search():
     return dict(results=page_result,
                 search_key=search_key,
                 total_results=total_results,
-                num_of_page=num_of_page)
+                num_of_page=num_of_page,
+                search_catetories=search_categories)
 
 
 def pretty_date(time=False):
