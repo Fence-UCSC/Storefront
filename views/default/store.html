@@ -42,13 +42,13 @@
             <span v-if="number_votes <= 0" v-cloak>No votes found</span> ( ${number_votes} )
         </p>
     </div>
-    <!--<h4>
+    <h4>
          Store Location
      </h4>
      <div class="geolocation">
-         <iframe width="90%" height="500px" src="http://127.0.0.1:8000/Fence/default/geolocation" name="targetframe" allowTransparency="true" scrolling="no" frameborder="0" >
+         <iframe width="90%" height="500px" src="{{=URL('default', 'geolocation')}}" name="targetframe" allowTransparency="true" scrolling="no" frameborder="0" >
      </iframe>
-     </div>-->
+     </div>
     <h4>
         Recent products
     </h4>
@@ -99,7 +99,6 @@
     <div v-for="review in reviews" class="panel panel-default">
 
         <div class="panel-heading">
-            ${review.vote}
             <star-rating :value="review.vote" :disabled="true" style="display: inline-block !important;"></star-rating>
             <h4 style="display: inline-block !important; font-weight: bold !important;">${review.title}</h4> by
             ${review.current_user_name}
