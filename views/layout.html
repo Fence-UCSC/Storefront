@@ -76,31 +76,30 @@ middle_column = {0: mc0, 1: mc1, 2: mc2}[
             <!-- Search feature in navbar -->
             <div>
                 <form class="navbar-form navbar-right">
-                    <div class="input-group">
-                        <div class="input-group-btn search-panel">
-
+                        <div class="input-group">
                             <!-- Category options menu-->
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <span id="search_tag">All</span> <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li> <a href="#all">All Categories</a> </li>
-                                <li> <a href="#seller">Sellers</a> </li>
-                                <li class="divider"></li>
-                                {{search_categories = db().select(db.category.ALL)}}
-                                {{for category in search_categories:}}
-                                    <li> <a href="#{{=category.id}}">{{=category.name}}</a> </li>
-                                {{pass}}
-                            </ul>
-                        </div>
+                            <div class="input-group-btn search-panel">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span id="search_tag">All</span> <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu scrollable-menu" role="menu">
+                                    <li> <a href="#all">All Categories</a> </li>
+                                    <li> <a href="#seller">Sellers</a> </li>
+                                    <li class="divider"></li>
+                                    {{search_categories = db().select(db.category.ALL)}}
+                                    {{for category in search_categories:}}
+                                        <li> <a href="#{{=category.id}}">{{=category.name}}</a> </li>
+                                    {{pass}}
+                                </ul>
+                            </div>
 
-                        <!-- Search input box and Submit button -->
-                        <div class="form-group">
-                            <input type="hidden" name="search_options" value="all" id="search_options">
-                            <input id="search_key" type="text" class="form-control" placeholder="Search" name="search_key">
+                            <!-- Search input box and Submit button -->
+                            <div class="form-group">
+                                <input type="hidden" name="search_options" value="all" id="search_options">
+                                <input id="search_key" type="text" class="form-control" placeholder="Search" name="search_key">
+                            </div>
+                            <button type="submit" class="btn btn-default" formaction="{{=URL('search')}}"><i class="fa fa-search"></i></button>
                         </div>
-                        <button type="submit" class="btn btn-default" formaction="{{=URL('search')}}"><i class="fa fa-search"></i></button>
-                    </div>
                 </form>
             </div>
 

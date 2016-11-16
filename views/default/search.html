@@ -1,25 +1,5 @@
 {{extend 'layout.html'}}
 
-<!-- Search
-<div class="search_div">
-    <div class="searchForm_title"> Search: </div>
-
-    <form>
-        <select id="search_options2" name="search_options">
-            <option value="all">All Categories</option>
-            <option value="user">Sellers</option>
-
-            {{for category in search_categories:}}
-                <option value={{=category.id}}> {{=category.name}} </option>
-            {{pass}}
-        </select>
-
-        <input id="search_key2" type="text" name="search_key" placeholder="Search"/>
-    </form>
-
-</div>
--->
-
 <!-- Result -->
 <div id="search_result_title_div">
     {{if total_results is 1 or 0:}}
