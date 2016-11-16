@@ -3,6 +3,30 @@
   color: #bb8833;
 }
 
+.scrollable-menu {
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow: auto;
+}
+
+.scrollable-menu::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 4px;
+}
+
+.scrollable-menu::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: lightgray;
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.75);
+}
+
+div#search_result_title_div {
+  padding: 5px;
+  border-bottom: 1px solid #e4e4e4;
+  font-size: small;
+}
+
 div#search_results_div {
   margin: 15px 50px 60px 50px;
 }
@@ -19,15 +43,24 @@ img#search-result-img {
   height: 150px;
 }
 
-div#search-result-pname {
-  color: #0066c0;
-  font-size: 19px;
+div#search-result-subtitle {
+  color: #808080;
+  font-size: 12px;
 }
 
-div#search-result-uname {
-  color: #555555;
-  font-size: 11px;
-  margin-bottom: 5px;
+div#search-result-pname {
+  color: #0654ba;
+  font-size: 22px;
+}
+
+div#search-result-uname-div {
+  margin: 3px 0px 8px 0px;
+}
+
+span#search-result-uname {
+  color: white;
+  font-size: 13px;
+  margin-bottom: 7px;
 }
 
 div#search-result-price {
