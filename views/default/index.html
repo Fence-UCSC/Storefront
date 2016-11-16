@@ -16,9 +16,8 @@
     .grid-item .thumbnail img {
         width: 100%;
     }
-    .product-price {
+    .product-price, .product-user {
         font-size: 100%;
-        float: right;
     }
 }
 </style>
@@ -52,16 +51,17 @@
         <div class="thumbnail" onclick="window.location='{{=URL('product', args=product.id)}}'" >
             <img src="{{=URL('download', args=product.image)}}" />
             <div class="caption">
-                <h3>
-                    {{=product.name}}
-                    <small> by
-                     <a class="label label-default" href="{{=URL('store', args=product.user_id)}}">
-                        <i class="fa fa-user"></i> {{=product.username}}</a>
-                    </small>
-                </h3>
+                <h3>{{=product.name}}</h3>
                 <div class="clearfix">
-                    <p class="pull-left"><i class="fa fa-clock-o"></i> {{=pretty_date(product.created_on)}}</p>
-                    <p class="label label-success product-price pull-right">${{=product.price}}</p>
+                    <p>
+                        <a class="product-user label label-default" href="{{=URL('store', args=product.user_id)}}">
+                            <i class="fa fa-user"></i> {{=product.username}}
+                        </a>
+                    </p>
+                </div>
+                <div class="clearfix">
+                    <p class="label label-success product-price pull-left">${{=product.price}}</p>
+                    <p class="pull-right"><i class="fa fa-clock-o"></i> {{=pretty_date(product.created_on)}}</p>
                 </div>
             </div>
         </div>
