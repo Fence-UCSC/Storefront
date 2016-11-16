@@ -30,8 +30,8 @@ response.google_analytics_id = None
 # ----------------------------------------------------------------------------------------------------------------------
 
 response.menu = [
-    (T('Stores'), False, URL('store')),
-    (T('Sell'), False, URL('product'))
+    ((T('Stores '), I(_class="fa fa-shopping-bag")), False, URL('store')),
+    ((T('Sell '), I(_class="fa fa-upload")), False, URL('product', 'add'))
 ]
 
 DEVELOPMENT_MENU = True
@@ -51,9 +51,9 @@ def _():
     # useful links to internal and external resources
     # ------------------------------------------------------------------------------------------------------------------
     response.menu += [
-        (T('Developer'), False, '#', [
-            (T('Admin'), False, URL('admin', 'default', 'site')),
-            (T('Repo'), False, 'http://github.com/Fence-UCSC/Storefront'),
+        ((T('Developer '), I(_class='fa fa-cog')), False, '#', [
+            ((T('Admin '), I(_class='fa fa-code-fork')), False, URL('admin', 'default', 'site')),
+            ((T('Repo '), I(_class='fa fa-github')), False, 'http://github.com/Fence-UCSC/Storefront'),
             LI(_class="divider"),
             (T('Design'), False, URL('admin', 'default', 'design/%s' % app)),
             LI(_class="divider"),
