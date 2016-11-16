@@ -30,7 +30,7 @@ def search():
     start_idx = (int(request.vars.page)-1) * results_per_page if request.vars.page is not None else 0
     end_idx = int(request.vars.page) * results_per_page if request.vars.page is not None else results_per_page
 
-    # search categories form database
+    # get search categories form database
     search_categories = db().select(db.category.ALL)
 
     # performing search as user required
@@ -45,7 +45,7 @@ def search():
         if search_option is None or search_option == 'all':
             rows = db(db.product.name.contains(search_key)).select()
             page_result = db(db.product.name.contains(search_key)).select(limitby=(start_idx, end_idx))
-        elif search_option == 'user':
+        elif search_option == 'seller':
             rows = db(db.product.username.contains(search_key)).select()
             page_result = db(db.product.username.contains(search_key)).select(limitby=(start_idx, end_idx))
         else:
@@ -64,7 +64,7 @@ def search():
                 search_key=search_key,
                 total_results=total_results,
                 num_of_page=num_of_page,
-                search_catetories=search_categories)
+                search_categories=search_categories)
 
 
 def pretty_date(time=False):

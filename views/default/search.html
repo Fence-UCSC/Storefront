@@ -1,24 +1,24 @@
 {{extend 'layout.html'}}
 
-<!-- Search -->
+<!-- Search
 <div class="search_div">
     <div class="searchForm_title"> Search: </div>
 
     <form>
-        <select id="search_options" name="search_options">
+        <select id="search_options2" name="search_options">
             <option value="all">All Categories</option>
             <option value="user">Sellers</option>
 
-            {{for category in search_catetories:}}
+            {{for category in search_categories:}}
                 <option value={{=category.id}}> {{=category.name}} </option>
             {{pass}}
-
         </select>
 
         <input id="search_key2" type="text" name="search_key" placeholder="Search"/>
     </form>
 
 </div>
+-->
 
 <!-- Result -->
 <h2> Results: </h2>
@@ -86,15 +86,13 @@
 
         if (p[0]=="search_key") {
             $("#search_key").val(p[1]);
-
-            //TBD: input field in search page
-            $("#search_key2").val(p[1]);
         }
 
         if (p[0]=="search_options") {
-
-            //TBD: category option in search page
-            $("#search_options").val(p[1]);
+            //TBC: set the search tag in navBar
+            var tag = $("a[href='#" + p[1] + "']").parent();
+            $("#search_tag").text(tag.text());
+            $('.input-group #search_options').val(p[1]);
         }
 
         if (p[0]=="page" && p[1]>1) {
