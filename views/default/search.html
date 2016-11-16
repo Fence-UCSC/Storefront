@@ -21,7 +21,7 @@
 -->
 
 <!-- Result -->
-<h2> Results: </h2>
+<h3> Results: </h3>
 <div id="search_results_div" class="searchResult">
     {{if total_results is 1:}}
         <p> {{=total_results}} result for <strong>{{=search_key}}</strong> </p>
@@ -49,7 +49,11 @@
                             </a>
                         </div>
 
-                        <div id="search-result-uname"> by: {{=result.username}} </div>
+                        <div id="search-result-uname">
+                            <a href="{{=URL('default', 'store', args=result.user_id)}}" style="text-decoration: none">
+                                by: {{=result.username}}
+                            </a>
+                        </div>
 
                         <div id="search-result-price" class="label label-success">
                             <a href="{{=URL('default', 'product', args=result.id)}}" style="text-decoration: none; color:white">
