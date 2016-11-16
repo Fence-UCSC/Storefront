@@ -3,7 +3,19 @@
 {{logged_in = auth.user_id is not None}}
 
 {{if page_type == 'create':}}
-{{=form}}
+<div class="row">
+    <div class="jumbotron col-lg-4">
+        <h1>Add a product</h1>
+        <p>The following information will be displayed along with your submission:</p>
+        <p>
+            <span class="label label-default"><i class="fa fa-user"></i>{{=' '.join([auth.user.first_name, auth.user.last_name])}}</span>
+        </p>
+    </div>
+    <div class="col-lg-8">
+        {{=form}}
+    </div>
+</div>
+
 {{else:}}
 
 <style>

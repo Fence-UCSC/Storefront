@@ -126,7 +126,10 @@ def index():
         orderby=~db.product.created_on, limitby=(0, 20)
     )
 
-    return dict(message=T('Welcome to web2py!'), products=products, date=pretty_date, email_to_name=email_to_name)
+    return dict(message=T('Welcome to web2py!'), 
+                products=products, 
+                pretty_date=pretty_date, 
+                email_to_name=email_to_name)
 
 
     #stores = [
@@ -196,7 +199,11 @@ def product():
         elif page_type == 'edit':
             session.flash = T('Edited product listing')
         redirect(URL('product', args=form.vars.id))
-    return dict(form=form, page_type=page_type, product=product)
+    return dict(form=form,
+               page_type=page_type,
+               product=product,
+               pretty_date=pretty_date,
+               email_to_name=email_to_name)
 
 
 def store():
