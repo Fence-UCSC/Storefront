@@ -80,6 +80,7 @@
     $("#result_pg1").addClass("active");
 
     // set the value of search option and the input field
+    // emphasize the current page number in the page number bar
     var parms = window.location.search.substr(1).split('&');
     for (var i=0 ; i<parms.length; i++) {
         var p = parms[i].split('=');
@@ -89,12 +90,17 @@
         }
 
         if (p[0]=="search_options") {
-            //TBC: set the search tag in navBar
             var tag = $("a[href='#" + p[1] + "']").parent();
-            $("#search_tag").text(tag.text());
-            $('.input-group #search_options').val(p[1]);
+            if (tag.text() != "") {
+                $("#search_tag").text(tag.text());
+                $('.input-group #search_options').val(p[1]);
+            } else {
+                $("#search_tag").text("All");
+                $('.input-group #search_options').val("all");
+            }
         }
 
+        // emphasize the current page number
         if (p[0]=="page" && p[1]>1) {
             page_id = "#result_pg" + p[1];
             $("#result_pg1").removeClass("active");
