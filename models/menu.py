@@ -31,7 +31,7 @@ response.google_analytics_id = None
 
 response.menu = [
     ((T('Stores '), I(_class="fa fa-shopping-bag")), False, URL('store')),
-    ((T('Sell '), I(_class="fa fa-upload")), False, URL('product', 'add'))
+    ((T('Sell '), I(_class="fa fa-upload")), False, URL('product', args='add'))
 ]
 
 DEVELOPMENT_MENU = True
