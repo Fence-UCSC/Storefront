@@ -44,27 +44,6 @@
             title: 'Marker!!!'
             });
 
-
-           // google.maps.event.addListener(map, 'click', function(event) {
-            //addMarker(event.latLng, map);
-            //});
-
-            //function addMarker(location, map) {
-        // Add the marker at the clicked location, and add the next-available label
-        // from the array of alphabetical characters.
-        //var marker = new google.maps.Marker({
-          //position: location,
-          //label: labels[labelIndex++ % labels.length],
-          //map: map,
-          //draggable: true,
-        //});
-      //}
-              //google.maps.event.addListener(marker, 'dragend', function(LatLng) {
-              //console.log(LatLng);
-                // bingo!
-                // a.latLng contains the co-ordinates where the marker was dropped
-                //});
-
             google.maps.event.addListener(marker, 'dragend', function (event) {
 
                 alert(this.position);
