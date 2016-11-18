@@ -38,7 +38,7 @@
                         <div id="search-result-uname-div">
                             <a class="label label-default" href="{{=URL('default', 'store', args=result.user_id)}}" style="text-decoration: none">
                                 <i class="fa fa-user"></i>
-                                <span id="search-result-uname">{{=result.username}}</span>
+                                <span id="search-result-uname">{{=id_to_user_name(result.id)}}</span>
                             </a>
                         </div>
 

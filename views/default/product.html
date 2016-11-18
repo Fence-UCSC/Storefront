@@ -33,7 +33,7 @@
         <p>The following information will be displayed along with your submission:</p>
         <p>
             <a class="label label-default product-user" href="{{=URL('store', args=auth.user.id)}}">
-                <i class="fa fa-user"></i>{{=' '.join(['', auth.user.first_name, auth.user.last_name])}}
+                <i class="fa fa-user"></i>{{=id_to_user_name(auth.user.id)}}
             </a>
         </p>
     </div>
