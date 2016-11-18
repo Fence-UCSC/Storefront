@@ -21,6 +21,11 @@ def get_user_name_from_id(id):
     else:
         return ' '.join([u.first_name, u.last_name])
 
+def change_method() :
+    googleAccount()
+    return "ok"
+
+
 def pretty_date(time=False):
     """
     Get a datetime object or a int() Epoch timestamp and return a
