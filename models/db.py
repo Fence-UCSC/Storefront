@@ -69,8 +69,8 @@ auth.settings.extra_fields['auth_user'] = [
   Field('city'),
   Field('zip'),
   Field('phone'),
-  Field('lat'),
-  Field('long'),
+  Field('lati'),
+  Field('longi'),
   Field('review')]
 
 ## before auth.define_tables(username=True)
