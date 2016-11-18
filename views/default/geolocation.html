@@ -27,9 +27,9 @@
       // locate you.
 
       function initMap() {
-        var myLatLng = {lat: 36.9741, lng: -122.0308};
+        var LatLng = {lat: 36.9741, lng: -122.0308};
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: myLatLng,
+          center: LatLng,
           zoom: 13
         });
 
@@ -67,11 +67,17 @@
           //draggable: true,
         //});
       //}
+              //google.maps.event.addListener(marker, 'dragend', function(LatLng) {
+              //console.log(LatLng);
+                // bingo!
+                // a.latLng contains the co-ordinates where the marker was dropped
+                //});
 
             google.maps.event.addListener(marker, 'dragend', function (event) {
-                document.getElementById("latbox").value = this.getPosition().lat();
-                document.getElementById("lngbox").value = this.getPosition().lng();
+
+                alert(this.position);
             });
+
 
             infoWindow.setPosition(pos);
             infoWindow.setContent('I am currently here!');

@@ -9,8 +9,90 @@
     var edit_review_url = "{{=URL('api', 'edit_review', user_signature=True)}}";
 </script>
 
-{{end}}
 
+
+{{end}}
+    <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+
+      function initMap() {
+        var LatLng = {lat: 36.9741, lng: -122.0308};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: LatLng,
+          zoom: 13
+        });
+
+
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            var marker = new google.maps.Marker({
+            position: pos,
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            title: 'Marker!!!'
+            });
+
+
+           // google.maps.event.addListener(map, 'click', function(event) {
+            //addMarker(event.latLng, map);
+            //});
+
+            //function addMarker(location, map) {
+        // Add the marker at the clicked location, and add the next-available label
+        // from the array of alphabetical characters.
+        //var marker = new google.maps.Marker({
+          //position: location,
+          //label: labels[labelIndex++ % labels.length],
+          //map: map,
+          //draggable: true,
+        //});
+      //}
+              //google.maps.event.addListener(marker, 'dragend', function(LatLng) {
+              //console.log(LatLng);
+                // bingo!
+                // a.latLng contains the co-ordinates where the marker was dropped
+                //});
+
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+
+                alert(this.position);
+            });
+
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('I am currently here!');
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXWWgYnWvNpdw3jlNOWXAZ80bKUWQPOWM&callback=initMap">
+    </script>
 {{if request.args(0) is None:}}
     <div id="vue-div2" style="display:none"></div>
     <div class="page-header clearfix">
@@ -45,9 +127,11 @@
     <h4>
          Store Location
      </h4>
-     <div class="geolocation">
-         <iframe width="90%" height="500px" src="{{=URL('default', 'geolocation')}}" name="targetframe" allowTransparency="true" scrolling="no" frameborder="0" >
-     </iframe>
+
+     <div class="geolocation" style="height:200px">
+
+         <div id="map" style="height:200px"></div>
+
      </div>
     <h4>
         Recent products
