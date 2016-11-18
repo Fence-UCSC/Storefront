@@ -64,12 +64,15 @@ service = Service()
 plugins = PluginManager()
 
 ## after auth = Auth(db)
-auth.settings.extra_fields['auth_user']= [
+auth.settings.extra_fields['auth_user'] = [
   Field('address'),
   Field('city'),
   Field('zip'),
   Field('phone'),
+  Field('lat'),
+  Field('long'),
   Field('review')]
+
 ## before auth.define_tables(username=True)
 
 # create all tables needed by auth if not custom tables
