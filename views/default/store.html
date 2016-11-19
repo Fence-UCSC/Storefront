@@ -19,9 +19,17 @@
         <h1 class='pull-left'>All stores</h1>
     </div>
     <div class="list-group">
+        {{last_letter = ""}}
         {{for store in stores:}}
+        {{if len(store.first_name) > 0 and last_letter != store.first_name[0]:}}
+        {{last_letter = store.first_name[0]}}
+        </div>
+        <h4 id="{{=last_letter}}">{{=last_letter}}</h4>
+        <div class="list-group">
+        {{pass}}
         <a class="list-group-item" href="{{=URL(args=store.id)}}">
             {{=T(store.first_name + ' ' + store.last_name)}}
+            <small>{{=I(store.email) if store.email is not None else None}}</small>
         </a>
         {{pass}}
     </div>

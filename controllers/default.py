@@ -152,7 +152,7 @@ def product():
 
 def store():
     if request.args(0) is None:
-        stores = db(db.auth_user).select(orderby=~db.auth_user.first_name)
+        stores = db(db.auth_user).select(orderby=db.auth_user.first_name)
         products = None
     else:
         store = request.args(0)
