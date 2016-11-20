@@ -165,7 +165,7 @@ def store():
             session.flash = T('Store ' + store + ' not found.')
             redirect(URL('default', 'store'))
         else:
-            products = db(db.product.user_id == store).select(orderby=~db.product.created_on)
+            products = db(db.product.user_id == store).select(orderby=~db.product.created_on,limitby=(0, 5))
     return dict(stores=stores,products=products)
 
 

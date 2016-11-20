@@ -19,6 +19,9 @@
     #map {
         height: 300px;
     }
+    .product-price, .store-info {
+        font-size: 100%;
+    }
 </style>
 
 {{if request.args(0) is None:}}
@@ -55,7 +58,19 @@
 
     <div id="vue-div" style="display:none" v-cloak>
         <div class="row">
-            <div class="well well-lg col-md-6">
+            <div class="col-md-6">
+                <h4>User info</h4>
+                {{if store.email != "":}}
+                <p><a class="store-info label label-default" href="{{=T('mailto:%s', store.email)}}">
+                    <i class="fa fa-envelope"></i> {{=store.email}}
+                </a></p>
+                {{pass}}
+                {{if store.phone != "":}}
+                <p><a class="store-info label label-default" href="{{=T('tel:%s', store.phone)}}">
+                    <i class="fa fa-phone"></i> {{=store.phone}}
+                </a></p>
+                {{pass}}
+                <!--
                 <p>id: {{=store.id}}</p>
                 <p>first_name: {{=store.first_name}}</p>
                 <p>last_name: {{=store.last_name}}</p>
@@ -65,6 +80,7 @@
                     <star-rating :value="average_vote" v-if="number_votes > 0" :disabled="true"></star-rating>
                     <span v-if="number_votes <= 0" v-cloak>No votes found</span> ( ${number_votes} )
                 </p>
+                -->
             </div>
             <div class="col-md-6">
                 <div id="map"></div>
@@ -102,8 +118,8 @@
                     </form>
                 </div>
 
-                <div v-if="!reviews.length">
-                    <i>No reviews found.</i>
+                <div class="alert alert-info" role="alert" v-if="!reviews.length">
+                    {{=P(I(_class="fa fa-flag"), T(" This user has not been reviewed"))}}
                 </div>
                 <div v-for="review in reviews" class="panel panel-default">
                     <div class="panel-heading">
@@ -150,12 +166,17 @@
                 <h4>Recent products</h4>
                 <div class="list-group">
                     {{if len(products) == 0:}}
-                        <i>No products found.</i>
+                        <div class="alert alert-info" role="alert">
+                            {{=P(I(_class="fa fa-flag"), T(" This user has not posted any products"))}}
+                        </div>
                     {{pass}}
                     {{for product in products:}}
                     <a class="list-group-item" href="{{=URL('product', args=product.id)}}">
                         <h4 class="list-group-item-heading">{{=product.name}}</h4>
-                        <p class="list-group-item-text">{{=product.description}}</p>
+                        <div class="clearfix list-group-item-text">
+                            <p class="label label-success product-price pull-left"><i class="fa fa-usd"></i> {{=product.price}}</p>
+                            <p class="pull-right" title="{{=product.created_on}}"><i class="fa fa-clock-o"></i> {{=pretty_date(product.created_on)}}</p>
+                        </div>
                     </a>
                     {{pass}}
                 </div>
