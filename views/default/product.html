@@ -56,19 +56,19 @@
         <h1 class="pull-left">{{=product.name}}</h1>
         <div class="btn-bar pull-right">
             {{if page_type == "edit":}}
-            <div class='btn btn-warning edit_button'>
+            <button class='btn btn-warning edit-button'>
                 Edit <i class="fa fa-pencil"></i>
-            </div>
-            <div class='btn btn-warning edit_button' style='display:none'>
+            </button>
+            <button class='btn btn-warning edit-button' style='display:none'>
                 Cancel <i class="fa fa-times"></i>
-            </div>
-            <div class='btn btn-danger disable_button'>
+            </button>
+            <button class='btn btn-danger disable-button'>
                 Mark as {{="sold" if product.status else "unsold"}} <i class="fa fa-upload"></i>
-            </div>
+            </button>
             {{else:}}
-            <div class='btn btn-success'>
+            <button class='btn btn-success'>
                 Show interest <i class="fa fa-shopping-bag"></i>
-            </div>
+            </button>
             {{pass}}
         </div>
     </div>
@@ -123,9 +123,22 @@
 {{pass}}
 
 <script>
-    $('.edit_button').click( function() {
+    $('.edit-button').click( function() {
         $('#product-view').toggle();
         $('#product-edit').toggle();
-        $('.edit_button').toggle();
+        $('.edit-button').toggle();
+    });
+    $('.disable-button').click( function() {
+        var url = window.location.pathname;
+        var start = url.lastIndexOf("/") + 1;
+        var len = url.indexOf("?");
+        var id = -1;
+        if (len > 0)
+            id = url.substring(start, len);
+        else
+            id = url.substring(start);
+        var toggle_product_status_url = "{{=URL('api', 'toggle_product_status', user_signature=True)}}";
+        console.log(toggle_product_status_url + "&product_id=" + id);
+        $.post(toggle_product_status_url, {product_id: id}, function(data) { console.log(data); location.reload(); });
     });
 </script>

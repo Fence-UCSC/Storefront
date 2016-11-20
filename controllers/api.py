@@ -78,3 +78,14 @@ def edit_review():
 def del_review():
     db((db.user_review.reviewed_id == request.vars.reviewed_id) & (db.user_review.user_id == request.vars.current_user)).delete()
     return "ok"
+
+@auth.requires_signature()
+def toggle_product_status():
+    product = db.product(request.vars.product_id)
+    if product is None:
+        return "Product not found"
+    if product.user_id != auth.user.id:
+        return "Unauthorized"
+    product.status = not product.status
+    product.update_record()
+    return "OK"
