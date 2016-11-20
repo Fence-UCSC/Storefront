@@ -106,6 +106,53 @@ auth.settings.reset_password_requires_verification = True
 # >>> rows = db(db.mytable.myfield == 'value').select(db.mytable.ALL)
 # >>> for row in rows: print row.id, row.myfield
 
+
+import urllib2
+from gluon.contrib.login_methods.oauth20_account import OAuthAccount
+
+try:
+    import json
+except ImportError:
+    from gluon.contrib import simplejson as json
+
+
+class googleAccount(OAuthAccount):
+    AUTH_URL = "https://accounts.google.com/o/oauth2/auth"
+    TOKEN_URL = "https://accounts.google.com/o/oauth2/token"
+    client_id = "33082267259-p2krav5l7kv6edb5i3dutur38p6mta4t.apps.googleusercontent.com"
+    client_secret = "_HCLW6wrSk_v48vlwPX_mPDJ"
+
+    def __init__(self):
+        OAuthAccount.__init__(self,
+                              client_id=self.client_id,
+                              client_secret=self.client_secret,
+                              auth_url=self.AUTH_URL,
+                              token_url=self.TOKEN_URL,
+                              approval_prompt='force', state='auth_provider=google',
+                              scope='https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email')
+
+    def get_user(self):
+        token = self.accessToken()
+        if not token:
+            return None
+
+        uinfo_url = 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=%s' % urllib2.quote(token, safe='')
+        uinfo = None
+        try:
+            uinfo_stream = urllib2.urlopen(uinfo_url)
+        except:
+            session.token = None
+            return
+        data = uinfo_stream.read()
+        pic = "http://picasaweb.google.com/data/entry/api/user/ uinfo['id']  ?alt=json"
+        uinfo = json.loads(data)
+        return dict(first_name=uinfo['given_name'],
+                    last_name=uinfo['family_name'],
+                    username=uinfo['id'], email=uinfo['email'], pic=pic)
+
+
+auth.settings.login_form = googleAccount()
+
 ######################
 # Logging
 import logging, sys
