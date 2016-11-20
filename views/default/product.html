@@ -1,5 +1,10 @@
 {{extend 'layout.html'}}
 
+{{block head}}
+<script src="{{=URL('static', 'js/vue.js')}}" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"></script>
+<script src="{{=URL('static', 'js/contact_owner.js')}}"></script>
+{{end}}
+
 {{logged_in = auth.user_id is not None}}
 
 <style>
@@ -43,6 +48,7 @@
 </div>
 {{else:}}
 
+        <div id="vue-div" style="display:none" v-cloak>
 <div class="page-header">
     <div id="product-loaf">
         <ol class="breadcrumb">
@@ -66,8 +72,11 @@
                 Mark as {{="sold" if product.status else "unsold"}} <i class="fa fa-upload"></i>
             </button>
             {{else:}}
-            <button class='btn btn-success'>
-                Show interest <i class="fa fa-shopping-bag"></i>
+
+            <button id="interest" class='btn btn-success' v-on:click="cancel_add()">
+
+                    Show interest <i class="fa fa-shopping-bag"></i>
+
             </button>
             {{pass}}
         </div>
@@ -98,6 +107,24 @@
         <div class="well">
             {{=product.description if product.description != "" else I(T('The product owner has not provided a description.'))}}
         </div>
+        <transition name="slide-fade">
+        <div v-if="is_posting" id="contactOn" class="well">
+            <form>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Title</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email title">
+                <small id="emailHelp" class="form-text text-muted"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleTextarea">Text</label>
+                <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Enter email content"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        </transition>
     </div>
     <!--div class="media">
         {{if product.image != '':}}
@@ -116,7 +143,7 @@
             </p>
         </div>
     </div-->
-</div>
+</div></div>
 <div id="product-edit">
     {{=form if form is not None else T('ERROR LOADING FORM')}}
 </div>

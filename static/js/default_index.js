@@ -72,6 +72,9 @@ var app = function() {
 
     // Add a review to the database and vue model
     self.add_review = function () {
+        if (self.vue.stars == null) {
+            return;
+        }
         self.vue.logged_in = false;
         self.vue.is_adding_review = false;
         $.post(add_review_url,
