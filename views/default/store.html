@@ -9,146 +9,159 @@
     var edit_review_url = "{{=URL('api', 'edit_review', user_signature=True)}}";
 </script>
 
-
-
 {{end}}
+
+<style>
+    #stores-list, #vue-div {
+        max-width: 1000px;
+        margin: auto;
+    }
+    #map {
+        height: 300px;
+    }
+</style>
 
 {{if request.args(0) is None:}}
     <div id="vue-div2" style="display:none"></div>
     <div class="page-header clearfix">
         <h1 class='pull-left'>All stores</h1>
     </div>
-    <div class="list-group">
-        {{last_letter = ""}}
-        {{for store in stores:}}
-        {{if len(store.first_name) > 0 and last_letter != store.first_name[0]:}}
-        {{last_letter = store.first_name[0]}}
-        </div>
-        <h4 id="{{=last_letter}}">{{=last_letter}}</h4>
+    <div id="stores-list">
         <div class="list-group">
-        {{pass}}
-        <a class="list-group-item" href="{{=URL(args=store.id)}}">
-            {{=T(store.first_name + ' ' + store.last_name)}}
-            <small>{{=I(store.email) if store.email is not None else None}}</small>
-        </a>
-        {{pass}}
+            {{prev_letter = ""}}
+            {{for store in stores:}}
+                {{if len(store.first_name) > 0 and prev_letter != store.first_name[0]:}}
+                    {{prev_letter = store.first_name[0]}}
+                    </div>
+                    <h4 id="{{=prev_letter}}">{{=prev_letter}}</h4>
+                    <div class="list-group">
+                {{pass}}
+                <a class="list-group-item" href="{{=URL(args=store.id)}}">
+                    {{=T(store.first_name + ' ' + store.last_name)}}
+                    <small>{{=I(store.email) if store.email is not None else None}}</small>
+                </a>
+            {{pass}}
+        </div>
     </div>
 {{else:}}
     <script src="{{=URL('static', 'js/vue.js')}}" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"></script>
     <script src="{{=URL('static', 'js/default_index.js')}}"></script>
+
     {{store = stores.first()}}
+
     <div class="page-header clearfix">
         <h1 class='pull-left'>{{=T(store.first_name + ' ' + store.last_name) if store is not None else T('')}}</h1>
     </div>
-<div id="vue-div" style="display:none" v-cloak>
-    <div class="well well-lg">
-        <p>id: {{=store.id}}</p>
-        <p>first_name: {{=store.first_name}}</p>
-        <p>last_name: {{=store.last_name}}</p>
-        <p>email: {{=store.email}}</p>
-        <p>registration_id: {{=store.registration_id}}</p>
-        <p>reputation:
-            <star-rating :value="average_vote" v-if="number_votes > 0" :disabled="true"></star-rating>
-            <span v-if="number_votes <= 0" v-cloak>No votes found</span> ( ${number_votes} )
-        </p>
-    </div>
-    <h4>
-         Store Location
-     </h4>
 
-     <div class="geolocation" style="height:200px">
-         <div id="map" style="height:200px"></div>
-     </div>
-    
-    <h4>
-        Recent products
-    </h4>
-    <div class="list-group">
-        {{for product in products:}}
-        <a class="list-group-item" href="{{=URL('product', args=product.id)}}">
-            <h4 class="list-group-item-heading">{{=product.name}}</h4>
-            <p class="list-group-item-text">{{=product.description}}</p>
-        </a>
-        {{pass}}
-    </div>
+    <div id="vue-div" style="display:none" v-cloak>
+        <div class="row">
+            <div class="well well-lg col-md-6">
+                <p>id: {{=store.id}}</p>
+                <p>first_name: {{=store.first_name}}</p>
+                <p>last_name: {{=store.last_name}}</p>
+                <p>email: {{=store.email}}</p>
+                <p>registration_id: {{=store.registration_id}}</p>
+                <p>reputation:
+                    <star-rating :value="average_vote" v-if="number_votes > 0" :disabled="true"></star-rating>
+                    <span v-if="number_votes <= 0" v-cloak>No votes found</span> ( ${number_votes} )
+                </p>
+            </div>
+            <div class="col-md-6">
+                <div id="map"></div>
+            </div>
+        </div>
 
-    <h4>
-        Reviews
-    </h4>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Reviews</h4>
+                <span v-if="logged_in" v-cloak>
+                    <span v-if="!already_reviewed">
+                    <div class="button_bar" style="margin-bottom: 10px">
+                        <button v-if="!is_adding_review" class="btn btn-danger btn-sm" v-on:click="add_review_button()">
+                        Add Review
+                        </button>
+                    </div></span>
+                </span>
 
+                <div v-if="is_adding_review" id="add_review_div" style="margin-bottom: 10px">
+                    <form action="#" v-on:submit.prevent="add_review" class="form-horizontal" enctype="multipart/form-data" method="post">
 
+                        <div class="form-group-edit" id="no_table_review_text__row">
+                            <div>
+                                <input class="form-control string" type="text" name="firstname" v-model="form_review_title" placeholder="Review Title Here" required="required">
+                                <star-rating></star-rating>
+                                <textarea class="form-control string" required="required" id="no_table_review_text" name="album" type="text" v-model="form_review_description" placeholder="Review Content Here"></textarea>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
 
-        <span v-if="logged_in" v-cloak>
-            <span v-if="!already_reviewed">
-            <div class="button_bar" style="margin-bottom: 10px">
-                <button v-if="!is_adding_review" class="btn btn-danger btn-sm" v-on:click="add_review_button()">
-                Add Review
-                </button>
-            </div></span>
-        </span>
+                        <div class="form-group-edit" id="submit_record__row">
+                            <input class="btn btn-primary btn-sm" id="add_review_submit" type="submit" value="review"/>
+                            <input class="btn btn-warning btn-sm" id="cancelOp" type="button" value="Cancel"  v-on:click="cancel_add()" />
+                        </div>
+                    </form>
+                </div>
 
-        <div v-if="is_adding_review" id="add_review_div" style="margin-bottom: 10px">
-            <form action="#" v-on:submit.prevent="add_review" class="form-horizontal" enctype="multipart/form-data" method="post">
+                <div v-if="!reviews.length">
+                    <i>No reviews found.</i>
+                </div>
+                <div v-for="review in reviews" class="panel panel-default">
+                    <div class="panel-heading">
+                        <star-rating :value="review.vote" :disabled="true" style="display: inline-block !important;"></star-rating>
+                        <h4 style="display: inline-block !important; font-weight: bold !important;">${review.title}</h4> by
+                        ${review.current_user_name}
+                    </div>
+                    <div class="panel-body">
+                    <p class="alignleft">${review.description}</p><br/>
+                    <p v-if="!(being_edited == review._idx)" class="alignleft">${review.description}</p><br/>
+                    <div v-if="!(being_edited == review._idx)" id="edit_review_div">
+                        <form action="#" v-on:submit.prevent="edit_review(review._idx)" class="form-horizontal" enctype="multipart/form-data" method="post">
 
-                <div class="form-group-edit" id="no_table_review_text__row">
+                            <div class="formEdit" id="no_table_review_text__row">
+                                <div>
+                                    <textarea class="form-control string" id="no_table_review_text" name="album" type="text" v-model="form_edit_text" placeholder="Post Content Here">
+                                    </textarea>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+
+                            <div class="formEdit" id="submit_record__row">
+                                <input class="btn btn-primary btn-sm" id="edit_review_submit" type="submit" value="Edit"/>
+                                <input class="btn btn-warning btn-sm" id="cancelOp" type="button" value="Cancel"  v-on:click="cancel_edit()" />
+                            </div>
+                        </form>
+                    </div>
+
+                    <div v-if="current_user==review.id">
+                        <i class="fa fa-pencil fa-2x" aria-hidden="true" style="float:right" v-on:click="select_review(review.reviewed_id, current_user)"></i>
+                        <i class="fa fa-trash-o fa-2x" style="float:right; padding-right: 15px" v-on:click="delete_review(review.reviewed_id, current_user)"></i>
+                    </div>
                     <div>
-                        <input class="form-control string" type="text" name="firstname" v-model="form_review_title" placeholder="Review Title Here" required="required">
-                        <star-rating></star-rating>
-                        <textarea class="form-control string" required="required" id="no_table_review_text" name="album" type="text" v-model="form_review_description" placeholder="Review Content Here"/></textarea>
-                        <span class="help-block"></span>
+                        <span v-bind:title="review.created_on">Posted ${review.created_on_readable}</span>
+                    </div>
                     </div>
                 </div>
-
-                <div class="form-group-edit" id="submit_record__row">
-                    <input class="btn btn-primary btn-sm" id="add_review_submit" type="submit" value="review"/>
-                    <input class="btn btn-warning btn-sm" id="cancelOp" type="button" value="Cancel"  v-on:click="cancel_add()" />
+                <div v-if="has_more" class="show_more">
+                    <button class="btn btn-default" v-on:click="get_more()">Load more</button>
                 </div>
-            </form>
-        </div>
+            </div>
 
-
-    <div v-for="review in reviews" class="panel panel-default">
-
-        <div class="panel-heading">
-            <star-rating :value="review.vote" :disabled="true" style="display: inline-block !important;"></star-rating>
-            <h4 style="display: inline-block !important; font-weight: bold !important;">${review.title}</h4> by
-            ${review.current_user_name}
-        </div>
-        <div class="panel-body">
-        <p class="alignleft">${review.description}</p><br/>
-        <p v-if="!(being_edited == review._idx)" class="alignleft">${review.description}</p><br/>
-        <div v-if="!(being_edited == review._idx)" id="edit_review_div">
-            <form action="#" v-on:submit.prevent="edit_review(review._idx)" class="form-horizontal" enctype="multipart/form-data" method="post">
-
-                <div class="formEdit" id="no_table_review_text__row">
-                    <div>
-                        <textarea class="form-control string" id="no_table_review_text" name="album" type="text" v-model="form_edit_text" placeholder="Post Content Here">
-                        </textarea>
-                        <span class="help-block"></span>
-                    </div>
+            <div class="col-md-6">
+                <h4>Recent products</h4>
+                <div class="list-group">
+                    {{if len(products) == 0:}}
+                        <i>No products found.</i>
+                    {{pass}}
+                    {{for product in products:}}
+                    <a class="list-group-item" href="{{=URL('product', args=product.id)}}">
+                        <h4 class="list-group-item-heading">{{=product.name}}</h4>
+                        <p class="list-group-item-text">{{=product.description}}</p>
+                    </a>
+                    {{pass}}
                 </div>
-
-                <div class="formEdit" id="submit_record__row">
-                    <input class="btn btn-primary btn-sm" id="edit_review_submit" type="submit" value="Edit"/>
-                    <input class="btn btn-warning btn-sm" id="cancelOp" type="button" value="Cancel"  v-on:click="cancel_edit()" />
-                </div>
-            </form>
-        </div>
-
-        <div v-if="current_user==review.id">
-            <i class="fa fa-pencil fa-2x" aria-hidden="true" style="float:right" v-on:click="select_review(review.reviewed_id, current_user)"></i>
-            <i class="fa fa-trash-o fa-2x" style="float:right; padding-right: 15px" v-on:click="delete_review(review.reviewed_id, current_user)"></i>
-        </div>
-        <div>
-            <span v-bind:title="review.created_on">Posted ${review.created_on_readable}</span>
-        </div>
-        </div>
+            </div>
+         </div>
     </div>
-    <div v-if="has_more" class="show_more">
-        <button class="btn btn-default" v-on:click="get_more()">Load more</button>
-    </div>
-
-</div>
 {{pass}}
 
 <script>
