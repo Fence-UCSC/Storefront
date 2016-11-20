@@ -33,8 +33,8 @@
         <div class="list-group">
             {{prev_letter = ""}}
             {{for store in stores:}}
-                {{if len(store.first_name) > 0 and prev_letter != store.first_name[0]:}}
-                    {{prev_letter = store.first_name[0]}}
+                {{if len(store.first_name) > 0 and prev_letter != store.first_name[0].upper():}}
+                    {{prev_letter = store.first_name[0].upper()}}
                     </div>
                     <h4 id="{{=prev_letter}}">{{=prev_letter}}</h4>
                     <div class="list-group">
