@@ -57,14 +57,17 @@
         <div class="btn-bar pull-right">
             {{if page_type == "edit":}}
             <div class='btn btn-warning edit_button'>
-                Edit
+                Edit <i class="fa fa-pencil"></i>
+            </div>
+            <div class='btn btn-warning edit_button' style='display:none'>
+                Cancel <i class="fa fa-times"></i>
             </div>
             <div class='btn btn-danger disable_button'>
-                Mark as {{="sold" if product.status else "unsold"}}
+                Mark as {{="sold" if product.status else "unsold"}} <i class="fa fa-upload"></i>
             </div>
             {{else:}}
             <div class='btn btn-success'>
-                Show interest
+                Show interest <i class="fa fa-shopping-bag"></i>
             </div>
             {{pass}}
         </div>
@@ -87,7 +90,9 @@
             </a>
         </p>
         <div class="clearfix">
-            <p class="label label-success product-price pull-left"><i class="fa fa-usd"></i> {{=product.price}}</p>
+            <p class="label {{='label-success' if product.status else 'label-danger'}} product-price pull-left">
+                <i class="fa fa-usd"></i> {{=product.price}} {{='' if product.status else 'sold'}}
+            </p>
             <p class="pull-right" title="{{=product.created_on}}"><i class="fa fa-clock-o"></i> {{=pretty_date(product.created_on)}}</p>
         </div>
         <div class="well">
@@ -102,7 +107,7 @@
         {{pass}}
         <div class="media-body">
             <h4 class="media-heading clearfix">
-                
+
             </h4>
             {{if page_type == 'edit':}}
             {{pass}}
@@ -121,5 +126,6 @@
     $('.edit_button').click( function() {
         $('#product-view').toggle();
         $('#product-edit').toggle();
+        $('.edit_button').toggle();
     });
 </script>
