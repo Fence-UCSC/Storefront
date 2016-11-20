@@ -38,10 +38,9 @@
     .product-price, .product-user {
         font-size: 100%;
     }
-    div.hidden
-{
-   display: none
-}
+    div.hidden {
+       display: none
+    }
 </style>
 
 {{if page_type == 'create':}}
@@ -140,19 +139,13 @@
             {{=product.description if product.description != "" else I(T('The product owner has not provided a description.'))}}
         </div>
 
-<<<<<<< HEAD
-        <div id="contactOn" class="hidden">
-        <div class="well">
-=======
         {{if not product.status:}}
         <div class="alert alert-danger">
             <i class="fa fa-upload"></i> This product has been marked as sold, and is no longer visible to other users.
         </div>
         {{pass}}
 
-        <transition name="slide-fade">
-        <div v-if="is_posting" id="contactOn" class="well">
->>>>>>> 72b06829c91fcd1dc3566d742d0ab55a6f82552d
+        <div class="panel" id="interest-form">
             <form>
               <div class="form-group">
                 <label for="exampleInputEmail1">Title</label>
@@ -167,10 +160,10 @@
 
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-        </div></div>
-
+        </div>
     </div>
 </div>
+
 {{if page_type == "edit":}}
 <div id="product-edit" class="row">
     <div class="col-lg-4 grid-item">
@@ -206,20 +199,11 @@
             </div>
             {{pass}}
         </div>
-<<<<<<< HEAD
-    </div-->
-</div></div>
-<div id="product-edit">
-    {{=form if form is not None else T('ERROR LOADING FORM')}}
     </div>
     <div class="col-lg-8">
         {{=form}}
     </div>
-
-=======
-   </div>
 </div>
->>>>>>> 72b06829c91fcd1dc3566d742d0ab55a6f82552d
 {{pass}}
 {{pass}}
 
