@@ -140,8 +140,19 @@
             {{=product.description if product.description != "" else I(T('The product owner has not provided a description.'))}}
         </div>
 
+<<<<<<< HEAD
         <div id="contactOn" class="hidden">
         <div class="well">
+=======
+        {{if not product.status:}}
+        <div class="alert alert-danger">
+            <i class="fa fa-upload"></i> This product has been marked as sold, and is no longer visible to other users.
+        </div>
+        {{pass}}
+
+        <transition name="slide-fade">
+        <div v-if="is_posting" id="contactOn" class="well">
+>>>>>>> 72b06829c91fcd1dc3566d742d0ab55a6f82552d
             <form>
               <div class="form-group">
                 <label for="exampleInputEmail1">Title</label>
@@ -160,6 +171,7 @@
 
     </div>
 </div>
+{{if page_type == "edit":}}
 <div id="product-edit" class="row">
     <div class="col-lg-4 grid-item">
         <h4>Currently up</h4>
@@ -188,7 +200,13 @@
             <div class="well">
                 {{=product.description if product.description != "" else I(T('The product owner has not provided a description.'))}}
             </div>
+            {{if not product.status:}}
+            <div class="alert alert-danger">
+                <i class="fa fa-upload"></i> This product has been marked as sold, and is no longer visible to other users.
+            </div>
+            {{pass}}
         </div>
+<<<<<<< HEAD
     </div-->
 </div></div>
 <div id="product-edit">
@@ -198,6 +216,11 @@
         {{=form}}
     </div>
 
+=======
+   </div>
+</div>
+>>>>>>> 72b06829c91fcd1dc3566d742d0ab55a6f82552d
+{{pass}}
 {{pass}}
 
 <script>
