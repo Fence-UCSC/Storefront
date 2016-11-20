@@ -127,6 +127,11 @@
         <div class="well">
             {{=product.description if product.description != "" else I(T('The product owner has not provided a description.'))}}
         </div>
+        {{if not product.status:}}
+        <div class="alert alert-danger">
+            <i class="fa fa-upload"></i> This product has been marked as sold, and is no longer visible to other users.
+        </div>
+        {{pass}}
     </div>
 </div>
 <div id="product-edit" class="row">
@@ -157,6 +162,11 @@
             <div class="well">
                 {{=product.description if product.description != "" else I(T('The product owner has not provided a description.'))}}
             </div>
+            {{if not product.status:}}
+            <div class="alert alert-danger">
+                <i class="fa fa-upload"></i> This product has been marked as sold, and is no longer visible to other users.
+            </div>
+            {{pass}}
         </div>
     </div>
     <div class="col-lg-8">

@@ -39,10 +39,36 @@
                     <h4 id="{{=prev_letter}}">{{=prev_letter}}</h4>
                     <div class="list-group">
                 {{pass}}
-                <a class="list-group-item" href="{{=URL(args=store.id)}}">
-                    {{=T(store.first_name + ' ' + store.last_name)}}
-                    <small>{{=I(store.email) if store.email is not None else None}}</small>
-                </a>
+                <div class="list-group-item clearfix">
+                    <div class="pull-left">
+                        <a class="store-info label label-default" href="{{=URL('store', args=store.id)}}">
+                            <i class="fa fa-user"></i> {{=T(store.first_name + ' ' + store.last_name)}}
+                        </a>
+                    </div>
+                    <div class="pull-right">
+                        {{if store.email:}}
+                        <a class="store-info label label-default" href="{{=T('mailto:%s', store.email)}}">
+                            <i class="fa fa-envelope"></i> {{=store.email}}
+                        </a>
+                        {{pass}}
+                        {{if store.phone:}}
+                        <a class="store-info label label-default" href="{{=T('tel:%s', store.phone)}}">
+                            <i class="fa fa-phone"></i> {{=store.phone}}
+                        </a>
+                        {{pass}}
+                        {{
+                        store.addr = ""
+                        for item in [store.address, store.city, store.zip]:
+                        if item: store.addr = store.addr + item + " "
+                        pass
+                        }}
+                        {{if store.addr:}}
+                        <a class="store-info label label-default" href="{{=URL('index', host='maps.google.com', vars={'q':store.addr})}}">
+                            <i class="fa fa-map-marker"></i> {{=store.addr}}
+                        </a>
+                        {{pass}}
+                    </div>
+                </div>
             {{pass}}
         </div>
     </div>
@@ -81,17 +107,6 @@
                     <i class="fa fa-map-marker"></i> {{=store.addr}}
                 </a></p>
                 {{pass}}
-                <!--
-                <p>id: {{=store.id}}</p>
-                <p>first_name: {{=store.first_name}}</p>
-                <p>last_name: {{=store.last_name}}</p>
-                <p>email: {{=store.email}}</p>
-                <p>registration_id: {{=store.registration_id}}</p>
-                <p>reputation:
-                    <star-rating :value="average_vote" v-if="number_votes > 0" :disabled="true"></star-rating>
-                    <span v-if="number_votes <= 0" v-cloak>No votes found</span> ( ${number_votes} )
-                </p>
-                -->
             </div>
             <div class="col-md-6">
                 <div id="map"></div>
