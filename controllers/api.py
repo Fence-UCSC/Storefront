@@ -143,3 +143,15 @@ def send_email():
     except Exception as e:
         s = str(e)
         print('Error')
+
+
+@auth.requires_signature()
+def update_location():
+    lati = request.vars.lati
+    longi = request.vars.longi
+
+    db(db.auth_user.id == auth.user_id).update(
+        lati=lati,
+        longi=longi
+    )
+    return "ok"

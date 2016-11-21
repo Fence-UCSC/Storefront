@@ -114,3 +114,7 @@ div#search-result-price {
 }
 
 [v-cloak] {display: none}
+
+div#location_title {
+  margin-bottom: 10px;
+}

@@ -145,6 +145,19 @@ var app = function() {
         )
     };
 
+    // Update the location
+    self.update_location = function() {
+        $.post(update_location_url,
+            {
+                lati: $("#latbox").val(),
+                longi: $("#lngbox").val()
+            },
+            function (data) {
+                console.log(data);
+            }
+        )
+    };
+
 
     self.vue = new Vue({
         el: "#vue-div",
@@ -167,7 +180,7 @@ var app = function() {
             form_review_title: null,
             form_review_description: null,
             form_edit_text: null,
-            form_created_on: null
+            form_created_on: null,
         },
         methods: {
             get_more: self.get_more,
@@ -177,7 +190,8 @@ var app = function() {
             add_review: self.add_review,
             select_review: self.select_review,
             edit_review: self.edit_review,
-            delete_review: self.delete_review
+            delete_review: self.delete_review,
+            update_location: self.update_location
         }
     });
 
