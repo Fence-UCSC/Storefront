@@ -1,7 +1,6 @@
 {{extend 'layout.html'}}
 
 {{block head}}
-<script src="{{=URL('static', 'js/vue.js')}}" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"></script>
 <script src="{{=URL('static', 'js/contact_owner.js')}}"></script>
 {{end}}
 
@@ -53,7 +52,7 @@
             <i class="fa fa-user"></i> {{=id_to_user_name(store.id)}}
             </a></p>
         {{if store.email:}}
-        <p><a class="store-info label label-default" href="{{=T('mailto:%s', store.email)}}">
+        <p id="storeMail"><a class="store-info label label-default" href="{{=T('mailto:%s', store.email)}}">
             <i class="fa fa-envelope"></i> {{=store.email}}
             </a></p>
         {{pass}}
@@ -83,6 +82,7 @@
 
 <div class="page-header">
     <div id="product-loaf">
+        <span id="to" style="display: none">{{=product.user_id}}</span>
         <ol class="breadcrumb">
             <li><a href="{{=URL('index')}}">Home</a></li>
             <li><a href="{{=URL('store', args=product.user_id)}}">{{=product.username}}</a></li>
@@ -145,20 +145,20 @@
         {{pass}}
 
         <div class="well" id="contactOn">
-            <form>
+
               <div class="form-group">
                 <label for="exampleInputEmail1">Title</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email title" required>
+                <input class="form-control" id="subject" aria-describedby="emailHelp" placeholder="Enter email title" required>
                 <small id="emailHelp" class="form-text text-muted"></small>
               </div>
 
               <div class="form-group">
                 <label for="exampleTextarea">Text</label>
-                <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Enter email content" required></textarea>
+                <textarea class="form-control" id="body" rows="3" placeholder="Enter email content" required></textarea>
               </div>
 
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+              <button id="submitContact" class="btn btn-primary">Submit</button>
+
         </div>
     </div>
 </div>
@@ -234,4 +234,18 @@
         $("#contactOn").slideDown();
         $("#contactOn").show();
     });
+    $("#submitContact").click(function () {
+        var send_email_url = "{{=URL('api', 'send_email', user_signature=True)}}";
+        var to = $("#to").html();
+        var subject = $("#subject").val();
+        var body = $("#body").val();
+        console.log(to + " "  + subject + "  " + body);
+        $.post(send_email_url, {
+            to: to,
+            subject: subject,
+            body: body
+        }, function(data) {
+            console.log(data);
+        });
+    })
 </script>

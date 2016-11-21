@@ -89,3 +89,34 @@ def toggle_product_status():
     product.status = not product.status
     product.update_record()
     return "OK"
+
+@auth.requires_signature()
+def send_email():
+    import smtplib
+
+    gmail_user = 'storefrontbyfence@gmail.com'
+    gmail_pwd = 'dontworry'
+    FROM = auth.user.email if auth.user_id is not None else None
+    user = db(db.auth_user.id == request.vars.to).select(db.auth_user.email)
+
+    TO = user
+    logger.info(user)
+    SUBJECT = request.vars.subject
+    TEXT = request.vars.body
+
+    # Prepare actual message
+    message = "Ciao"
+    logger.info(message)
+
+    try:
+        server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+        server_ssl.ehlo()  # optional, called by login()
+        server_ssl.login(gmail_user, gmail_pwd)
+        # ssl server doesn't support or need tls, so don't call server_ssl.starttls()
+        server_ssl.sendmail(FROM, TO, message)
+        # server_ssl.quit()
+        server_ssl.close()
+        print 'Email sent!'
+    except Exception as e:
+        s = str(e)
+        print('Error')
