@@ -174,3 +174,15 @@ def update_location():
         longi=longi
     )
     return "ok"
+
+
+def get_location():
+    store_id = request.vars.id
+
+    row = db(db.auth_user.id == store_id).select().first()
+
+    longi = row.longi
+    lati = row.lati
+
+    return response.json(dict(longi=longi,
+                              lati=lati))
