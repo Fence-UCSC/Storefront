@@ -118,7 +118,7 @@
                     <p>Latitude: <input size="20" type="text" id="latbox" name="lat" ></p>
                     <p>Longitude: <input size="20" type="text" id="lngbox" name="lng" ></p>
                 </div>
-
+            <input type="button" value="Toggle Drag" onclick="toggleDrag()">
             </body>
             </html>
                 <div id="map"></div>
@@ -226,12 +226,22 @@
 {{pass}}
 
 <script>
+    var marker;
+
+    function toggleDrag() {
+  if (marker.get("draggable")) {
+    marker.set("draggable", false);
+  } else {
+    marker.set("draggable", true);
+  }
+}
+
     function initMap() {
         var LatLng = {lat: 36.9741, lng: -122.0308};
         console.log(add_review_url);
         var map = new google.maps.Map(document.getElementById('map'), {
             center: LatLng,
-            zoom: 13,
+            zoom: 14,
              mapTypeId: 'hybrid'
         });
 
@@ -246,7 +256,7 @@
                     lng: position.coords.longitude
                 };
 
-                var marker = new google.maps.Marker({
+                 marker = new google.maps.Marker({
                     position: pos,
                     map: map,
                     draggable: true,
