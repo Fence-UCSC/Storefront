@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 {
+' This user has not been reviewed': ' This user has not been reviewed',
+' This user has not posted any products': ' This user has not posted any products',
 '!=': '!=',
 '!langcode!': 'it',
 '!langname!': 'Italiano',
