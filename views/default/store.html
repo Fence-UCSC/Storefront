@@ -109,6 +109,18 @@
                 {{pass}}
             </div>
             <div class="col-md-6">
+                 <html>
+                <body onload="initialize()">
+
+                <div id="map_canvas" style="width:50%; height:50%"></div>
+
+                <div id="latlong">
+                    <p>Latitude: <input size="20" type="text" id="latbox" name="lat" ></p>
+                    <p>Longitude: <input size="20" type="text" id="lngbox" name="lng" ></p>
+                </div>
+
+            </body>
+            </html>
                 <div id="map"></div>
             </div>
         </div>
@@ -219,7 +231,8 @@
         console.log(add_review_url);
         var map = new google.maps.Map(document.getElementById('map'), {
             center: LatLng,
-            zoom: 13
+            zoom: 13,
+             mapTypeId: 'hybrid'
         });
 
 
@@ -242,8 +255,8 @@
                 });
 
                 google.maps.event.addListener(marker, 'dragend', function (event) {
-
-                    alert(this.position);
+                    document.getElementById("latbox").value = this.getPosition().lat();
+                    document.getElementById("lngbox").value = this.getPosition().lng();
                 });
 
 
@@ -266,6 +279,7 @@
                               'Error: Your browser doesn\'t support geolocation.');
     }
 </script>
+
 
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXWWgYnWvNpdw3jlNOWXAZ80bKUWQPOWM&callback=initMap">
