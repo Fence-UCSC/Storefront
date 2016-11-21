@@ -46,6 +46,20 @@ var app = function() {
         })
     };
 
+    self.disable_button = function() {
+        var url = window.location.pathname;
+        var start = url.lastIndexOf("/") + 1;
+        var len = url.indexOf("?");
+        var id = -1;
+        if (len > 0)
+            id = url.substring(start, len);
+        else
+            id = url.substring(start);
+        var toggle_product_status_url = "{{=URL('api', 'toggle_product_status', user_signature=True)}}";
+        console.log(toggle_product_status_url + "&product_id=" + id);
+        $.post(toggle_product_status_url, {product_id: id}, function(data) { console.log(data); location.reload(); });
+    };
+
     // Get 4 additional reviews from the database
     self.get_more = function () {
         var num_reviews = self.vue.reviews.length;

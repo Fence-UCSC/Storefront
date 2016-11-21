@@ -157,6 +157,7 @@
 'Lost Password': 'Password Smarrita',
 'Lost password?': 'Password smarrita?',
 'lost password?': 'dimenticato la password?',
+'mailto:%s': 'mailto:%s',
 'Main Menu': 'Menu principale',
 'Manage Cache': 'Manage Cache',
 'Menu Model': 'Menu Modelli',
