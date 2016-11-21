@@ -3,6 +3,29 @@ import tempfile
 def index():
     pass
 
+def get_stars():
+    # We just generate a lot of of data.
+    reviews = []
+    sum = 0
+    number_votes = 0
+    rows = db(db.user_review.reviewed_id == request.vars.id).select(db.user_review.ALL)
+    for r in enumerate(rows):
+        sum = sum + r.vote
+        number_votes += 1
+        t = dict(
+            vote=r.vote,
+        )
+        reviews.append(t)
+
+    if len(reviews) > 0:
+        average = sum / len(reviews)
+    else:
+        average = 0
+    return response.json(dict(
+        average_vote=average,
+        number_votes=number_votes,
+    ))
+
 def get_reviews():
     start_idx = int(request.vars.start_idx) if request.vars.start_idx is not None else 0
     end_idx = int(request.vars.end_idx) if request.vars.end_idx is not None else 0
@@ -33,8 +56,7 @@ def get_reviews():
                 reviewed_id=r.reviewed_id,
             )
             reviews.append(t)
-            logger.info("LOL")
-            logger.info(reviews)
+
         else:
             has_more = True
     if len(reviews) > 0:
@@ -100,6 +122,7 @@ def send_email():
     user = db(db.auth_user.id == request.vars.to).select(db.auth_user.email)[0].email
 
     TO = user
+
 
     SUBJECT = request.vars.subject
     TEXT = request.vars.body
