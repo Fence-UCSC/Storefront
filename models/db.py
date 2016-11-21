@@ -67,8 +67,8 @@ plugins = PluginManager()
 auth.settings.extra_fields['auth_user'] = [
   Field('city'),
   Field('phone'),
-  Field('lati'),
-  Field('longi'),
+  Field('lati', 'double'),
+  Field('longi', 'double'),
   Field('review')]
 
 
