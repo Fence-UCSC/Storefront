@@ -96,17 +96,17 @@ def send_email():
 
     gmail_user = 'storefrontbyfence@gmail.com'
     gmail_pwd = 'dontworry'
-    FROM = auth.user.email if auth.user_id is not None else None
-    user = db(db.auth_user.id == request.vars.to).select(db.auth_user.email)
+    FROM = auth.user.email
+    user = db(db.auth_user.id == request.vars.to).select(db.auth_user.email)[0].email
 
     TO = user
-    logger.info(user)
+
     SUBJECT = request.vars.subject
     TEXT = request.vars.body
 
     # Prepare actual message
-    message = "Ciao"
-    logger.info(message)
+    message = """From: %s\nTo: %s\nSubject: %s\n\n%s
+        """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
 
     try:
         server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465)

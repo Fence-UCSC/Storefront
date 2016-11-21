@@ -1,12 +1,17 @@
 {{extend 'layout.html'}}
 
 {{block head}}
-<script src="{{=URL('static', 'js/contact_owner.js')}}"></script>
+<script src="{{=URL('static', 'js/product.js')}}"></script>
 {{end}}
 
 {{logged_in = auth.user_id is not None}}
 
 <style>
+    #contactOn {
+        max-width: 1000px;
+        margin: auto;
+        margin-top: 50px;
+    }
     #product-view {
         max-width: 1000px;
         margin: auto;
@@ -144,22 +149,30 @@
         </div>
         {{pass}}
 
-        <div class="well" id="contactOn">
 
-              <div class="form-group">
-                <label for="exampleInputEmail1">Title</label>
-                <input class="form-control" id="subject" aria-describedby="emailHelp" placeholder="Enter email title" required>
-                <small id="emailHelp" class="form-text text-muted"></small>
-              </div>
+    </div>
+</div>
 
-              <div class="form-group">
-                <label for="exampleTextarea">Text</label>
-                <textarea class="form-control" id="body" rows="3" placeholder="Enter email content" required></textarea>
-              </div>
+<div class="well hidden" id="contactOn">
+    <div id="success" class="alert alert-success hidden">
+        <strong>Success!</strong> We hope you will receive a quick answer.
+    </div>
+    <div id="failure" class="alert alert-danger hidden">
+        <strong>Error!</strong> There was an error while sending your email. Plesae try again or contact the support
+    </div>
+    <div id="showForm" class="hidden">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Title</label>
+        <input class="form-control" id="subject" aria-describedby="emailHelp" placeholder="Enter email title" required>
+        <small id="emailHelp" class="form-text text-muted"></small>
+      </div>
 
-              <button id="submitContact" class="btn btn-primary">Submit</button>
+      <div class="form-group">
+        <label for="exampleTextarea">Text</label>
+        <textarea class="form-control" id="body" rows="3" placeholder="Enter email content" required></textarea>
+      </div>
 
-        </div>
+      <button id="submitContact" class="btn btn-primary">Submit</button>
     </div>
 </div>
 
@@ -208,44 +221,65 @@
 
 <script>
     $(document).ready(function(){
-        $('#contactOn').removeClass('hidden');
-        $("#contactOn").hide();
+    $("#contactOn").removeClass('hidden');
+    $("#success").removeClass('hidden');
+    $("#failure").removeClass('hidden');
+    $("#showForm").removeClass('hidden');
+    $("#success").hide();
+    $("#failure").hide();
+    $("#showForm").hide();
+    $("#contactOn").hide();
 });
-    $('.edit-button').click( function() {
-        $('#product-view').toggle();
-        $('#product-edit').toggle();
-        $('.edit-button').toggle();
-    });
-    $('.disable-button').click( function() {
-        var url = window.location.pathname;
-        var start = url.lastIndexOf("/") + 1;
-        var len = url.indexOf("?");
-        var id = -1;
-        if (len > 0)
-            id = url.substring(start, len);
-        else
-            id = url.substring(start);
-        var toggle_product_status_url = "{{=URL('api', 'toggle_product_status', user_signature=True)}}";
-        console.log(toggle_product_status_url + "&product_id=" + id);
-        $.post(toggle_product_status_url, {product_id: id}, function(data) { console.log(data); location.reload(); });
+
+$('.edit-button').click( function() {
+    $('#product-view').toggle();
+    $('#product-edit').toggle();
+    $('.edit-button').toggle();
+});
+
+$('.disable-button').click( function() {
+    var url = window.location.pathname;
+    var start = url.lastIndexOf("/") + 1;
+    var len = url.indexOf("?");
+    var id = -1;
+    if (len > 0)
+        id = url.substring(start, len);
+    else
+        id = url.substring(start);
+    var toggle_product_status_url = "{{=URL('api', 'toggle_product_status', user_signature=True)}}";
+    console.log(toggle_product_status_url + "&product_id=" + id);
+    $.post(toggle_product_status_url, {product_id: id}, function(data) { console.log(data); location.reload(); });
+});
+
+$("#interest").click(function(){
+    $("#contactOn").show();
+    $("#showForm").show();
+
+});
+
+$("#submitContact").click(function () {
+    var success = false;
+    var send_email_url = "{{=URL('api', 'send_email', user_signature=True)}}";
+    var to = $("#to").html();
+    var subject = $("#subject").val();
+    var body = $("#body").val();
+    console.log(to + " "  + subject + "  " + body);
+    $.post(send_email_url, {
+
+        to: to,
+        subject: subject,
+        body: body
+    }, function(data) {
+        success = true;
+        $("#success").show();
+        $("#showForm").hide();
+    }).fail( function() {
+        $("#failure").show();
     });
 
-    $("#interest").click(function(){
-        $("#contactOn").slideDown();
-        $("#contactOn").show();
-    });
-    $("#submitContact").click(function () {
-        var send_email_url = "{{=URL('api', 'send_email', user_signature=True)}}";
-        var to = $("#to").html();
-        var subject = $("#subject").val();
-        var body = $("#body").val();
-        console.log(to + " "  + subject + "  " + body);
-        $.post(send_email_url, {
-            to: to,
-            subject: subject,
-            body: body
-        }, function(data) {
-            console.log(data);
-        });
-    })
+});/**
+* Created by tommaso on 20/11/16.
+*/
+
 </script>
+
