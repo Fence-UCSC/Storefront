@@ -161,6 +161,7 @@
         <strong>Error!</strong> There was an error while sending your email. Plesae try again or contact the support
     </div>
     <div id="showForm" class="hidden">
+
       <div class="form-group">
         <label for="exampleInputEmail1">Title</label>
         <input class="form-control" id="subject" aria-describedby="emailHelp" placeholder="Enter email title" required>
@@ -173,6 +174,7 @@
       </div>
 
       <button id="submitContact" class="btn btn-primary">Submit</button>
+
     </div>
 </div>
 
@@ -263,6 +265,10 @@ $("#submitContact").click(function () {
     var to = $("#to").html();
     var subject = $("#subject").val();
     var body = $("#body").val();
+    if (body == "" || subject == "") {
+        $("#failure").show();
+        return;
+    }
     console.log(to + " "  + subject + "  " + body);
     $.post(send_email_url, {
 
@@ -272,6 +278,7 @@ $("#submitContact").click(function () {
     }, function(data) {
         success = true;
         $("#success").show();
+        $("#failure").hide();
         $("#showForm").hide();
     }).fail( function() {
         $("#failure").show();
