@@ -145,7 +145,7 @@
         </div>
         {{pass}}
 
-        <div class="panel" id="interest-form">
+        <div class="well" id="contactOn">
             <form>
               <div class="form-group">
                 <label for="exampleInputEmail1">Title</label>
@@ -209,7 +209,7 @@
 
 <script>
     $(document).ready(function(){
-         $('#contactOn').removeClass('hidden');
+        $('#contactOn').removeClass('hidden');
         $("#contactOn").hide();
 });
     $('.edit-button').click( function() {
@@ -232,7 +232,7 @@
     });
 
     $("#interest").click(function(){
-
-        $("#contactOn").slideDown();$("#contactOn").show();
+        $("#contactOn").slideDown();
+        $("#contactOn").show();
     });
 </script>
