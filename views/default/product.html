@@ -78,6 +78,7 @@
         {{=form}}
     </div>
 </div>
+
 {{else:}}
 
 <div class="page-header">
@@ -104,13 +105,11 @@
                 Mark as {{="sold" if product.status else "unsold"}} <i class="fa fa-upload"></i>
             </button>
             {{else:}}
-
             <button id="interest" class='btn btn-success'>
                     Show interest <i class="fa fa-shopping-bag"></i>
             </button>
-            <div/>
-
             {{pass}}
+        </div>
     </div>
 </div>
 <div id="product-view" class="row">
