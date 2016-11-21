@@ -65,13 +65,12 @@ plugins = PluginManager()
 
 ## after auth = Auth(db)
 auth.settings.extra_fields['auth_user'] = [
-  Field('address'),
   Field('city'),
-  Field('zip'),
   Field('phone'),
-  Field('lati'),
-  Field('longi'),
+  Field('lati', 'double'),
+  Field('longi', 'double'),
   Field('review')]
+
 
 ## before auth.define_tables(username=True)
 
@@ -152,6 +151,11 @@ class googleAccount(OAuthAccount):
 
 
 auth.settings.login_form = googleAccount()
+db.auth_user.lati.readable = db.auth_user.lati.writable = False
+db.auth_user.lati.readable = db.auth_user.lati.writable = False
+db.auth_user.longi.readable = db.auth_user.longi.writable = False
+db.auth_user.review.readable = db.auth_user.review.writable = False
+
 
 ######################
 # Logging

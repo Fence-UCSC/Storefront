@@ -85,6 +85,25 @@ def add_review():
         user_id = int(session.auth.user.id) if session.auth else None
     )
     t = db.user_review(t_id)
+    reviews = []
+    sum = 0
+    number_votes = 0
+    rows = db(db.user_review.reviewed_id == request.vars.id).select(db.user_review.ALL)
+    for i, r in enumerate(rows):
+        sum = sum + r.vote
+        number_votes += 1
+        t = dict(
+            vote=r.vote,
+        )
+        reviews.append(t)
+
+    if len(reviews) > 0:
+        average = sum / len(reviews)
+    else:
+        average = 0
+
+    db(db.auth_user.id == request.vars.id).update(review=average)
+
     return response.json(dict(review=t))
 
 @auth.requires_signature()
@@ -155,3 +174,15 @@ def update_location():
         longi=longi
     )
     return "ok"
+
+
+def get_location():
+    store_id = request.vars.id
+
+    row = db(db.auth_user.id == store_id).select().first()
+
+    longi = row.longi
+    lati = row.lati
+
+    return response.json(dict(longi=longi,
+                              lati=lati))

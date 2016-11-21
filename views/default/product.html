@@ -269,9 +269,8 @@ $("#submitContact").click(function () {
         $("#failure").show();
         return;
     }
-    console.log(to + " "  + subject + "  " + body);
-    $.post(send_email_url, {
 
+    $.post(send_email_url, {
         to: to,
         subject: subject,
         body: body

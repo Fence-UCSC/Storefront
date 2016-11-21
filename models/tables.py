@@ -54,6 +54,7 @@ db.user_review.created_on.readable = db.user_review.created_on.writable = False
 db.product.username.readable = db.product.username.writable = False
 
 
+
 # after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
 

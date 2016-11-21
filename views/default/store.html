@@ -8,6 +8,7 @@
     var del_review_url = "{{=URL('api', 'del_review', user_signature=True)}}";
     var edit_review_url = "{{=URL('api', 'edit_review', user_signature=True)}}";
     var update_location_url = "{{=URL('api', 'update_location', user_signature=True)}}";
+    var get_location_url = "{{=URL('api', 'get_location', vars=dict(id=request.args(0)))}}";
 </script>
 
 {{end}}
@@ -59,7 +60,7 @@
                         {{pass}}
                         {{
                         store.addr = ""
-                        for item in [store.address, store.city, store.zip]:
+                        for item in [store.city]:
                         if item: store.addr = store.addr + item + " "
                         pass
                         }}
@@ -102,7 +103,7 @@
                 {{pass}}
                 {{
                 store.addr = ""
-                for item in [store.address, store.city, store.zip]:
+                for item in [store.city]:
                     if item: store.addr = store.addr + item + " "
                 pass
                 }}
@@ -130,13 +131,13 @@
                             <span>Location</span>
                         </h4>
 
-                        <!-- TBC: limit to only the owner can edit the locaion -->
-                        <div v-if="logged_in">
+                        {{if ((auth.user) and (store.id==auth.user_id)):}}
+                        <div>
                             <span id="edit_map_btn" class="store-info label label-default" onclick="toggleDrag()">Edit</span>
                             <span id="loc-save-btn" class="store-info label label-primary hidden" v-on:click="update_location()" onclick="toggleDrag()">Update</span>
                             <span id="loc-cancel-btn" class="store-info label label-warning hidden" onclick="toggleDrag()">Cancel</span>
                         </div>
-
+                        {{pass}}
                     </div>
                 <!--
                     </body>
@@ -264,17 +265,45 @@
     }
 
     function initMap() {
-        var LatLng = {lat: 36.9741, lng: -122.0308};
-        console.log(add_review_url);
+        var store_latlng = {lat: 36.9741, lng: -122.0308};
+
         var map = new google.maps.Map(document.getElementById('map'), {
-            center: LatLng,
+            center: store_latlng,
             zoom: 13,
             mapTypeId: 'roadmap'
         });
 
+        $.get(get_location_url,
+                function (data) {
+                    store_latlng = {
+                        lat: data.lati,
+                        lng: data.longi
+                    };
+
+                    document.getElementById("latbox").value = store_latlng.lat;
+                    document.getElementById("lngbox").value = store_latlng.lng;
+        }).done(function () {
+            marker = new google.maps.Marker({
+                position: store_latlng,
+                map: map,
+                draggable: false,
+                animation: google.maps.Animation.DROP,
+                title: 'Store Marker'
+            });
+
+            map.setCenter(marker.position);
+
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+                document.getElementById("latbox").value = this.getPosition().lat();
+                document.getElementById("lngbox").value = this.getPosition().lng();
+            });
+        });
+
+
+
 
         //var infoWindow = new google.maps.InfoWindow({map: map});
-
+        /*
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -309,6 +338,7 @@
             // Browser doesn't support Geolocation
             handleLocationError(false, infoWindow, map.getCenter());
         }
+        */
     }
 
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -317,6 +347,8 @@
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
     }
+
+
 </script>
 
 
