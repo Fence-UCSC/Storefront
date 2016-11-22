@@ -120,36 +120,30 @@
                 {{pass}}
             </div>
             <div class="col-md-6">
-                <!--
-                 <html>
-                    <body onload="initialize()">
-                -->
-                    <div id="map_canvas" style="width:50%; height:50%"></div>
+                <!-- Map -->
+                <div id="map_canvas" style="width:50%; height:50%"></div>
 
-                    <div id="latlng">
-                       <input type="hidden" id="latbox" name="lat" placeholder="Lat">
-                       <input type="hidden" id="lngbox" name="lng" placeholder="Long">
+                <div id="latlng">
+                   <input type="hidden" id="latbox" name="lat" placeholder="Lat">
+                   <input type="hidden" id="lngbox" name="lng" placeholder="Long">
+                </div>
+
+                <div id="location_title">
+                    <h4>
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                        <span>Location</span>
+                    </h4>
+
+                    {{if ((auth.user) and (store.id==auth.user_id)):}}
+                    <div>
+                        <span id="edit_map_btn" class="store-info label label-default" onclick="toggleDrag(); map_edit()">Edit</span>
+                        <span id="loc-save-btn" class="store-info label label-primary hidden" v-on:click="update_location()" onclick="toggleDrag(); map_save()">Update</span>
+                        <span id="loc-cancel-btn" class="store-info label label-warning hidden" onclick="toggleDrag(); map_cancel()">Cancel</span>
                     </div>
+                    {{pass}}
+                </div>
 
-                    <div id="location_title">
-                        <h4>
-                            <span class="glyphicon glyphicon-map-marker"></span>
-                            <span>Location</span>
-                        </h4>
-
-                        {{if ((auth.user) and (store.id==auth.user_id)):}}
-                        <div>
-                            <span id="edit_map_btn" class="store-info label label-default" onclick="toggleDrag(); map_edit()">Edit</span>
-                            <span id="loc-save-btn" class="store-info label label-primary hidden" v-on:click="update_location()" onclick="toggleDrag(); map_save()">Update</span>
-                            <span id="loc-cancel-btn" class="store-info label label-warning hidden" onclick="toggleDrag(); map_cancel()">Cancel</span>
-                        </div>
-                        {{pass}}
-                    </div>
-                <!--
-                    </body>
-                </html>
-                -->
-                    <div id="map"></div>
+                <div id="map"></div>
             </div>
         </div>
 
@@ -413,10 +407,6 @@
 
         });
     }
-
-
-
-
 </script>
 
 
