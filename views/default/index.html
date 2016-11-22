@@ -4,6 +4,12 @@
 
 <style>
     body {
+        background:
+          linear-gradient(
+            to bottom,
+            #eee,
+            #999
+  );
         background-color: #FAFAFA;
     }
     .grid-item {
@@ -11,13 +17,16 @@
     }
     .grid-item .thumbnail {
         overflow: hidden;
-        background-color: white;
+        background-color: #f1f1f1;
     }
     .grid-item .thumbnail img {
         width: 100%;
     }
     .product-price, .product-user {
         font-size: 100%;
+    }
+    .title {
+        text-align: center;
     }
 }
 </style>
@@ -36,8 +45,8 @@
     });
 </script>
 
-<div class="jumbotron">
-    <h1>Welcome{{=(' ' + auth.user.first_name + '.') if logged_in else '!'}}</h1>
+<div class="title">
+    <h1>Welcome{{=(' ' + auth.user.first_name) if logged_in else '!'}}</h1>
     <p>Welcome to StoreFront, your destination to a clean bartering experience.</p>
     {{if not logged_in:}}
     <p><a class="btn btn-primary btn-lg" href="{{=URL('default', 'user/login')}}" role="button">Sign up or login</a></p>

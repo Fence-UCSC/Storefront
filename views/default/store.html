@@ -14,10 +14,22 @@
 {{end}}
 
 <style>
-    #stores-list, #vue-div {
-        max-width: 1000px;
-        margin: auto;
+    body {
+        background: linear-gradient(
+                to bottom,
+                #eee,
+                #999
+        );
     }
+    #stores-list, #vue-div {
+        max-width: 10000px;
+        margin: auto;
+
+    }
+    .list-group-item {
+        background-color: whitesmoke;
+    }
+
     #map {
         height: 300px;
     }
@@ -25,7 +37,7 @@
         font-size: 100%;
     }
 </style>
-
+<body>
 {{if request.args(0) is None:}}
     <div id="vue-div2" style="display:none"></div>
     <div class="page-header clearfix">
@@ -246,7 +258,7 @@
          </div>
     </div>
 {{pass}}
-
+</body>
 <script>
     var marker;
 

@@ -7,6 +7,13 @@
 {{logged_in = auth.user_id is not None}}
 
 <style>
+    body {
+        background: linear-gradient(
+                to bottom,
+                #eee,
+                #999
+        );
+    }
     #contactOn {
         max-width: 1000px;
         margin: auto;
@@ -46,7 +53,7 @@
        display: none
     }
 </style>
-
+<body>
 {{if page_type == 'create':}}
 <div class="row">
     <div class="jumbotron col-lg-4">
@@ -218,6 +225,7 @@
         {{=form}}
     </div>
 </div>
+</body>
 {{pass}}
 {{pass}}
 
