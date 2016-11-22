@@ -145,9 +145,9 @@
 
                         {{if ((auth.user) and (store.id==auth.user_id)):}}
                         <div>
-                            <span id="edit_map_btn" class="store-info label label-default" onclick="toggleDrag()">Edit</span>
-                            <span id="loc-save-btn" class="store-info label label-primary hidden" v-on:click="update_location()" onclick="toggleDrag()">Update</span>
-                            <span id="loc-cancel-btn" class="store-info label label-warning hidden" onclick="toggleDrag()">Cancel</span>
+                            <span id="edit_map_btn" class="store-info label label-default" onclick="toggleDrag(); map_edit()">Edit</span>
+                            <span id="loc-save-btn" class="store-info label label-primary hidden" v-on:click="update_location()" onclick="toggleDrag(); map_save()">Update</span>
+                            <span id="loc-cancel-btn" class="store-info label label-warning hidden" onclick="toggleDrag(); map_cancel()">Cancel</span>
                         </div>
                         {{pass}}
                     </div>
@@ -260,105 +260,167 @@
 {{pass}}
 </body>
 <script>
+    var map;
     var marker;
+    var infoWindow;
+    var user_latLng;
+    var store_latlng;
+    var tmp_latlng = {lat:null, lng:null};
+    var sc_latlng = {lat: 36.9916520946924, lng: -122.061012402344};
 
     function toggleDrag() {
-      if (marker.get("draggable")) {
+        if (marker.get("draggable")) {
             marker.set("draggable", false);
             $("#edit_map_btn").removeClass('hidden');
             $("#loc-save-btn").addClass('hidden');
             $("#loc-cancel-btn").addClass('hidden');
-      } else {
+        } else {
             marker.set("draggable", true);
             $("#edit_map_btn").addClass('hidden');
             $("#loc-save-btn").removeClass('hidden');
             $("#loc-cancel-btn").removeClass('hidden');
-      }
+        }
+    }
+
+    function map_edit(){
+        if (store_latlng.lat==null || store_latlng==null) {
+            if (user_latLng.lat!=null && user_latLng.lng!=null) {
+                marker.setPosition(user_latLng);
+                marker.setVisible(true);
+                map.setCenter(user_latLng);
+                infoWindow.close();
+
+                tmp_latlng.lat = user_latLng.lat;
+                tmp_latlng.lng = user_latLng.lng;
+
+                updateLatLngBox(user_latLng.lat, user_latLng.lng);
+            }
+        }
+    }
+
+    function map_save() {
+        if (tmp_latlng.lat!=null && tmp_latlng.lng!=null) {
+            store_latlng = tmp_latlng;
+        }
+
+        if (store_latlng.lat!=null && store_latlng.lng!=null) {
+            map.setCenter(store_latlng);
+
+            infoWindow = new google.maps.InfoWindow({
+                map: map,
+                position: store_latlng,
+                content: 'Location Saved'
+            });
+
+            setTimeout(function () { infoWindow.close(); }, 2000);
+        } else {
+            map_cancel();
+        }
+    }
+
+    function map_cancel() {
+        if (store_latlng.lat==null && store_latlng.lng==null) {
+            map.setCenter(sc_latlng);
+            marker.setPosition(sc_latlng);
+            marker.setVisible(false);
+
+            infoWindow = new google.maps.InfoWindow({
+                    map: map,
+                    position: sc_latlng,
+                    content: 'Opps, No location is set!'
+            });
+        } else {
+            map.setCenter(store_latlng);
+            marker.setPosition(store_latlng);
+        }
+    }
+
+    function updateLatLngBox(lat, lng) {
+        document.getElementById("latbox").value = lat;
+        document.getElementById("lngbox").value = lng;
     }
 
     function initMap() {
-        var store_latlng = {lat: 36.9741, lng: -122.0308};
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: store_latlng,
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: sc_latlng,
             zoom: 13,
-            mapTypeId: 'roadmap'
+            mapTypeId: 'roadmap',
+            mapTypeControl: false
         });
 
-        $.get(get_location_url,
-                function (data) {
-                    store_latlng = {
-                        lat: data.lati,
-                        lng: data.longi
-                    };
-
-                    document.getElementById("latbox").value = store_latlng.lat;
-                    document.getElementById("lngbox").value = store_latlng.lng;
-        }).done(function () {
-            marker = new google.maps.Marker({
-                position: store_latlng,
-                map: map,
-                draggable: false,
-                animation: google.maps.Animation.DROP,
-                title: 'Store Marker'
-            });
-
-            map.setCenter(marker.position);
-
-            google.maps.event.addListener(marker, 'dragend', function (event) {
-                document.getElementById("latbox").value = this.getPosition().lat();
-                document.getElementById("lngbox").value = this.getPosition().lng();
-            });
-        });
-
-
-
-
-        //var infoWindow = new google.maps.InfoWindow({map: map});
-        /*
-        // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
+                user_latLng = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
+            }, function() {
+                user_latLng = {lat: null, lng: null};
+            });
+        }
 
-                 marker = new google.maps.Marker({
-                    position: pos,
+        $.get(get_location_url, function (data) {
+            store_latlng = {
+                lat: data.lati,
+                lng: data.longi
+            };
+
+            updateLatLngBox(store_latlng.lat, store_latlng.lng);
+
+        }).done(function () {
+            if ((store_latlng.lat!=null) && (store_latlng.lng!=null)) {
+                marker = new google.maps.Marker({
+                    position: store_latlng,
                     map: map,
                     draggable: false,
                     animation: google.maps.Animation.DROP,
-                    title: 'Marker!!!'
+                    title: 'Store Marker'
+                });
+                map.setCenter(marker.position);
+
+            } else {
+                marker = new google.maps.Marker({
+                    position: sc_latlng,
+                    map: map,
+                    draggable: false,
+                    animation: google.maps.Animation.DROP,
+                    title: 'Store Location',
+                    visible: false
                 });
 
-                document.getElementById("latbox").value = pos.lat;
-                document.getElementById("lngbox").value = pos.lng;
-
-                google.maps.event.addListener(marker, 'dragend', function (event) {
-                    document.getElementById("latbox").value = this.getPosition().lat();
-                    document.getElementById("lngbox").value = this.getPosition().lng();
+                infoWindow = new google.maps.InfoWindow({
+                    map: map,
+                    position: sc_latlng,
+                    content: 'Opps, No location is set!'
                 });
+            }
 
-                //infoWindow.setPosition(pos);
-                //infoWindow.setContent('I am currently here!');
-                map.setCenter(pos);
-            }, function() {
-                handleLocationError(true, infoWindow, map.getCenter());
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+                tmp_latlng = {
+                    lat: event.latLng.lat(),
+                    lng: event.latLng.lng()
+                };
+                updateLatLngBox(event.latLng.lat(), event.latLng.lng());
             });
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-        }
-        */
+
+
+            google.maps.event.addListener(map, 'rightclick', function (event) {
+                if (marker.getDraggable()) {
+                    marker.setVisible(true);
+                    marker.setPosition(event.latLng);
+
+                    tmp_latlng = {
+                        lat: event.latLng.lat(),
+                        lng: event.latLng.lng()
+                    };
+                    updateLatLngBox(event.latLng.lat(), event.latLng.lng());
+                }
+            });
+
+        });
     }
 
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-    }
+
 
 
 </script>
