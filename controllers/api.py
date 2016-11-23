@@ -141,7 +141,7 @@ def send_email():
     # Prepare actual message
     message = """From: %s\nTo: %s\nSubject: %s\n\n%s\n\nTo contact the person who is interested in this ad, please email: %s
                  \n\nThe Storefront team
-        """ % (FROM, ", ".join(TO), SUBJECT, TEXT, FROM)
+        """ % (FROM, TO, SUBJECT, TEXT, FROM)
 
     try:
         server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465)
