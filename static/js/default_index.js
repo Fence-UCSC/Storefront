@@ -87,6 +87,7 @@ var app = function() {
     // Add a review to the database and vue model
     self.add_review = function () {
         if (self.vue.stars == null) {
+            alert("You must provide a star rating!");
             return;
         }
         self.vue.logged_in = false;
@@ -100,9 +101,11 @@ var app = function() {
             },
             function (data) {
                 self.get_reviews();
+                self.vue.form_review_title = "";
+                self.vue.form_review_description = "";
+                self.vue.stars = null;
             });
 
-        self.vue.form_review_title = "";
     };
 
     // Select the review that is being edited
