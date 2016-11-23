@@ -7,18 +7,18 @@ Finish up the minimum spec and iron out bugs, cutting out planned but nonessenti
 
 ### Task listing, organized by user story
 * As an online purchaser. I want to easily find and buy products from people nearby. (Highest priority for Sprint 1). Solution would be to make a website based on the “free for sale” page 
- * Webpage filtered by category
+* Webpage filtered by category
 * As an online purchaser, I want to find a store on a map
- * Edit page allowing users to input location using a map
- * User profile page displaying map of current location
- * Filter based on location
+* Edit page allowing users to input location using a map
+* User profile page displaying map of current location
+* Filter based on location
 * As a administrator, I need moderation and reviewing tools so I can handle suspicious/spam postings. (lowest priority)
- * Being able to delete users and posts as a website admin
+* Being able to delete users and posts as a website admin
 * As a buyer/seller, I would like a responsive design so I can access my transactions on all my devices.
- * Update UI for homepage to show grid of images
- * Update UI for product page to show categories
+* Update UI for homepage to show grid of images
+* Update UI for product page to show categories
 * As an online seller, I need a simple way to send out what I am selling to all of my social media accounts so I don’t need to login every time on all my social medias.
- * Change OAuth provider so we can get more data
+* Change OAuth provider so we can get more data
 
 ### Team roles: 
 * Harjyot Bal: Developer {Designer}
@@ -29,16 +29,17 @@ Finish up the minimum spec and iron out bugs, cutting out planned but nonessenti
 
 ### Initial task assignment
 * Harjyot
- * N/A
+  * GPS Location
 * Tommaso
- * N/A
+  * Changing OAuth provider
+  * Reviews system
 * Rory 
- * N/A
+  * Restyled search page
 * Brian
- * N/A
+  * GPS Location
 * August
- * N/A
-  
+  * Homepage redesign (grid)
+
 ### Initial burnup chart
 Burnup chart on [Google Sheets](https://docs.google.com/spreadsheets/d/e/2PACX-1vQWP9k9z7ff5UKD-UOE2_ChrvFRCfS40IiWJDYDJTgwPM6XzSlKsxrFZPct8GVRAyWc_arcyPA0m6Bu/pubhtml?gid=797696806&single=true)
 
