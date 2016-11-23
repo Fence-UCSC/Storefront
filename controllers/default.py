@@ -10,11 +10,6 @@
 
 import random
 
-def geolocation():
-    row = ''
-    return dict(row=row)
-
-
 def search():
     # setting number of results per page
     results_per_page = 20
@@ -35,11 +30,11 @@ def search():
     elif search_key is not None:
         if search_option is None or search_option == 'all':
             rows = db(db.product.name.contains(search_key)).select()
-            page_result = db(db.product.name.contains(search_key)).select(limitby=(start_idx, end_idx))
+            page_result = db(db.product.name.contains(search_key)).select(orderby=~db.product.created_on, limitby=(start_idx, end_idx))
         elif search_option.isdigit():
             q = (db.product.username.contains(search_key)) and (db.product.category == search_option)
             rows = db(q).select()
-            page_result = db(q).select(limitby=(start_idx, end_idx))
+            page_result = db(q).select(orderby=~db.product.created_on, limitby=(start_idx, end_idx))
         else:
             pass
 
