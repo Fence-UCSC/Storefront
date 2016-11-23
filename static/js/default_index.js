@@ -77,6 +77,9 @@ var app = function() {
     self.cancel_add = function () {
         // The button to edit a review has been pressed.
         self.vue.is_adding_review = !self.vue.is_adding_review;
+        self.vue.form_review_title = "";
+        self.vue.form_review_description = "";
+        self.vue.stars = null;
     };
 
     self.cancel_edit = function () {
