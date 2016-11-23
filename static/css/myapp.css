@@ -118,3 +118,11 @@ div#search-result-price {
 div#location_title {
   margin-bottom: 10px;
 }
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+body p {
+    font-family: 'Roboto', sans-serif;
+}

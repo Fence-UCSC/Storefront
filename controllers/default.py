@@ -8,6 +8,8 @@
 # - download is for downloading files uploaded in the db (does streaming)
 # -------------------------------------------------------------------------
 
+import random
+
 def geolocation():
     row = ''
     return dict(row=row)
@@ -34,13 +36,12 @@ def search():
         if search_option is None or search_option == 'all':
             rows = db(db.product.name.contains(search_key)).select()
             page_result = db(db.product.name.contains(search_key)).select(limitby=(start_idx, end_idx))
-        elif search_option == 'seller':
-            rows = db(db.product.username.contains(search_key)).select()
-            page_result = db(db.product.username.contains(search_key)).select(limitby=(start_idx, end_idx))
-        else:
+        elif search_option.isdigit():
             q = (db.product.username.contains(search_key)) and (db.product.category == search_option)
             rows = db(q).select()
             page_result = db(q).select(limitby=(start_idx, end_idx))
+        else:
+            pass
 
     # decide the amount of pages
     total_results = len(rows)
@@ -54,6 +55,20 @@ def search():
                 total_results=total_results,
                 num_of_page=num_of_page,
                 search_categories=search_categories)
+
+flavor_desc = [
+    "We make sales personal.",
+    "We connect people.",
+    "Making trading easy.",
+    "The new way to trade.",
+    "Helping you find stuff in your neighborhood."
+    ]
+flavor_welcome = [
+    "We're glad see you back!",
+    "Hope you're having a nice day.",
+    "Let's start selling!",
+    "Check out what's new."
+]
 
 def index():
     """
@@ -70,10 +85,17 @@ def index():
         orderby=~db.product.created_on, limitby=(0, 20)
     )
 
+    flavortext = ""
+    if auth.user_id is None:
+        flavortext = random.choice(flavor_desc)
+    else:
+        flavortext = random.choice(flavor_welcome)
+
     return dict(message=T('Welcome to web2py!'),
                 products=products,
                 pretty_date=pretty_date,
-                email_to_user_name=email_to_user_name)
+                email_to_user_name=email_to_user_name,
+                flavortext=flavortext)
 
 
     #stores = [

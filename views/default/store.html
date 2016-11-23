@@ -14,7 +14,6 @@
 {{end}}
 
 <style>
-
     #stores-list, #vue-div {
         max-width: 1000px;
         margin: auto;
@@ -26,11 +25,15 @@
 
     #map {
         height: 300px;
+        width: 100%;
     }
+
     .product-price, .store-info {
         font-size: 100%;
     }
+
 </style>
+
 <body>
 {{if request.args(0) is None:}}
     <div id="vue-div2" style="display:none"></div>
@@ -94,8 +97,8 @@
         <div class="row">
             <div class="col-md-6">
                 <h4>
-                    <span class="glyphicon glyphicon-user"></span>
                     User info
+                    <i class="fa fa-info-circle"></i>
                 </h4>
                 {{if store.email:}}
                 <p><a class="store-info label label-default" href="{{=T('mailto:%s', store.email)}}">
@@ -122,8 +125,6 @@
             </div>
             <div class="col-md-6">
                 <!-- Map -->
-                <div id="map_canvas" style="width:50%; height:50%"></div>
-
                 <div id="latlng">
                    <input type="hidden" id="latbox" name="lat" placeholder="Lat">
                    <input type="hidden" id="lngbox" name="lng" placeholder="Long">
@@ -131,8 +132,8 @@
 
                 <div id="location_title">
                     <h4>
-                        <span class="glyphicon glyphicon-map-marker"></span>
-                        <span>Location</span>
+                        Location
+                        <i class="fa fa-map-marker"></i>
                     </h4>
 
                     {{if ((auth.user) and (store.id==auth.user_id)):}}
@@ -145,12 +146,16 @@
                 </div>
 
                 <div id="map"></div>
+
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <h4>Reviews</h4>
+                <h4>
+                    Reviews
+                    <i class="fa fa-star"></i>
+                </h4>
                 <span v-if="logged_in" v-cloak>
                     <span v-if="!already_reviewed">
                     <div class="button_bar" style="margin-bottom: 10px">
@@ -223,7 +228,10 @@
             </div>
 
             <div class="col-md-6">
-                <h4>Recent products</h4>
+                <h4>
+                    Recent products
+                    <i class="fa fa-clock-o"></i>
+                </h4>
                 <div class="list-group">
                     {{if len(products) == 0:}}
                         <div class="alert alert-info" role="alert">
@@ -247,6 +255,7 @@
     </div>
 {{pass}}
 </body>
+
 <script>
     var map;
     var marker;
@@ -282,6 +291,16 @@
                 tmp_latlng.lng = user_latLng.lng;
 
                 updateLatLngBox(user_latLng.lat, user_latLng.lng);
+            } else {
+                infoWindow.close();
+
+                infoWindow = new google.maps.InfoWindow({
+                    map: map,
+                    position: map.getCenter(),
+                    content: 'Right click to add marker'
+                });
+
+                setTimeout(function () { infoWindow.close(); }, 2000);
             }
         }
     }
@@ -409,8 +428,6 @@
     }
 </script>
 
-
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXWWgYnWvNpdw3jlNOWXAZ80bKUWQPOWM&callback=initMap">
 </script>
-
