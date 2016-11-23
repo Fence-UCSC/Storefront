@@ -67,15 +67,9 @@
                             <i class="fa fa-phone"></i> {{=store.phone}}
                         </a>
                         {{pass}}
-                        {{
-                        store.addr = ""
-                        for item in [store.city]:
-                        if item: store.addr = store.addr + item + " "
-                        pass
-                        }}
-                        {{if store.addr:}}
-                        <a class="store-info label label-default" href="{{=URL('index', host='maps.google.com', vars={'q':store.addr})}}">
-                            <i class="fa fa-map-marker"></i> {{=store.addr}}
+                        {{if store.city:}}
+                        <a class="store-info label label-default" href="{{=URL('index', host='maps.google.com', vars={'q':store.city})}}">
+                            <i class="fa fa-map-marker"></i> {{=store.city}}
                         </a>
                         {{pass}}
                     </div>
@@ -110,16 +104,10 @@
                     <i class="fa fa-phone"></i> {{=store.phone}}
                 </a></p>
                 {{pass}}
-                {{
-                store.addr = ""
-                for item in [store.city]:
-                    if item: store.addr = store.addr + item + " "
-                pass
-                }}
                 <star-rating :value="average_vote" v-if="number_votes > 0" :disabled="true"></star-rating>
-                {{if store.addr:}}
-                <p><a class="store-info label label-default" href="{{=URL('index', host='maps.google.com', vars={'q':store.addr})}}">
-                    <i class="fa fa-map-marker"></i> {{=store.addr}}
+                {{if store.city:}}
+                <p><a class="store-info label label-default" href="{{=URL('index', host='maps.google.com', vars={'q':store.city})}}">
+                    <i class="fa fa-map-marker"></i> {{=store.city}}
                 </a></p>
                 {{pass}}
             </div>
