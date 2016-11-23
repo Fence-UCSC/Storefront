@@ -33,8 +33,7 @@ Sprint Completed by Thurs. Nov 4th
  * As a web user, I appreciate a good UI  (lowest priority for Sprint 1, but might get bumped down into Sprint 2 if not implemented in Sprint 1)
 
 * Time Stats
- * ? Hours
+ * 83 Hours
  * 14 Days
- * ? Story/Week
- * Approx. ? Hours/Day
- 
+ * 0.5 Stories/Week
+ * Approx. 6 Hours/Day
