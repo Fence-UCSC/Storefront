@@ -14,7 +14,6 @@
 {{end}}
 
 <style>
-
     #stores-list, #vue-div {
         max-width: 1000px;
         margin: auto;
@@ -26,11 +25,15 @@
 
     #map {
         height: 300px;
+        width: 100%;
     }
+
     .product-price, .store-info {
         font-size: 100%;
     }
+
 </style>
+
 <body>
 {{if request.args(0) is None:}}
     <div id="vue-div2" style="display:none"></div>
@@ -122,8 +125,6 @@
             </div>
             <div class="col-md-6">
                 <!-- Map -->
-                <div id="map_canvas" style="width:50%; height:50%"></div>
-
                 <div id="latlng">
                    <input type="hidden" id="latbox" name="lat" placeholder="Lat">
                    <input type="hidden" id="lngbox" name="lng" placeholder="Long">
@@ -145,6 +146,7 @@
                 </div>
 
                 <div id="map"></div>
+
             </div>
         </div>
 
@@ -253,6 +255,7 @@
     </div>
 {{pass}}
 </body>
+
 <script>
     var map;
     var marker;
@@ -288,6 +291,16 @@
                 tmp_latlng.lng = user_latLng.lng;
 
                 updateLatLngBox(user_latLng.lat, user_latLng.lng);
+            } else {
+                infoWindow.close();
+
+                infoWindow = new google.maps.InfoWindow({
+                    map: map,
+                    position: map.getCenter(),
+                    content: 'Right click to add marker'
+                });
+
+                setTimeout(function () { infoWindow.close(); }, 2000);
             }
         }
     }
@@ -414,7 +427,6 @@
         });
     }
 </script>
-
 
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXWWgYnWvNpdw3jlNOWXAZ80bKUWQPOWM&callback=initMap">

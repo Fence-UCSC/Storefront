@@ -86,7 +86,6 @@ middle_column = {0: mc0, 1: mc1, 2: mc2}[
                                 </button>
                                 <ul class="dropdown-menu scrollable-menu" role="menu">
                                     <li> <a href="#all">All Categories</a> </li>
-                                    <li> <a href="#seller">Sellers</a> </li>
                                     <li class="divider"></li>
                                     {{search_categories = db().select(db.category.ALL)}}
                                     {{for category in search_categories:}}
