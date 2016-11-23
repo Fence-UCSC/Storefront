@@ -26,5 +26,4 @@ Check us out at [PythonAnywhere](https://fence.pythonanywhere.com).
 * Scrum board: [Waffle.IO](https://waffle.io/Fence-UCSC/Storefront)
 * System and Unit Test Report: [Web](docs/SysUnitTestReport.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/docs/SysUnitTestReport.md)
 * Known Problems Report: [Web](docs/KnownProbReport.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/docs/KnownProbReport.md)
-* Testing: [Web](docs/Testing.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/docs/Testing.md)
 
