@@ -106,14 +106,6 @@ def add_review():
 
     return response.json(dict(review=t))
 
-@auth.requires_signature()
-def edit_review():
-    p = db.user_review(request.vars.review_id)
-    p.title = request.vars.edit_title
-    p.description = request.vars.edit_text
-    p.update_record()
-    return "ok"
-
 
 @auth.requires_signature()
 def del_review():
@@ -147,8 +139,9 @@ def send_email():
     TEXT = request.vars.body
 
     # Prepare actual message
-    message = """From: %s\nTo: %s\nSubject: %s\n\n%s
-        """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    message = """From: %s\nTo: %s\nSubject: %s\n\n%s\n\nTo contact the person who is interested in this ad, please email: %s
+                 \n\nThe Storefront team
+        """ % (FROM, TO, SUBJECT, TEXT, FROM)
 
     try:
         server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465)

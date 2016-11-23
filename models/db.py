@@ -77,12 +77,7 @@ auth.settings.extra_fields['auth_user'] = [
 # create all tables needed by auth if not custom tables
 auth.define_tables(username=False, signature=False)
 
-from gluon.contrib.login_methods.rpx_account import RPXAccount
 auth.settings.actions_disabled=['register','change_password','request_reset_password']
-auth.settings.login_form = RPXAccount(request,
-    api_key='fe4b8c586a1c8835b73b8b93e36fbcf3ee80a4ec',
-    domain='storefrontbyfence',
-    url=URL('default', 'user/login', host=True))
     #url="http://localhost:8000/%s/default/user/login" % request.application)
 
 # configure email
