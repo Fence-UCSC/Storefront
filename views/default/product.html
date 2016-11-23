@@ -67,7 +67,7 @@
             </a></p>
         {{pass}}
         {{if store.city:}}
-        <p><a class="store-info label label-default" href="{{=URL('index', host='maps.google.com', vars={'q':store.addr})}}">
+        <p><a class="store-info label label-default" href="{{=URL('index', host='maps.google.com', vars={'q':store.city})}}">
             <i class="fa fa-map-marker"></i> {{=store.city}}
             </a></p>
         {{pass}}
