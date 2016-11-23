@@ -49,20 +49,22 @@
         </p>
         <p><a class="btn btn-primary" href="{{=URL('default', 'user', args='login')}}" role="button">
             Sign up or login <i class="fa fa-user-circle"></i>
-            </a></p>
+        </a></p>
     {{else:}}
         <h1>Welcome {{=T(auth.user.first_name if auth.user.first_name else '')}}.</h1>
-        {{=flavortext}}
+        <p>
+            {{=flavortext}}
+        </p>
         <p><a class="btn btn-primary" href="{{=URL('default', 'store', args=auth.user_id)}}" role="button">
             View your profile <i class="fa fa-user"></i>
-            </a></p>
+        </a></p>
     {{pass}}
 </div>
 
 <h2>Popular products</h2>
 <div class="grid" data-masonry='{ "itemSelector": ".grid-item"}'>
     {{for product in products:}}
-    <div class="grid-item col-xs-6 col-md-4 col-lg-3">
+    <div class="grid-item col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <div class="thumbnail" onclick="window.location='{{=URL('product', args=product.id)}}'">
             {{if product.image != '':}}
             <img src="{{=URL('download', args=product.image)}}"/>

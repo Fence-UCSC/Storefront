@@ -66,15 +66,9 @@
             <i class="fa fa-phone"></i> {{=store.phone}}
             </a></p>
         {{pass}}
-        {{
-        store.addr = ""
-        for item in [store.city]:
-        if item: store.addr = store.addr + item + " "
-        pass
-        }}
-        {{if store.addr:}}
+        {{if store.city:}}
         <p><a class="store-info label label-default" href="{{=URL('index', host='maps.google.com', vars={'q':store.addr})}}">
-            <i class="fa fa-map-marker"></i> {{=store.addr}}
+            <i class="fa fa-map-marker"></i> {{=store.city}}
             </a></p>
         {{pass}}
     </div>
@@ -109,10 +103,14 @@
             <button class='btn btn-danger disable-button'>
                 Mark as {{="sold" if product.status else "unsold"}} <i class="fa fa-upload"></i>
             </button>
-            {{else:}}
+            {{elif logged_in:}}
             <button id="interest" class='btn btn-success'>
                     Show interest <i class="fa fa-shopping-bag"></i>
             </button>
+            {{else:}}
+            <a href="{{=URL('default', 'user', 'login', vars={'_next': URL('default', 'product', args=product.id)})}}" id="login" class='btn btn-success'>
+                    Log in to show interest <i class="fa fa-user"></i>
+            </a>
             {{pass}}
         </div>
     </div>
@@ -182,6 +180,9 @@
 <div id="product-edit" class="row">
     <div class="col-lg-4 grid-item">
         <h4>Currently up</h4>
+        <p>
+            This is what your product listing looks like without any edits.
+        </p>
         <div class="thumbnail">
             {{if product.image != '':}}
             <img src="{{=URL('download', args=product.image)}}"/>
@@ -289,4 +290,3 @@ $("#submitContact").click(function () {
 */
 
 </script>
-
