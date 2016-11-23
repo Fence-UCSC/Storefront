@@ -73,6 +73,7 @@
 'data uploaded': 'dati caricati',
 'Database': 'Database',
 'Database %s select': 'Database %s select',
+'Database Administration (appadmin)': 'Database Administration (appadmin)',
 'db': 'db',
 'DB Model': 'Modello di DB',
 'Delete': 'Cancella',
