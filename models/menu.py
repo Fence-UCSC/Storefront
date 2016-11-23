@@ -9,8 +9,19 @@ response.logo = A(B('Storefront ',
                   I(_class="fa fa-shopping-cart")),
                   _class="navbar-brand", _href=URL("default", "index"),
                   _id="web2py-logo")
+response.logo = DIV(
+    A(IMG(_src=URL('static', 'images/storefront.png'),
+          _style='height:30px;vertical-align:top;'),
+      T(' '),
+      B(' Storefront', _style="margin-top:10px;"),
+      _href=URL("default", "index"),
+      _id="web2py-logo",
+      _style="text-decoration:none;"),
+    _class="navbar-brand",
+    _style='padding-top:10px')
 response.title = request.application.replace('_', ' ').title()
 response.subtitle = ''
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # read more at http://dev.w3.org/html5/markup/meta.name.html

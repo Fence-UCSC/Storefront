@@ -94,8 +94,8 @@
         <div class="row">
             <div class="col-md-6">
                 <h4>
-                    <span class="glyphicon glyphicon-user"></span>
                     User info
+                    <i class="fa fa-info-circle"></i>
                 </h4>
                 {{if store.email:}}
                 <p><a class="store-info label label-default" href="{{=T('mailto:%s', store.email)}}">
@@ -131,8 +131,8 @@
 
                 <div id="location_title">
                     <h4>
-                        <span class="glyphicon glyphicon-map-marker"></span>
-                        <span>Location</span>
+                        Location
+                        <i class="fa fa-map-marker"></i>
                     </h4>
 
                     {{if ((auth.user) and (store.id==auth.user_id)):}}
@@ -150,7 +150,10 @@
 
         <div class="row">
             <div class="col-md-6">
-                <h4>Reviews</h4>
+                <h4>
+                    Reviews
+                    <i class="fa fa-star"></i>
+                </h4>
                 <span v-if="logged_in" v-cloak>
                     <span v-if="!already_reviewed">
                     <div class="button_bar" style="margin-bottom: 10px">
@@ -223,7 +226,10 @@
             </div>
 
             <div class="col-md-6">
-                <h4>Recent products</h4>
+                <h4>
+                    Recent products
+                    <i class="fa fa-clock-o"></i>
+                </h4>
                 <div class="list-group">
                     {{if len(products) == 0:}}
                         <div class="alert alert-info" role="alert">
@@ -413,4 +419,3 @@
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXWWgYnWvNpdw3jlNOWXAZ80bKUWQPOWM&callback=initMap">
 </script>
-

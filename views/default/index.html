@@ -4,7 +4,6 @@
 
 <style>
     body {
-
         background-color: #FAFAFA;
     }
     .grid-item {
@@ -40,11 +39,23 @@
     });
 </script>
 
-<div class="title">
-    <h1>Welcome{{=(' ' + auth.user.first_name) if logged_in else '!'}}</h1>
-    <p>Welcome to StoreFront, your destination to a clean bartering experience.</p>
+<div class="jumbotron">
     {{if not logged_in:}}
-    <p><a class="btn btn-primary btn-lg" href="{{=URL('default', 'user/login')}}" role="button">Sign up or login</a></p>
+        <h1>Welcome to Storefront!</h1>
+        <p>
+            <strong>{{=flavortext}}</strong>
+            Storefront is a peer to peer bartering service that connects people, not buyers and sellers.
+            We focus on simple and intuitive design, helping you find products you want easier and faster.
+        </p>
+        <p><a class="btn btn-primary" href="{{=URL('default', 'user', args='login')}}" role="button">
+            Sign up or login <i class="fa fa-user-circle"></i>
+            </a></p>
+    {{else:}}
+        <h1>Welcome {{=T(auth.user.first_name if auth.user.first_name else '')}}.</h1>
+        {{=flavortext}}
+        <p><a class="btn btn-primary" href="{{=URL('default', 'store', args=auth.user_id)}}" role="button">
+            View your profile <i class="fa fa-user"></i>
+            </a></p>
     {{pass}}
 </div>
 
