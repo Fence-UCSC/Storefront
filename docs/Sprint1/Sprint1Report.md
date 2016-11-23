@@ -21,14 +21,13 @@ Sprint Completed by Wed. Oct 19th
  * GPS Integration
  * Search Bar
  
-
 ### Work Completion Rate
 * Stories Completed
  * As an online buyer/seller, I appreciate not having to make new accounts.
 
 * Time Stats
- * 40 Hours
+ * 56 Hours
  * 14 Days
  * 0.5 Story/Week
- * Approx. 2.8 Hours/Day
+ * Approx. 4 Hours/Day
  

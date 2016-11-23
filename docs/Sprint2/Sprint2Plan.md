@@ -45,12 +45,10 @@ Clean up design, clean up login integrations, finish up database, implement GPS.
  * UI/ pages
   
 ### Initial burnup chart
-Latest version in lab. 
-
-![Burnup Chart](Sprint1Burnup.jpg)
+Burnup chart on [Google Sheets](https://docs.google.com/spreadsheets/d/e/2PACX-1vQWP9k9z7ff5UKD-UOE2_ChrvFRCfS40IiWJDYDJTgwPM6XzSlKsxrFZPct8GVRAyWc_arcyPA0m6Bu/pubhtml?gid=1408012135&single=true)
 
 ### Initial scrum board
-[![Stories in Ready](https://badge.waffle.io/Fence-UCSC/Storefront.png?label=ready&title=Ready)](https://waffle.io/Fence-UCSC/Storefront)
+Scrum board on [Waffle.IO](https://waffle.io/Fence-UCSC/Storefront)
 
 ### Scrum times
 MWF 11:00 AM @ E1 Rm 302 (Lab)

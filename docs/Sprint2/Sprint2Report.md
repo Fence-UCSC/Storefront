@@ -10,7 +10,7 @@ Sprint Completed by Thurs. Nov 4th
 * Hold work meetings in addition to scrum meetings
 
 ### Actions to Keep Doing
-* Communiating through Slack
+* Communicating through Slack
 * Regular scrum meetings
 
 ### Work Completed/Not Completed
