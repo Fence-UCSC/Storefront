@@ -149,6 +149,7 @@ auth.settings.login_form = googleAccount()
 db.auth_user.lati.readable = db.auth_user.lati.writable = False
 db.auth_user.lati.readable = db.auth_user.lati.writable = False
 db.auth_user.longi.readable = db.auth_user.longi.writable = False
+db.auth_user.email.readable = db.auth_user.email.writable = False
 db.auth_user.review.readable = db.auth_user.review.writable = False
 
 
