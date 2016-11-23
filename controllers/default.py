@@ -34,13 +34,12 @@ def search():
         if search_option is None or search_option == 'all':
             rows = db(db.product.name.contains(search_key)).select()
             page_result = db(db.product.name.contains(search_key)).select(limitby=(start_idx, end_idx))
-        elif search_option == 'seller':
-            rows = db(db.product.username.contains(search_key)).select()
-            page_result = db(db.product.username.contains(search_key)).select(limitby=(start_idx, end_idx))
-        else:
+        elif search_option.isdigit():
             q = (db.product.username.contains(search_key)) and (db.product.category == search_option)
             rows = db(q).select()
             page_result = db(q).select(limitby=(start_idx, end_idx))
+        else:
+            pass
 
     # decide the amount of pages
     total_results = len(rows)
