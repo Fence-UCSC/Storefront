@@ -35,7 +35,16 @@ Check us out at [PythonAnywhere](https://fence.pythonanywhere.com).
 * Known Problems Report: [Web](docs/KnownProbReport.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/docs/KnownProbReport.md)
 
 ## Installation
-* Install Python and the [web2py](http://github.com/web2py/web2py) framework server application on the deployment service
-  * For reference, we used the hosting service [PythonAnywhere](http://pythonanywhere.com) which automates the web2py installation process, and has a free plan for developers with minimal bandwidth/performance
-* Clone the project in the `web2py/applications` directory with `git clone http://github.com/Fence-UCSC/Storefront web2py/applications/Storefront`
-* Run web2py with `python web2py/web2py.py` and navigate to the `$HOST/Storefront` page, where $HOST is configured in the web2py settings
+Install Python and the [web2py](http://github.com/web2py/web2py) framework server application on the deployment service. For reference, we used the hosting service [PythonAnywhere](http://pythonanywhere.com) which automates the web2py installation process, and has a free plan for developers with minimal bandwidth/performance.
+
+Clone the project into the `web2py/applications` directory with 
+```
+git clone http://github.com/Fence-UCSC/Storefront web2py/applications/Storefront
+```
+
+Then start the web2py server with the following
+```
+python web2py/web2py.py
+```
+
+Note that by default, the site comes with `DEVELOPMENT_MENU = True` in `models/list.py`. This exposes a dropdown menu in the top bar with links to useful tools such as an online view of the database, and the capability to edit the site remotely. This is not particularly harmful, as the dev tools are protected with the account you use to start web2py, but may confuse users. It is recommended that you turn this setting off before deploying the site for public use.
