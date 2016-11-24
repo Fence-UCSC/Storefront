@@ -40,7 +40,7 @@ Tests performed by *Tommaso Bonato*
 - If the `$USER` is `$LOGGEDIN` and viewing another person products, he/she will be able to see a button called "Show Interest" (`$INTEREST`) where, if clicked, he/she will be able to contact the owner of the product. See the detailed Unit Test to more details on it
 - `If the `$USER` is `NOT $LOGGEDIN` he/she will just be able to see all the product information and a button inviting him/her to login if he/she wants to contact the seller
 
-### Test 3: Behaviour when viewing a product (active behaviour)
+### Test 4: Behaviour when viewing a product (active behaviour)
 - If the `$USER` is `$LOGGEDIN` and viewing his/her own products, he/she will also be able to do some $ACTIONS
 
 | `$ACTION` | Effect |
@@ -48,7 +48,7 @@ Tests performed by *Tommaso Bonato*
 | Click on the `$EDIT` Button | This will display the exact same form as when adding a product with the difference that it is already compiled using the information from the current product and there is one more button to $DELETE the product |
 | Click `$DELETE` while `$EDITING` a product | This will prompt an alert asking for confirmation and if the user agrees he/she will remove the item from the DataBase and he/she is redirect to the homepage |
 | Click on `$MARK` (Mark as sold) | This will mark the product as sold removing it from the homepage and turning the price label red. It also displays a message saying " This product has been marked as sold, and is no longer visible to other users.|
-| `Click on `$MARK` (Mark as unsold) | This will mark the product as on-sale making it visible in the homepage and turning the label price green." |
+| Click on `$MARK` (Mark as unsold) | This will mark the product as on-sale making it visible in the homepage and turning the label price green." |
 
 
 
