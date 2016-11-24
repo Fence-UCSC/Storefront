@@ -4,7 +4,7 @@
 
 Tests performed by *Harjyot Bal*
 
-### Test 1: $Shows create new user functionality using google account
+### Test 1: Shows create new user functionality using google account
 1. Allows you to select google account rather it would be using gmail domain or ucsc.edu domain
 2. Displays name of the user from the google account
 3. Allows you to only edit your content
@@ -14,7 +14,7 @@ Tests performed by *Harjyot Bal*
 2. Accepts gmail and ucsc.edu domain since they are both google accounts
 3. User can only perform certain task if logged in
 
-### Test 2: $Allows user to login using the login button from the welcome homepage
+### Test 2: Allows user to login using the login button from the welcome homepage
 1. Asks for google account
 2. Signs in as the user
 3. Allows you to only edit save content from that account
@@ -25,7 +25,7 @@ Tests performed by *Harjyot Bal*
 3. Saves the content from the last time a user logged in
 4. Allows only the user to edit content in the profile
 
-### Test 3: $Allows user to login using the task bar on the right hand side
+### Test 3: Allows user to login using the task bar on the right hand side
 1. Asks for google account
 2. Signs in as the user
 3. Allows you to only edit save content from that account
@@ -36,7 +36,7 @@ Tests performed by *Harjyot Bal*
 3. Saves the content from the last time a user logged in
 4. Allows only the user to edit content in the profile
 
-### Test 4: $Allows user to sign out
+### Test 4: Allows user to sign out
 1. User is able to sign out
 2. Does not display username 
 3. Cannot edit any content 
