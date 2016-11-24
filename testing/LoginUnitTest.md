@@ -13,6 +13,7 @@ Tests performed by *Harjyot Bal*
 1. User name is displayed
 2. Accepts gmail and ucsc.edu domain since they are both google accounts
 3. User can only perform certain task if logged in
+4. Takes user straight to sell's portion of the site if new user.
 
 ### Test 2: Allows user to login using the login button from the welcome homepage
 1. Asks for google account
@@ -24,6 +25,8 @@ Tests performed by *Harjyot Bal*
 2. Displays user's name
 3. Saves the content from the last time a user logged in
 4. Allows only the user to edit content in the profile
+5. Takes user straight to sell's portion of the site if new user.
+
 
 ### Test 3: Allows user to login using the task bar on the right hand side
 1. Asks for google account
