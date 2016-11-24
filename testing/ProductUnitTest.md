@@ -47,8 +47,7 @@ Tests performed by *Tommaso Bonato*
 | --- | --- |
 | Click on the `$EDIT` Button | This will display the exact same form as when adding a product with the difference that it is already compiled using the information from the current product and there is one more button to $DELETE the product |
 | Click `$DELETE` while `$EDITING` a product | This will prompt an alert asking for confirmation and if the user agrees he/she will remove the item from the DataBase and he/she is redirect to the homepage |
-| Click on `$MARK` (Mark as sold) | This will mark the product as sold removing it from the homepage and turning the price label red. It also displays a message saying " This product has been marked as sold, and is no longer visible to other users.
-" |
+| Click on `$MARK` (Mark as sold) | This will mark the product as sold removing it from the homepage and turning the price label red. It also displays a message saying " This product has been marked as sold, and is no longer visible to other users.|
 | `Click on `$MARK` (Mark as unsold) | This will mark the product as on-sale making it visible in the homepage and turning the label price green." |
 
 
