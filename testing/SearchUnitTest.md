@@ -1,7 +1,8 @@
 # Search Unit Test Report
 ## Storefront by Fence
 2016-11-23
-Tests performed by Ion Fong Chan
+
+Tests performed by *Ion Fong Chan*
 
 ###Definitions
 - *DOMAIN* : A placeholder for whatever site the project is installed on. For the deployment server, 

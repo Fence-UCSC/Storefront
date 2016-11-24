@@ -2,7 +2,7 @@
 ## Storefront by Fence
 2016-11-23
 
-Tests performed by *$USER*
+Tests performed by *Ion Fong Chan*
 
 ### Test 1: $TITLE
 

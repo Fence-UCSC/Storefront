@@ -24,6 +24,14 @@ Check us out at [PythonAnywhere](https://fence.pythonanywhere.com).
   * Report: [Web](docs/Sprint3/Sprint3Report.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/docs/Sprint3/Sprint3Report.md)
 * Scrum board: [Waffle.IO](https://waffle.io/Fence-UCSC/Storefront)
 * System and Unit Test Report: [Web](docs/SysUnitTestReport.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/docs/SysUnitTestReport.md)
+  * `/` (Homepage): [Web](testing/HomeUnitTest.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/testing/HomeUnitTest.md)
+  * `/product/*` (Product pages and Adding a new product): [Web](testing/ProductUnitTest.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/testing/ProductUnitTest.md)
+  * `/search/*` (Search bar and results): [Web](testing/SearchUnitTest.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/testing/SearchUnitTest.md)
+  * `/store/*` (Store listing and Store profiles): [Web](testing/StoreUnitTest.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/testing/StoreUnitTest.md)
+  * `/user/*` (Login and Editing profile): [Web](testing/LoginUnitTest.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/testing/LoginUnitTest.md)
+  * Contacting seller: [Web](testing/ContactUnitTest.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/testing/ContactUnitTest.md)
+  * Location display and updating: [Web](testing/LocationUnitTest.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/testing/LocationUnitTest.md)
+  * Review display and posting: [Web](testing/ReviewUnitTest.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/testing/ReviewUnitTest.md)
 * Known Problems Report: [Web](docs/KnownProbReport.md)/[PDF](https://gitprint.com/Fence-UCSC/Storefront/blob/master/docs/KnownProbReport.md)
 
 ## Installation
